@@ -1,0 +1,642 @@
+[
+  {
+    "visit": "2025-10-03",
+    "source": "Manifold Post Visita Fundo San Gerardo. Huerto de Nogales - 03-10-2025.pdf",
+    "phenology": "Brotación",
+    "harvestStart": "Abril",
+    "harvestEnd": "Abril",
+    "author": "Nicolás Francisco Cordero Ortiz",
+    "authorRole": "Ingeniero Agrónomo, Dpto. Técnico Biofuturo",
+    "pests": [
+      {
+        "name": "Huevos de ácaros fitófagos en estructuras",
+        "pestRefs": ["estructuras-con-huevos-de-acaros-fitofagos", "rangos-estimados-de-huevos-de-acaros-fitofagos", "viabilidad-huevos-de-acaros-fitofagos"],
+        "species": "Panonychus ulmi",
+        "stage": "100% huevos",
+        "location": "100% estructuras",
+        "rangeText": "Infestación varía entre 3% a 10% de estructuras con presencia según cuartel.",
+        "naturalEnemies": "Sin detección de individuos parasitoides ni depredadores.",
+        "sectorRefs": [],
+        "comments": [
+          "En la presente prospección se observa de manera ocasional la presencia de huevos de ácaros fitófagos asociados a estructuras lignificadas, encontradas principalmente en plantas perimetrales, colindantes a caminos de alto tráfico. En cuanto al número de huevos o rango de huevos por estructura se observa entre 1 a 5 huevos, los cuales presentan una viabilidad que se encuentra en 60%.",
+          "En la presente prospección no se visualizan estados móviles de ácaros fitófagos tanto en estructuras como en brotes presentes por fenología; no se descarta que en futuras visitas se puedan observar individuos móviles."
+        ]
+      },
+      {
+        "name": "Pulgón del nogal",
+        "pestRefs": ["pulgon-del-nogal"],
+        "species": "Chromaphis juglandicola",
+        "stage": "90% ninfas y 10% adultos",
+        "location": "En área foliar",
+        "rangeText": "Infestación es de 0 a 0,03 individuos promedio por hoja según cuartel.",
+        "naturalEnemies": "Coccinélidos",
+        "sectorRefs": [],
+        "comments": [
+          "En prospección visual al área foliar y brotes presentes se observa de manera ocasional la presencia de individuos ninfales principalmente y en menor medida individuos adultos correspondientes a esta especie, los cuales son visualizados en esta oportunidad en plantas con avanzado estado de brotación, observando un mayor desarrollo de follaje. No se visualizan individuos alados en esta oportunidad.",
+          "No se descarta que conforme avance la fenología de las plantas, como también las condiciones climáticas sean propicias para su desarrollo, se visualice un aumento en el número de detecciones y los niveles de infestación expresados en individuos promedio por hoja."
+        ]
+      },
+      {
+        "name": "Conchuela blanda café",
+        "pestRefs": ["conchuelas", "viabilidad-conchuelas"],
+        "species": "Parthenolecanium corni",
+        "stage": "70% adultos y 30% ninfas",
+        "location": "100% ramas secundarias",
+        "rangeText": "Nivel de infestación va entre 0% a 3% plantas con presencia según cuartel.",
+        "naturalEnemies": "Sin detección de individuos parasitoides o depredadores",
+        "sectorRefs": [],
+        "comments": [
+          "En la presente visita se visualiza la presencia de manera ocasional de individuos adheridos a estructuras de ramillas secundarias, en cercanías a zonas axilares de nacimientos de brotes o ramillas terciarias. Se visualizan mayoritariamente estadios ninfales de esta plaga; en cuanto a la viabilidad de los individuos observados, esta se encuentra en un 40%."
+        ]
+      },
+      {
+        "name": "Escama de San José",
+        "pestRefs": ["escamas", "viabilidad-escamas"],
+        "species": "Diaspidiotus perniciosus",
+        "stage": "100% gorrita negra",
+        "location": "100% ramas secundarias",
+        "rangeText": "Nivel de infestación va entre 0% a 3% plantas con presencia según cuartel.",
+        "naturalEnemies": "Sin detección de individuos parasitoides o depredadores",
+        "sectorRefs": ["E2-S3"],
+        "comments": [
+          "En esta oportunidad se visualiza de manera puntual la presencia de escama de San José en planta perimetral del cuartel 2-3, la cual presenta un bajo nivel de viabilidad encontrándose en un 10%, ya que presenta un alto nivel de individuos inviables o desprendimiento.",
+          "Importante mencionar que no se visualizan focos cercanos, pero la planta con presencia presenta condiciones cercanas que predisponen a la proliferación de esta plaga (alta humedad debido a encharcamiento de agua en cercanías de la planta, y cercanía de plantas perimetrales las cuales pueden ser posibles hospederos). No se descarta que en futuras visitas se observe activación de este foco por individuos adheridos en zonas altas o, en su defecto, nuevos focos en sectores o cuarteles diferentes."
+        ]
+      }
+    ],
+    "generalObservations": [
+      "En los perímetros se registra la presencia de áfidos (Myzus sp.), nuevamente con un alto porcentaje de individuos parasitados, encontrándose en quillayes cercanos.",
+      "Se realiza cartografía de trampas delta propias del campo para monitoreo interno de Cydia pomonella. En este mapeo no se observa la presencia de individuos sospechosos a Cydia pomonella.",
+      "Se observa la presencia de Erinosis a nivel foliar en algunas plantas, en plantas con avanzado estado de brotación.",
+      "En la revisión de fruta remanente en esta oportunidad no se detectan daños atribuibles a larvas carpófagas.",
+      "Se observan trabajos de aplicación de herbicidas en zonas de la entre hilera de algunos cuarteles.",
+      "De manera puntual se visualizan restos de individuos sospechosos a Cydia pomonella en zona basal.",
+      "No se observan daños en amentos masculinos o femeninos en la presente prospección."
+    ]
+  },
+  {
+    "visit": "2025-11-06",
+    "source": "Manifold Post Visita Fundo San Gerardo. Huerto de Nogales - 06-11-2025.pdf",
+    "phenology": "Brotación",
+    "harvestStart": "Abril",
+    "harvestEnd": "Abril",
+    "author": "Jorge Ramírez Jiménez",
+    "authorRole": "Ingeniero Agrónomo, Dpto. Técnico Biofuturo",
+    "pests": [
+      {
+        "name": "Ácaros fitófagos móviles",
+        "pestRefs": ["acaros-fitofagos-moviles-perimetro", "acaros-fitofagos-moviles-interior"],
+        "species": "Panonychus ulmi (arañita roja europea)",
+        "stage": "40% ninfas – 60% adultos",
+        "location": "100% área foliar",
+        "rangeText": "Niveles de infestación se encuentran entre 0,0 a 0,10 individuos promedio por hoja, según cuartel.",
+        "naturalEnemies": "Sin detección",
+        "sectorRefs": [],
+        "comments": [
+          "Se detecta la presencia de estados móviles de Panonychus ulmi (arañita roja europea) en área foliar en árboles de nogales.",
+          "Se observa su presencia en sectores perimetrales, principalmente en árboles colindantes a caminos más transitados.",
+          "No se descarta un aumento en los niveles de infestación o la detección de focos de infestación que sobrepasen el promedio del cuartel en sectores perimetrales."
+        ]
+      },
+      {
+        "name": "Pulgón del nogal",
+        "pestRefs": ["pulgon-del-nogal"],
+        "species": "Chromaphis juglandicola",
+        "stage": "60% ninfas y 40% adultos",
+        "location": "100% en área foliar",
+        "rangeText": "Infestación es de 0 a 0,33 individuos promedio por hoja según cuartel.",
+        "naturalEnemies": "Coccinélidos",
+        "sectorRefs": [],
+        "comments": [
+          "Se observa de manera dispersa la presencia de ninfales y adultos de pulgón del avellano en área foliar.",
+          "Las detecciones se concentran al interior de la canopia en árboles prospectados.",
+          "Se observa la presencia de estados adultos de coccinélidos (chinita), controlador biológico de áfidos."
+        ]
+      },
+      {
+        "name": "Conchuela grande café",
+        "pestRefs": ["conchuelas", "viabilidad-conchuelas"],
+        "species": "Parthenolecanium corni",
+        "stage": "70% adultos y 30% ninfas",
+        "location": "100% área estructural",
+        "rangeText": "Nivel de infestación va entre 0% a 3% plantas con presencia según cuartel.",
+        "naturalEnemies": "Sin detección de individuos parasitoides o depredadores",
+        "sectorRefs": [],
+        "comments": [
+          "En la presente prospección visual en área estructural se detecta la presencia de escama grande café en ramas secundarias; su presencia se registra de manera ocasional al interior de cuarteles. En cuanto a la viabilidad de los individuos observados, esta se encuentra entre un 40% y un 50%.",
+          "No se descarta un aumento en su detección en futuras prospecciones realizadas al azar."
+        ]
+      }
+    ],
+    "generalObservations": [
+      "Se registra la presencia de áfidos (Myzus sp.) en malezas que se encuentran en la entre hilera en cuarteles de nogales.",
+      "Se realiza inspección a trampas de monitoreo de Cydia pomonella. Se observa la presencia de individuos sospechosos a Cydia pomonella. Cabe destacar que en inspección en área estructural al interior de grietas se observan restos de cámaras vacías sospechosas a estados inmaduros de larvas carpófagas, sospechosas a Cydia sp.",
+      "Se observa la presencia de Erinosis a nivel foliar a nivel general de cuarteles prospectados.",
+      "En la revisión de fruta remanente en esta oportunidad no se detectan daños atribuibles a larvas carpófagas.",
+      "Se observan trabajos de aplicación de herbicidas en zonas de la entre hilera de algunos cuarteles.",
+      "No se observan daños en área foliar sospechosos a insectos con aparato bucal masticador; cabe destacar que no se descarta su detección en sectores perimetrales de cuarteles prospectados.",
+      "Durante prospección visual en cuarteles de nogales del equipo 2 se observan signos sospechosos de desprendimiento de escama de San José.",
+      "La detección de plagas se concentra en los sectores perimetrales de los cuarteles, en árboles colindantes a caminos principales o límites del campo."
+    ]
+  },
+  {
+    "visit": "2025-12-10",
+    "source": "Manifold Post Visita Fundo San Gerardo. Huerto de Nogales - 10-12-2025.pdf",
+    "phenology": "Desarrollo del fruto",
+    "harvestStart": "Abril",
+    "harvestEnd": "Abril",
+    "author": "Jorge Ramírez – Jorge Lastra",
+    "authorRole": "Dpto. Técnico Biofuturo",
+    "pests": [
+      {
+        "name": "Ácaros fitófagos móviles",
+        "pestRefs": ["acaros-fitofagos-moviles-perimetro", "acaros-fitofagos-moviles-interior"],
+        "species": "Panonychus ulmi (arañita roja europea)",
+        "stage": "70% ninfas – 30% adultos",
+        "location": "100% área foliar",
+        "rangeText": "Niveles de infestación se encuentran entre 0,0 a 0,13 individuos promedio por hoja, según cuartel.",
+        "naturalEnemies": "Sin detección",
+        "sectorRefs": [],
+        "comments": [
+          "En la presente visita MIP se detecta escasa presencia de estados móviles de ácaros fitófagos; su presencia se concentra en área foliar en árboles de nogales en sectores perimetrales, principalmente en árboles colindantes a caminos más transitados.",
+          "No se descarta un aumento o disminución en los niveles de infestación en futuras prospecciones a causa de la presencia de controladores biológicos."
+        ]
+      },
+      {
+        "name": "Pulgón del nogal",
+        "pestRefs": ["pulgon-del-nogal"],
+        "species": "Chromaphis juglandicola",
+        "stage": "60% ninfas y 40% adultos",
+        "location": "100% en área foliar",
+        "rangeText": "Infestación es de 0 a 0,37 individuos promedio por hoja según cuartel.",
+        "naturalEnemies": "Coccinélidos",
+        "sectorRefs": [],
+        "comments": [
+          "Se observa un aumento en los niveles de infestación en cuarteles afectados. Se detecta su presencia en área foliar al interior de la canopia de árboles prospectados.",
+          "Se observa a nivel general de cuarteles la presencia de estados adultos de coccinélidos (chinita), controlador biológico de áfidos.",
+          "No se descarta un aumento en los niveles de infestación en futuras prospecciones visuales, según las condiciones agroclimáticas."
+        ]
+      },
+      {
+        "name": "Conchuela grande café",
+        "pestRefs": ["conchuelas", "viabilidad-conchuelas"],
+        "species": "Parthenolecanium corni",
+        "stage": "70% adultos y 30% ninfas",
+        "location": "100% área estructural",
+        "rangeText": "Nivel de infestación va entre 0% a 3% plantas con presencia según cuartel.",
+        "naturalEnemies": "Sin detección de individuos parasitoides o depredadores",
+        "sectorRefs": [],
+        "comments": [
+          "En la presente visita MIP en área estructural se detecta de manera puntual la presencia de escama grande café en área estructural, principalmente ramas lignificadas.",
+          "Se registra una viabilidad de un 40% a un 50% en los árboles afectados.",
+          "No se descarta un aumento en su detección en futuras prospecciones realizadas al azar."
+        ]
+      }
+    ],
+    "generalObservations": [
+      "Durante inspección a cuarteles de nogales se observa fruta con daño mecánico, atribuible a los diferentes manejos realizados en el huerto, como el control de malezas mecánico, aplicaciones, etc., ya que estos daños se observan en frutos que se encuentran expuestos a la entre hilera. Además se observa fruta a nivel de suelo en la entre hilera a causa de las diversas labores mecánicas.",
+      "Se registra la presencia de áfidos (Myzus sp.) en malezas que se encuentran en la entre hilera en cuarteles puntuales.",
+      "En cuarteles que conforman a los equipos 4 y 5 se detecta en sectores perimetrales la presencia de estados adultos de Trips; su presencia se concentra en malezas y de manera puntual en árboles de nogales. No se descarta un aumento en su presencia en área foliar de cuarteles de nogales.",
+      "Se realiza inspección a trampas de monitoreo de Cydia pomonella. Se observa la presencia de individuos sospechosos a Cydia pomonella.",
+      "Se mantiene la presencia de Erinosis a nivel foliar a nivel general de cuarteles prospectados.",
+      "En la presente prospección a fruta en desarrollo no se detectan daños atribuibles a larvas carpófagas; no se descarta su detección en futuras prospecciones, ya que se observan capturas sospechosas a Cydia pomonella en trampas de feromona del campo.",
+      "Se observan trabajos de control de malezas en la entre hilera.",
+      "Se observan daños en área foliar sospechosos a insectos con aparato bucal masticador; se registra la presencia de exoesqueleto de pololo verde.",
+      "Se detecta alta presencia de estados adultos de coccinélidos a nivel general de cuarteles de nogales.",
+      "En cuarteles de nogales del equipo 2 se observan signos sospechosos de desprendimiento de escama de San José.",
+      "Se detecta alta presencia de estado adulto de chicharra en sectores perimetrales de cuarteles de nogales; se observan daños a nivel estructural."
+    ]
+  },
+  {
+    "visit": "2025-12-24",
+    "source": "Manifold Post Visita Fundo San Gerardo. Huerto de Nogales - 24-12-2025.pdf",
+    "phenology": "Desarrollo del fruto",
+    "harvestStart": "Abril",
+    "harvestEnd": "Abril",
+    "author": "Jorge Ramírez",
+    "authorRole": "Dpto. Técnico Biofuturo",
+    "pests": [
+      {
+        "name": "Ácaros fitófagos móviles",
+        "pestRefs": ["acaros-fitofagos-moviles-perimetro", "acaros-fitofagos-moviles-interior"],
+        "species": "Panonychus ulmi (arañita roja europea)",
+        "stage": "80% ninfas – 20% adultos",
+        "location": "100% área foliar",
+        "rangeText": "Niveles de infestación se encuentran entre 0,0 a 0,13 individuos promedio por hoja, según cuartel.",
+        "naturalEnemies": "Sin detección",
+        "sectorRefs": [],
+        "comments": [
+          "Se observa la presencia de estados móviles de ácaros fitófagos en área foliar, a nivel general de cuarteles de nogales; su presencia se registra en sectores perimetrales, principalmente en árboles colindantes a caminos más transitados.",
+          "En la presente visita MIP no se detecta la presencia de estados móviles de ácaros fitófagos al interior de cuarteles.",
+          "No se descarta un aumento o disminución en los niveles de infestación en futuras prospecciones a causa de la presencia de controladores biológicos."
+        ]
+      },
+      {
+        "name": "Pulgón del nogal",
+        "pestRefs": ["pulgon-del-nogal"],
+        "species": "Chromaphis juglandicola",
+        "stage": "80% ninfas y 20% adultos",
+        "location": "100% en área foliar",
+        "rangeText": "Infestación es de 0 a 0,37 individuos promedio por hoja según cuartel.",
+        "naturalEnemies": "Coccinélidos",
+        "sectorRefs": ["E5-S1", "E5-S2", "E5-S3", "E5-S4", "E5-S5"],
+        "comments": [
+          "Se mantiene la presencia de pulgón del nogal en área foliar en árboles de nogales; su presencia se concentra al interior de la canopia de árboles prospectados.",
+          "El mayor nivel de infestación se detecta en los cuarteles que conforman al equipo 5.",
+          "A nivel perimetral de cuarteles se aprecia la presencia de estados adultos de coccinélidos (chinita), controlador biológico de áfidos.",
+          "No se descarta un aumento en los niveles de infestación en futuras prospecciones visuales, según las condiciones agroclimáticas."
+        ]
+      }
+    ],
+    "generalObservations": [
+      "Se registra la presencia de áfidos (Myzus sp.) en área foliar en malezas que se encuentran en sectores perimetrales de cuarteles de nogales.",
+      "Se mantiene la presencia de estados móviles de Trips en área foliar en árboles de nogales; su presencia se concentra en los cuarteles que conforman a los equipos 4 y 5.",
+      "Se realiza inspección a trampas de monitoreo de Cydia pomonella. Se observa la presencia de individuos sospechosos a Cydia pomonella.",
+      "Se realiza prospección visual a cuarteles de nogales registrando la presencia de Erinosis en área foliar; su presencia se observa en todos los cuarteles.",
+      "En la presente prospección a fruta en desarrollo, a la fecha no se detectan daños atribuibles a larvas carpófagas; no se descarta su detección en futuras prospecciones, ya que se observan capturas sospechosas a Cydia pomonella en trampas de feromona del campo.",
+      "Se observan signos de desprendimiento de conchuela en área estructural; no se observan estados viables en la presente prospección.",
+      "Se detecta alta presencia de estado adulto de chicharra en sectores perimetrales de cuarteles de nogales; se observan daños a nivel estructural."
+    ]
+  },
+  {
+    "visit": "2026-01-08",
+    "source": "Manifold Post Visita Fundo San Gerardo. Huerto de Nogales - 08-01-2026.pdf",
+    "phenology": "Desarrollo del fruto",
+    "harvestStart": "Abril",
+    "harvestEnd": "Abril",
+    "author": "Jorge Ramírez J.",
+    "authorRole": "Ingeniero Agrónomo, Dpto. Técnico Biofuturo",
+    "pests": [
+      {
+        "name": "Ácaros fitófagos móviles",
+        "pestRefs": ["acaros-fitofagos-moviles-perimetro", "acaros-fitofagos-moviles-interior"],
+        "species": "Panonychus ulmi (arañita roja europea)",
+        "stage": "30% ninfas – 70% adultos",
+        "location": "100% área foliar",
+        "rangeText": "Niveles de infestación se encuentran entre 0,0 a 0,37 individuos promedio por hoja, según cuartel.",
+        "naturalEnemies": "Estados móviles de ácaros fitoseidos",
+        "sectorRefs": [],
+        "comments": [
+          "En la presente visita MIP se observa un aumento en la presencia de ácaros fitófagos en área foliar, a nivel general de cuarteles de nogales.",
+          "Se registra en sectores perimetrales, en árboles colindantes a caminos más transitados, la presencia de focos puntuales de infestación.",
+          "Cabe destacar que al interior de cuarteles no se registra la presencia de estados móviles en área foliar.",
+          "No se descarta un aumento o disminución en los niveles de infestación en futuras prospecciones a causa de la presencia de controladores biológicos."
+        ]
+      },
+      {
+        "name": "Pulgón del nogal",
+        "pestRefs": ["pulgon-del-nogal"],
+        "species": "Chromaphis juglandicola",
+        "stage": "60% ninfas y 40% adultos",
+        "location": "100% en área foliar",
+        "rangeText": "Infestación es de 0 a 0,43 individuos promedio por hoja según cuartel.",
+        "naturalEnemies": "Estados adultos de coccinélidos",
+        "sectorRefs": ["E5-S1", "E5-S2", "E5-S3", "E5-S4", "E5-S5"],
+        "comments": [
+          "Se observan focos de infestación de la plaga al interior de cuarteles de nogales, principalmente en los cuarteles que conforman al equipo 5, observando un aumento en los niveles de infestación en comparación a la visita MIP anterior.",
+          "En sectores con mayor nivel de infestación es posible observar la presencia de estados adultos de coccinélidos, controlador biológico.",
+          "No se descarta un aumento en los niveles de infestación en futuras prospecciones visuales, según las condiciones agroclimáticas."
+        ]
+      },
+      {
+        "name": "Escama",
+        "pestRefs": ["escamas", "viabilidad-escamas"],
+        "species": "Lepidosaphes ulmi",
+        "stage": "0% crawler – 10% gorrita blanca – 80% gorrita negra – 10% pupoide",
+        "location": "100% en área estructural",
+        "rangeText": "Infestación es de 0 a 3% de árboles afectados, según cuartel.",
+        "naturalEnemies": "Sin detección",
+        "sectorRefs": ["E4-S1"],
+        "comments": [
+          "Durante inspección a cuarteles de nogales se registra de manera aislada la presencia de árboles afectados con la presencia de escama morada; su presencia se observa a nivel general del árbol afectado (eje central, rama, ramillas).",
+          "Su presencia se concentra en el cuartel 1 del equipo 4, en sectores perimetrales.",
+          "No se descarta la detección de nuevos focos puntuales en futuras visitas MIP realizadas al azar."
+        ]
+      }
+    ],
+    "generalObservations": [
+      "Se registra la presencia de áfidos (Myzus sp.) en área foliar en malezas que se encuentran de manera escasa en los sectores perimetrales del huerto.",
+      "En la presente inspección no se observa la presencia de Trips en área foliar; no se descarta su presencia en sectores perimetrales de cuarteles con presencia de malezas.",
+      "Se realiza inspección a trampas de monitoreo de Cydia pomonella.",
+      "Se realiza prospección visual a cuarteles de nogales registrando la presencia de Erinosis en área foliar; su presencia se observa en todos los cuarteles.",
+      "En fruta en desarrollo, a la fecha no se detectan daños atribuibles a larvas carpófagas; no se descarta su detección en futuras prospecciones, por la presencia de capturas sospechosas a Cydia pomonella en trampas de feromona del campo.",
+      "Se detecta alta presencia de estado adulto de chicharra en sectores perimetrales de cuarteles de nogales; se observan daños a nivel estructural.",
+      "Se detecta de manera puntual la presencia de escama en sector perimetral del cuartel 1 del equipo 4. No se detecta la presencia de escama al interior de cuarteles prospectados."
+    ]
+  },
+  {
+    "visit": "2026-01-20",
+    "source": "Manifold Post Visita Fundo San Gerardo. Huerto de Nogales - 20-01-2026.pdf",
+    "phenology": "Desarrollo de fruto",
+    "harvestStart": "Abril",
+    "harvestEnd": "Abril",
+    "author": "Francisca Javiera Flores",
+    "authorRole": "Ingeniero Agrícola, Dpto. Técnico Biofuturo",
+    "pests": [
+      {
+        "name": "Pulgón del nogal",
+        "pestRefs": ["pulgon-del-nogal"],
+        "species": "Chromaphis juglandicola",
+        "stage": "60% ninfas y 40% adultos",
+        "location": "100% en área foliar",
+        "rangeText": "Infestación es de 0,7 a 2,07 individuos promedio por hoja según cuartel.",
+        "naturalEnemies": "Huevos y estados adultos de coccinélidos",
+        "sectorRefs": ["E1-S1", "E1-S2", "E1-S3", "E1-S4", "E1-S5", "E2-S1", "E2-S2", "E2-S3"],
+        "comments": [
+          "Aumenta la tasa poblacional en comparación a la visita anterior; los niveles aumentan un 1% aprox. por cuartel.",
+          "Su presencia se detecta mayormente en zonas del interior de los cuarteles, siendo los cuarteles de los equipos 1 y 2 los que mayor concentración de pulgón tienen.",
+          "Se detecta una mayor presencia de controladores biológicos (coccinélidos) en cuarteles de los equipos 4 y 5.",
+          "La presencia de estos individuos predomina en el estado de desarrollo ninfa, encontrando incluso su presencia en rebrotes basales del árbol."
+        ]
+      },
+      {
+        "name": "Ácaros fitófagos móviles",
+        "pestRefs": ["acaros-fitofagos-moviles-perimetro", "acaros-fitofagos-moviles-interior"],
+        "species": "Panonychus ulmi – Tetranychus urticae",
+        "stage": "20% ninfas – 80% adultos",
+        "location": "100% área foliar",
+        "rangeText": "Niveles de infestación se encuentran entre 0,1 a 3,37 individuos promedio por hoja, según cuartel.",
+        "naturalEnemies": "Chrysoperla sp. - Oligota pigmaea",
+        "sectorRefs": ["E4-S1", "E4-S2", "E5-S1", "E5-S4", "E5-S2", "E5-S5"],
+        "comments": [
+          "En comparación a la visita anterior se ve un aumento en los niveles de infestación de ácaros fitófagos, aumentando cada cuartel un 2% aproximadamente.",
+          "Se detecta la especie correspondiente a arañita bimaculada (Tetranychus urticae), esta de forma puntual en algunos sectores del huerto (cuarteles 4-1, 4-2 y 5-1).",
+          "Si bien la presencia de arañita roja europea se observa de manera general en el huerto, se detecta foco con un alto nivel de infestación en zona perimetral del cuartel 4 del equipo 5, en perímetro colindante a camino vecinal, observando hasta 15 individuos por hoja. Cabe mencionar que este nivel de infestación es solo en la hilera colindante al camino anteriormente mencionado, al igual que el perímetro de los cuarteles 5-2 y 5-5 que presentan el mismo caso de primera hilera con mayor presencia pero con un menor nivel de infestación.",
+          "No se descarta un aumento en los niveles poblacionales, debido a la presencia de huevos viables además de condiciones climáticas."
+        ]
+      },
+      {
+        "name": "Escama",
+        "pestRefs": ["escamas", "viabilidad-escamas"],
+        "species": "Lepidosaphes ulmi",
+        "stage": "80% hembras adultas, 20% primeros estados de fijación",
+        "location": "100% en área estructural",
+        "rangeText": "Infestación es de 0 a 7% de árboles afectados, según cuartel.",
+        "naturalEnemies": "Sin detección",
+        "sectorRefs": ["E4-S1"],
+        "comments": [
+          "Se prospecta de manera general en el huerto, encontrando de manera puntual planta perimetral con alto nivel de infestación, observando un aumento de un 5% en la viabilidad de la plaga, quedando en un 85% viable.",
+          "Se detectan estados de fijación en planta aledaña a la ya antes detectada, registrando su presencia en esta ocasión en solo una ramilla.",
+          "La presencia de la escama morada se mantiene por ahora en el cuartel 4-1. Cabe mencionar que las prospecciones son en plantas totalmente aleatorias en cada cuartel del huerto, lo cual abre la posibilidad de encontrar nuevas detecciones en próximas visitas.",
+          "En esta ocasión no se detectan estados móviles (crawlers)."
+        ]
+      },
+      {
+        "name": "Trips",
+        "pestRefs": ["trips"],
+        "species": "Frankliniella occidentalis",
+        "stage": "60% ninfa 40% adulto",
+        "location": "100% área foliar",
+        "rangeText": "Infestación varía entre 0 a 0,23 individuos promedio por hoja según cuartel.",
+        "naturalEnemies": "Sin detección",
+        "sectorRefs": ["E2-S2"],
+        "comments": [
+          "Se detectan individuos móviles en follaje, estos principalmente al interior de los cuarteles, donde las ramas de los árboles llegan a nivel de suelo.",
+          "Su mayor nivel de concentración es en el cuartel 2-2. A pesar de que su detección es baja, no se descarta un aumento debido a la gran presencia en hojas basales y pequeñas malezas entre camellones."
+        ]
+      }
+    ],
+    "generalObservations": [
+      "Se detecta de manera general la presencia de controladores biológicos, tanto de ácaros como de áfidos.",
+      "Existe un aumento en el nivel de infestación de ácaros fitófagos, encontrando en esta visita las especies Panonychus ulmi y Tetranychus urticae. Cabe mencionar que la presencia de arañita bimaculada (Tetranychus urticae) se encuentra en sectores puntuales, siendo bajo su nivel poblacional.",
+      "Se detecta la presencia de Trips en área foliar en la mayoría de los cuarteles, siendo bajo su nivel de infestación.",
+      "De manera general en cuarteles se observan árboles afectados por Erinosis.",
+      "No se observa daño asociado/sospechoso a larvas carpófagas.",
+      "Existe una nueva detección (planta con presencia de escama morada), esta en estado de fijación en solo una ramilla del árbol; no se detectan individuos móviles en esta ocasión.",
+      "En hilera perimetral, colindante a camino vecinal, se observan individuos correspondientes a arañita roja europea, sobrepasando los niveles de infestación por hoja (cuartel 4-5)."
+    ],
+    "issues": [
+      {
+        "severity": "warn",
+        "source": "manifold",
+        "field": "Ácaros fitófagos móviles / ubicación del foco",
+        "detail": "El cuerpo del informe sitúa el foco de arañita roja europea en el 'cuartel 4 del equipo 5' (E5-S4), pero la observación general 7 lo cita como 'Cuartel 4-5' (E4-S5). El máximo medido de la visita (3,37 ind./hoja perimetral) está en E5-S4, por lo que se tomó E5-S4 como referencia."
+      }
+    ]
+  },
+  {
+    "visit": "2026-02-05",
+    "source": "Manifold Post Visita Fundo San Gerardo. Huerto de Nogales - 05-02-2026.pdf",
+    "phenology": "Desarrollo de fruto",
+    "harvestStart": "Abril",
+    "harvestEnd": "Abril",
+    "author": "Jorge Ramírez Jiménez",
+    "authorRole": "Ingeniero Agrónomo, Dpto. Técnico Biofuturo",
+    "pests": [
+      {
+        "name": "Pulgón del nogal",
+        "pestRefs": ["pulgon-del-nogal"],
+        "species": "Chromaphis juglandicola",
+        "stage": "60% ninfas y 40% adultos",
+        "location": "100% en área foliar",
+        "rangeText": "Infestación es de 0,80 a 2,63 individuos promedio por hoja según cuartel.",
+        "naturalEnemies": "Huevos y estados adultos de coccinélidos",
+        "sectorRefs": [],
+        "comments": [
+          "La presencia de estados ninfales y adultos de pulgones del nogal se observa a nivel general de cuarteles, principalmente en el envés de la hoja.",
+          "Se registran principalmente estados ninfales, observando un aumento en los niveles de infestación en comparación a la visita MIP anterior.",
+          "Se observan focos de infestación que superan el promedio del cuartel, detectando un rango de 4 a 8 individuos por hoja."
+        ]
+      },
+      {
+        "name": "Ácaros fitófagos móviles",
+        "pestRefs": ["acaros-fitofagos-moviles-perimetro", "acaros-fitofagos-moviles-interior"],
+        "species": "Panonychus ulmi – Tetranychus urticae",
+        "stage": "20% ninfas – 80% adultos",
+        "location": "100% área foliar",
+        "rangeText": "Niveles de infestación se encuentran entre 0,10 a 3,47 individuos promedio por hoja, según cuartel.",
+        "naturalEnemies": "Chrysoperla sp. - Oligota pigmaea",
+        "sectorRefs": [],
+        "comments": [
+          "En la presente visita MIP se registra la presencia de ácaros fitófagos en área foliar; su presencia se concentra en el haz de la hoja.",
+          "La presencia de arañita roja europea se detecta a nivel general de cuarteles, principalmente en sectores perimetrales, en árboles colindantes a caminos más transitados.",
+          "Se registran focos de infestación con un rango de 2 a 7 estados móviles por hoja.",
+          "La presencia de arañita bimaculada se registra de manera puntual en sectores perimetrales, colindantes a caminos principales.",
+          "No se descarta un aumento en los niveles de infestación en futuras prospecciones, ya que se registran huevos viables en área foliar."
+        ]
+      },
+      {
+        "name": "Escama",
+        "pestRefs": ["escamas", "viabilidad-escamas"],
+        "species": "Lepidosaphes ulmi",
+        "stage": "80% adulto, 20% primeros estados de fijación",
+        "location": "100% en área estructural",
+        "rangeText": "Infestación es de 0 a 3% de árboles afectados, según cuartel.",
+        "naturalEnemies": "Sin detección",
+        "sectorRefs": ["E4-S1"],
+        "comments": [
+          "En sectores perimetrales puntuales de cuarteles de nogales se detecta la presencia de escama morada en área estructural.",
+          "Su presencia se registra de manera abundante en árboles afectados, principalmente en el eje central y ramas principales.",
+          "No se descarta un aumento en los niveles de infestación, principalmente por la presencia de escamas viables al momento de inspeccionar al desprenderlas."
+        ]
+      },
+      {
+        "name": "Trips",
+        "pestRefs": ["trips"],
+        "species": "Frankliniella occidentalis",
+        "stage": "80% ninfa - 20% adulto",
+        "location": "100% área foliar",
+        "rangeText": "Infestación varía entre 0 a 0,17 individuos promedio por hoja, según cuartel.",
+        "naturalEnemies": "Sin detección",
+        "sectorRefs": [],
+        "comments": [
+          "Se registra la presencia de estados móviles de Trips en área foliar; su presencia se observa de manera dispersa al interior de cuarteles afectados.",
+          "Su presencia se observa en hojas que se encuentran en la parte inferior del árbol, principalmente en ramas que se encuentran cerca del suelo.",
+          "No se descarta un aumento en los niveles de infestación o su detección en cuarteles donde su presencia es ausente."
+        ]
+      }
+    ],
+    "generalObservations": [
+      "Se detecta baja presencia de controladores biológicos al interior de los cuarteles; su presencia se concentra en sectores perimetrales del campo.",
+      "Existe un aumento en el nivel de infestación de ácaros fitófagos, a causa de las condiciones climáticas y la presencia de huevos viables en área foliar, principalmente al interior de la canopia.",
+      "Se detecta la presencia de Trips en área foliar, principalmente en sectores perimetrales y en árboles que presentan ramas a nivel de suelo.",
+      "De manera general en cuarteles se observan árboles afectados por Erinosis.",
+      "En hilera perimetral, colindante a camino vecinal, se observan individuos correspondientes a arañita roja europea, sobrepasando los niveles de infestación."
+    ]
+  },
+  {
+    "visit": "2026-03-05",
+    "source": "Manifold Post Visita Fundo San Gerardo. Huerto de Nogales - 05-03-2026.pdf",
+    "phenology": "Pre cosecha",
+    "harvestStart": "Marzo",
+    "harvestEnd": "Abril",
+    "author": "Nicolás Francisco Cordero Ortiz",
+    "authorRole": "Ingeniero Agrónomo, Dpto. Técnico Biofuturo",
+    "pests": [
+      {
+        "name": "Pulgón del nogal",
+        "pestRefs": ["pulgon-del-nogal"],
+        "species": "Chromaphis juglandicola",
+        "stage": "70% ninfas y 30% adultos",
+        "location": "100% en área foliar (envés de las hojas)",
+        "rangeText": "Infestación es de 1,03 a 1,97 individuos promedio por hoja según cuartel.",
+        "naturalEnemies": "Coccinélidos, Chrysoperla sp., Trioxys pallidus",
+        "sectorRefs": [],
+        "comments": [
+          "En la presente prospección se visualizan variaciones en las cuantificaciones, positivas como negativas dependiendo del cuartel, evidenciando cambios en el estado de la plaga, lo cual se puede atribuir a las condiciones climáticas de días anteriores y otros factores como posibles aplicaciones y el accionar de los controladores biológicos.",
+          "En la totalidad de los cuarteles se registran niveles de infestación mayores a 1 individuo promedio pero menores a 2, aunque es importante mencionar que se observan en ocasiones focos que superan levemente el promedio expresado por cuartel.",
+          "De manera general se observan individuos parasitados o depredados, evidenciando el accionar de controladores biológicos establecidos en el huerto.",
+          "Según las condiciones climáticas venideras y las condiciones que se generarán por las próximas labores de cosecha, no se descartan nuevas variaciones en las cuantificaciones de estos individuos."
+        ]
+      },
+      {
+        "name": "Ácaros fitófagos móviles",
+        "pestRefs": ["acaros-fitofagos-moviles-perimetro", "acaros-fitofagos-moviles-interior"],
+        "species": "Panonychus ulmi",
+        "stage": "40% ninfas – 60% adultos",
+        "location": "100% área foliar",
+        "rangeText": "Niveles de infestación según cuartel: 1,37 a 2,03 individuos promedio por hoja perimetral; 0,2 a 0,67 individuos promedio por hoja en interior.",
+        "naturalEnemies": "Chrysoperla sp.",
+        "sectorRefs": [],
+        "comments": [
+          "Si bien se observa una baja en el número de individuos promedio por hoja, al igual que otras plagas mencionadas, se puede atribuir a las condiciones meteorológicas presentadas en días anteriores.",
+          "Existen focos que se presentan de manera puntual en perímetros que sobrepasan el promedio por cuartel con creces (llegando en ocasiones a más de 10 individuos por hoja), pero como se explica en terreno son casos aislados y puntuales, que presentan condiciones como alto tráfico de vehículos o maquinaria, o encontrarse colindantes a caminos polvorientos. La realidad del cuartel es que se observan menos de 2 individuos promedio.",
+          "Por otro lado, la alta presencia de huevos en área foliar en perímetros puede provocar aumentos en los niveles de infestación en los próximos días, esto en conjunto a las próximas labores de cosecha a realizar.",
+          "Según lo expuesto no se descartan variaciones en las cuantificaciones en los próximos días de no realizar medidas de mitigación o control del polvo en suspensión por labores de cosecha."
+        ]
+      },
+      {
+        "name": "Capachito de los frutales",
+        "pestRefs": ["capachitos"],
+        "species": "Geniocremnus chilensis",
+        "stage": "100% adultos",
+        "location": "100% en área foliar",
+        "rangeText": "Infestación es de 0 a 3% de árboles con presencia, según cuartel.",
+        "naturalEnemies": "Sin detección",
+        "sectorRefs": ["E4-S1"],
+        "comments": [
+          "En esta oportunidad se realiza detección puntual de individuos adultos correspondientes a capachito de los frutales en hilera perimetral del cuartel 4.1. No se realizan detecciones en el resto de los cuarteles ni tampoco daño en área foliar."
+        ]
+      },
+      {
+        "name": "Escama",
+        "pestRefs": ["escamas", "viabilidad-escamas"],
+        "species": "Lepidosaphes ulmi y Diaspidiotus perniciosus",
+        "stage": "60% gorrita blanca, 20% gorrita negra, 20% crawler",
+        "location": "100% en área estructural",
+        "rangeText": "Infestación es de 0% a 7% de árboles afectados, según cuartel.",
+        "naturalEnemies": "Se observan individuos parasitados, sin detección de agente causante",
+        "sectorRefs": ["E4-S1"],
+        "comments": [
+          "En esta oportunidad persisten focos de detección de escamas en zonas perimetrales del cuartel 4.1. Lo que es importante evidenciar es la detección de escama de San José y escama morada en las mismas estructuras, mezcladas entre sí; no se observan estados móviles en las detecciones realizadas.",
+          "La viabilidad observada se encuentra en un 95% tanto para escama morada como de San José.",
+          "No se descartan nuevas detecciones en las próximas visitas."
+        ]
+      }
+    ],
+    "generalObservations": [
+      "En esta oportunidad se visualiza una alta presencia de controladores biológicos en diferentes estados, lo que promueve el establecimiento de la entomofauna benéfica.",
+      "Se observan trabajos de poda en cierre perimetral para despeje de caminos.",
+      "Persiste la alta presencia de Erinosis en área foliar tanto de plantas interiores como perimetrales de los cuarteles.",
+      "No se observan daños asociados a larvas carpófagas en los frutos prospectados.",
+      "Se observan trabajos de instalación de cortina anti deriva en sectores colindantes a casas habitacionales."
+    ]
+  },
+  {
+    "visit": "2026-03-24",
+    "source": "Manifold Post Visita Fundo San Gerardo. Huerto de Nogales - 24-03-2026.pdf",
+    "phenology": "Pre cosecha",
+    "harvestStart": "Marzo",
+    "harvestEnd": "Abril",
+    "author": "Nicolás Cordero – Francisca Flores",
+    "authorRole": "Dpto. Técnico Biofuturo",
+    "pests": [
+      {
+        "name": "Pulgón del nogal",
+        "pestRefs": ["pulgon-del-nogal"],
+        "species": "Chromaphis juglandicola",
+        "stage": "60% ninfas y 40% adultos",
+        "location": "100% en área foliar (envés de las hojas)",
+        "rangeText": "Infestación es de 0,6 a 0,97 individuos promedio por hoja según cuartel.",
+        "naturalEnemies": "Chrysoperla sp.",
+        "sectorRefs": [],
+        "comments": [
+          "En la presente prospección se registra una disminución en los niveles de infestación, dependiendo del cuartel, evidenciando cambios en el estado de la plaga, lo cual se puede atribuir a las recientes condiciones climáticas y/o factores como posibles aplicaciones fitosanitarias, además del accionar de los controladores biológicos.",
+          "Como acción de controladores biológicos se observan individuos afectados por depredación y parasitismo, lo cual es consistente con la detección de crisopas.",
+          "En función de las condiciones climáticas futuras y de las labores asociadas a la cosecha, podrían generarse variaciones en la dinámica poblacional de la plaga."
+        ]
+      },
+      {
+        "name": "Ácaros fitófagos móviles",
+        "pestRefs": ["acaros-fitofagos-moviles-perimetro", "acaros-fitofagos-moviles-interior"],
+        "species": "Panonychus ulmi – Tetranychus urticae",
+        "stage": "40% ninfas – 60% adultos",
+        "location": "100% área foliar",
+        "rangeText": "Niveles de infestación según cuartel: 0,47 a 0,87 individuos promedio por hoja perimetral; 0,03 a 0,3 individuos promedio por hoja en interior.",
+        "naturalEnemies": "Chrysoperla sp.",
+        "sectorRefs": [],
+        "comments": [
+          "Durante la presente prospección los ácaros fitófagos móviles se presentan en niveles generales bajos, con diferencias entre el perímetro y el interior del cuartel, registrándose mayores valores en hojas perimetrales.",
+          "Se identifican focos localizados con mayores densidades (de 2 a 3 individuos por hoja), asociados principalmente a condiciones como cercanía a caminos polvorientos o sectores con alto tránsito de maquinaria, donde predomina en este caso la presencia de la especie Tetranychus urticae. No obstante, estos focos son puntuales y no representan una condición generalizada.",
+          "Por otra parte, la presencia de huevos viables, especialmente en sectores perimetrales, podría favorecer un incremento poblacional en el corto plazo; este escenario, sumado a las futuras labores de cosecha y la posible generación de polvo en suspensión, podría incidir en la dinámica de la plaga.",
+          "No se descartan variaciones en los niveles de infestación en los próximos días debido a condiciones climáticas que se aprontan, además de la presencia de controladores biológicos."
+        ]
+      },
+      {
+        "name": "Escama",
+        "pestRefs": ["escamas", "viabilidad-escamas"],
+        "species": "Lepidosaphes ulmi y Diaspidiotus perniciosus",
+        "stage": "65% gorrita blanca, 25% gorrita negra, 10% crawler",
+        "location": "100% en área estructural",
+        "rangeText": "Infestación es de 0% a 7% de árboles afectados, según cuartel.",
+        "naturalEnemies": "Se observan individuos parasitados, sin detección de agentes causantes",
+        "sectorRefs": ["E4-S1"],
+        "comments": [
+          "Durante la presente prospección se mantiene la presencia de escamas en niveles bajos a moderados, con una infestación que alcanza hasta un 7% de árboles afectados según cuartel, concentrándose principalmente en estructuras leñosas.",
+          "Se identifican focos en sectores perimetrales correspondientes al cuartel 4.1, donde coexisten escama morada y escama de San José sobre las mismas estructuras. En estos focos se observa actividad de movimiento de escamas (crawler) de escama de San José, lo que indica potencial de dispersión.",
+          "La población presenta una alta viabilidad, cercana al 80% en ambas especies, lo que sugiere una condición activa de la plaga.",
+          "Adicionalmente, se evidencian individuos parasitados, aunque sin identificación de los agentes responsables.",
+          "Considerando la metodología de prospección basada en selección aleatoria de plantas, no se descarta la detección de nuevos focos en futuras evaluaciones."
+        ]
+      }
+    ],
+    "generalObservations": [
+      "Se registra de manera puntual, en inspección de fruta en planta perimetral, la presencia de estado adulto de chanchito blanco, en el cual se prospecta árbol completo y colindantes, sin registrar la presencia de sacos ovígeros y/o estados móviles.",
+      "Se observa una mayor presencia de Erinosis en zona foliar, presente de manera general en el huerto, tanto en perímetro de cuarteles como al interior.",
+      "Como entomofauna benéfica se registra la presencia de huevos viables de crisopas, los cuales en estado larvario depredan individuos correspondientes a ácaros fitófagos.",
+      "No se observa la presencia ni daños en frutos de larvas carpófagas.",
+      "Se observa movimiento de escama de San José, lo cual se atribuye a un aumento poblacional de la plaga.",
+      "Se registra en esta visita la presencia de arañita bimaculada además de roja europea; cabe destacar que se observa además en ocasiones la presencia de huevos viables de arañita roja europea, lo cual puede ocasionar un aumento poblacional."
+    ]
+  }
+]

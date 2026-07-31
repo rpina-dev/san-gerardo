@@ -727,7 +727,8 @@ body.soil-active .mapboxgl-ctrl-bottom-right { bottom:82px; }
 }
 
 @media (max-width:1280px) and (min-width:721px) {
-    body:not(.foliar-active):not(.soil-active):not(.prod-active) .stats-bar:not(.hidden) { top:70px; }
+    /* La barra de plagas va anclada abajo: si además recibe top, se estira entre ambos bordes. */
+    body:not(.foliar-active):not(.soil-active):not(.prod-active):not(.pest-active) .stats-bar:not(.hidden) { top:70px; }
 }
 @media (max-width:720px) {
     .tabs { max-width:calc(100vw - 20px); overflow-x:auto; scrollbar-width:none; }
@@ -1045,6 +1046,336 @@ body:not(.fin-active) .fin-legend { display:none !important; }
 .fin-detail-table td { padding:8px 10px; border-top:1px solid rgba(27,45,69,0.06); }
 @media (max-width:720px){ .fin-controls { top:64px; left:10px; right:10px; width:auto; } body.fin-active .stats-bar { left:10px; right:10px; bottom:70px; max-width:none; } .fin-legend { display:none !important; } .fin-modal-kpis { grid-template-columns:repeat(2,1fr); } }
 
+
+/* ═══ MONITOREO FITOSANITARIO (PLAGAS) ═══ */
+body.pest-active .stats-bar {
+    top:auto; bottom:24px; right:16px; max-width:calc(100vw - 430px);
+    padding:9px 12px; overflow-x:auto; scrollbar-width:thin;
+}
+body.pest-active .mapboxgl-ctrl-bottom-right { bottom:82px; }
+body.pest-active #legendGeneral,
+body.pest-active #legendProd,
+body.pest-active #legendFoliar,
+body.pest-active #legendSoil,
+body.pest-active #legendRiego,
+body.pest-active #legendAgro,
+body.pest-active .fin-legend { display:none !important; }
+body.pest-active .pest-legend { display:block !important; }
+body:not(.pest-active) .pest-controls,
+body:not(.pest-active) .pest-legend { display:none !important; }
+body.riego-active #legendPest,
+body.agro-active #legendPest,
+body.fin-active #legendPest { display:none !important; }
+
+.pest-stats { display:none; flex-direction:row; gap:10px; align-items:stretch; min-width:max-content; }
+.pest-stats .stat { min-width:74px; padding:1px 3px; }
+.pest-stats .stat .num { font-size:13px; }
+.pest-stats .stat .unit { font-size:7px; }
+.pest-context { display:flex; align-items:center; gap:8px; min-width:180px; padding-right:10px; }
+.pest-context-title { font-size:11px; font-weight:600; color:var(--navy); white-space:nowrap; }
+.pest-context-meta {
+    font-size:8px; color:rgba(27,45,69,0.55); margin-top:3px;
+    text-transform:uppercase; letter-spacing:0.05em; white-space:nowrap;
+}
+.pest-chip-badge {
+    display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px; border-radius:7px;
+    background:#8E3B4E; color:#fff; font-size:11px; font-weight:700; flex:0 0 22px;
+}
+
+/* Panel de filtros */
+.pest-controls {
+    position:absolute; z-index:11; top:70px; right:16px;
+    width:360px; max-height:calc(100vh - 164px); overflow:auto;
+    background:#fff; color:var(--navy); border-radius:14px;
+    box-shadow:0 12px 40px rgba(0,0,0,0.25), 0 2px 6px rgba(0,0,0,0.08);
+    border:1px solid rgba(27,45,69,0.10);
+    display:none;
+}
+.pest-controls.visible { display:block; }
+.pest-controls-header {
+    padding:14px 18px 11px;
+    background:linear-gradient(180deg,#FDF5F7,#fff);
+    border-bottom:1px solid rgba(27,45,69,0.07);
+}
+.pest-controls-title {
+    font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
+    color:#8E3B4E; display:flex; align-items:center; gap:7px;
+}
+.pest-controls-title .pc-dot { width:7px; height:7px; border-radius:50%; background:#8E3B4E; }
+.pest-controls-subtitle { font-size:11px; color:rgba(27,45,69,0.60); margin-top:4px; line-height:1.35; }
+.pest-controls-body { padding:13px 16px 15px; }
+.pest-field { display:flex; flex-direction:column; gap:4px; margin-bottom:11px; }
+.pest-field label {
+    font-size:9px; font-weight:600; letter-spacing:0.09em;
+    text-transform:uppercase; color:#8E3B4E;
+}
+.pest-select {
+    width:100%; min-width:0; padding:8px 30px 8px 10px;
+    border:1px solid rgba(27,45,69,0.17); border-radius:8px;
+    background:#fff; color:var(--navy); font-size:11px; font-weight:500;
+    outline:none; appearance:none; cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10' fill='none'%3E%3Cpath d='M2 3.5L5 6.5L8 3.5' stroke='%231B2D45' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 10px center;
+}
+.pest-select:hover, .pest-select:focus {
+    border-color:rgba(142,59,78,0.52);
+    box-shadow:0 0 0 3px rgba(142,59,78,0.08);
+}
+.pest-select:disabled { opacity:0.5; cursor:not-allowed; }
+.pest-toggle-all {
+    display:flex; align-items:center; gap:8px; cursor:pointer;
+    padding:8px 10px; border-radius:8px; background:#F7F4F5;
+    border:1px solid rgba(27,45,69,0.10); margin-bottom:12px;
+}
+.pest-toggle-all input { accent-color:#8E3B4E; cursor:pointer; margin:0; }
+.pest-toggle-all span { font-size:10.5px; color:rgba(27,45,69,0.78); line-height:1.3; }
+.pest-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.pest-chip {
+    display:inline-flex; align-items:center; gap:6px;
+    padding:5px 9px 5px 7px; border-radius:20px; cursor:pointer;
+    border:1px solid rgba(27,45,69,0.16); background:#fff;
+    font-size:10.5px; font-weight:500; color:rgba(27,45,69,0.55);
+    transition:background 0.12s, border-color 0.12s, color 0.12s;
+}
+.pest-chip:hover { border-color:rgba(142,59,78,0.4); }
+.pest-chip .pcx-dot {
+    width:11px; height:11px; border-radius:50%; flex:0 0 11px;
+    border:1.5px solid rgba(255,255,255,0.9); box-shadow:0 0 0 1px rgba(27,45,69,0.28);
+    opacity:0.35;
+}
+.pest-chip .pcx-n { font-size:9px; font-weight:700; opacity:0.65; }
+.pest-chip.on { background:rgba(142,59,78,0.07); border-color:rgba(142,59,78,0.45); color:var(--navy); font-weight:600; }
+.pest-chip.on .pcx-dot { opacity:1; }
+.pest-chip.empty { opacity:0.4; }
+.pest-summary {
+    margin-top:12px; padding:10px 12px; border-radius:9px;
+    background:rgba(142,59,78,0.06); border:1px solid rgba(142,59,78,0.13);
+    color:rgba(27,45,69,0.75); font-size:10px; line-height:1.5;
+}
+.pest-summary strong { color:#8E3B4E; }
+.pest-summary .ps-title { font-weight:700; color:#8E3B4E; font-size:10.5px; display:block; margin-bottom:3px; }
+.pest-summary .ps-hint { color:rgba(27,45,69,0.5); font-style:italic; }
+.pest-reset-btn {
+    width:100%; margin-top:10px; padding:8px 10px; border-radius:8px;
+    border:1px solid rgba(27,45,69,0.14); background:#F8F6F7;
+    color:var(--navy); font-size:10px; font-weight:600; cursor:pointer;
+}
+.pest-reset-btn:hover { background:#F2EBEE; border-color:rgba(142,59,78,0.25); }
+
+/* Leyenda */
+.pest-legend {
+    position:absolute; bottom:24px; left:16px; z-index:10;
+    padding:14px 18px; min-width:230px; max-width:290px; display:none;
+}
+.pest-legend-title {
+    display:flex; align-items:center; gap:8px; margin-bottom:3px;
+    font-size:13px; font-weight:650; color:var(--navy);
+}
+.pest-legend-title .pest-symbol {
+    padding:2px 7px; border-radius:5px; background:rgba(142,59,78,0.12);
+    color:#8E3B4E; font-size:9px; font-weight:700;
+}
+.pest-legend-meta { font-size:10px; color:rgba(27,45,69,0.60); margin-bottom:10px; line-height:1.35; }
+.pest-legend-items { display:flex; flex-direction:column; gap:5px; }
+.pest-legend-row { display:flex; align-items:center; gap:8px; font-size:10px; color:rgba(27,45,69,0.76); }
+.pest-legend-dot {
+    width:12px; height:12px; border-radius:50%; flex:0 0 12px;
+    border:1.5px solid #fff; box-shadow:0 0 0 1px rgba(27,45,69,0.25);
+}
+.pest-legend-row .plr-n { margin-left:auto; font-weight:700; color:rgba(27,45,69,0.55); }
+.pest-legend-note {
+    margin-top:9px; padding-top:8px; border-top:1px solid rgba(27,45,69,0.10);
+    font-size:9px; line-height:1.4; color:rgba(27,45,69,0.55); font-weight:300;
+}
+.pest-legend-empty { font-size:10px; color:rgba(27,45,69,0.5); font-style:italic; }
+
+/* Tooltip de sector en modo plagas */
+.hover-tooltip.pest-mode {
+    min-width:250px;
+    background:rgba(255,255,255,0.98) !important;
+    border:1px solid rgba(27,45,69,0.12) !important;
+    box-shadow:0 12px 40px rgba(0,0,0,0.24), 0 2px 6px rgba(0,0,0,0.08) !important;
+    backdrop-filter:none !important; -webkit-backdrop-filter:none !important;
+}
+.hover-tooltip.pest-mode .ht-name { color:#1B2D45; }
+.hover-tooltip.pest-mode .ht-badge { color:#8E3B4E; background:rgba(142,59,78,0.10); opacity:1; font-weight:600; }
+#ttPestBlock .pt-metric { display:flex; align-items:baseline; gap:6px; margin-bottom:2px; }
+#ttPestBlock .pt-value { font-size:24px; font-weight:700; color:#1B2D45; line-height:1; }
+#ttPestBlock .pt-unit { font-size:11px; color:rgba(27,45,69,0.6); font-weight:500; }
+#ttPestBlock .pt-breakdown { display:flex; flex-direction:column; gap:4px; margin-top:9px; }
+#ttPestBlock .pt-row { display:flex; align-items:center; gap:7px; font-size:10.5px; color:rgba(27,45,69,0.76); }
+#ttPestBlock .pt-dot { width:10px; height:10px; border-radius:50%; flex:0 0 10px; border:1.5px solid #fff; box-shadow:0 0 0 1px rgba(27,45,69,0.25); }
+#ttPestBlock .pt-row .pt-n { margin-left:auto; font-weight:700; }
+#ttPestBlock .pt-empty { font-size:10.5px; color:rgba(27,45,69,0.52); font-style:italic; margin-top:6px; }
+#ttPestBlock .pt-source { margin-top:9px; padding-top:7px; border-top:1px solid rgba(27,45,69,0.10); font-size:9px; color:rgba(27,45,69,0.55); }
+
+/* Popup de punto.
+   El proyecto oculta todos los popups de Mapbox (usa su propio tooltip), así que hay que
+   reactivarlo explícitamente para esta capa. */
+.mapboxgl-popup.pest-popup { display:block !important; z-index:12; }  /* por sobre el panel de filtros (11) */
+.pest-popup .mapboxgl-popup-content {
+    padding:0; border-radius:12px; overflow:hidden;
+    box-shadow:0 12px 40px rgba(0,0,0,0.3), 0 2px 6px rgba(0,0,0,0.1);
+    font-family:'Fira Sans',sans-serif;
+}
+.pest-popup .mapboxgl-popup-close-button {
+    right:4px; top:2px; font-size:17px; color:rgba(255,255,255,0.85);
+    padding:0 6px; background:none; border:none; cursor:pointer;
+}
+.pest-popup .mapboxgl-popup-close-button:hover { color:#fff; background:none; }
+.pp-head { padding:9px 30px 9px 12px; color:#fff; }
+.pp-id { font-size:12.5px; font-weight:700; letter-spacing:0.02em; }
+.pp-visit { font-size:9px; text-transform:uppercase; letter-spacing:0.06em; opacity:0.85; margin-top:2px; }
+.pp-body { padding:10px 12px 11px; background:#fff; }
+.pp-pest { font-size:12px; font-weight:650; color:var(--navy); line-height:1.3; }
+.pp-sci { font-size:10px; font-style:italic; color:rgba(27,45,69,0.6); margin-top:1px; }
+.pp-rows { display:flex; flex-direction:column; gap:5px; margin-top:9px; }
+.pp-row { display:flex; gap:8px; font-size:10px; line-height:1.35; }
+.pp-row .k { color:rgba(27,45,69,0.52); text-transform:uppercase; letter-spacing:0.04em; font-size:8.5px; font-weight:600; min-width:74px; padding-top:1px; }
+.pp-row .v { color:var(--navy); font-weight:500; flex:1; }
+.pp-row .v em { color:rgba(27,45,69,0.7); }
+
+/* Botón "ver informe" */
+.pest-report-btn {
+    width:100%; margin-top:2px; padding:9px 10px; border-radius:8px;
+    border:none; background:#8E3B4E; color:#fff;
+    font-size:10.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
+    cursor:pointer; font-family:inherit;
+    display:flex; align-items:center; justify-content:center; gap:7px;
+}
+.pest-report-btn:hover { background:#A34659; }
+.pest-report-btn:disabled { background:#C9BEC2; cursor:not-allowed; }
+
+/* Modal del informe Manifold */
+.pest-modal {
+    position:fixed; inset:0; z-index:110; display:none; align-items:center; justify-content:center;
+    background:rgba(10,14,24,0.78); backdrop-filter:blur(5px); -webkit-backdrop-filter:blur(5px);
+}
+.pest-modal.visible { display:flex; }
+.pest-modal-content {
+    width:min(980px,calc(100vw - 36px)); max-height:90vh; overflow:auto;
+    background:#fff; color:var(--navy); border-radius:16px; padding:22px 24px 24px;
+    box-shadow:0 22px 70px rgba(0,0,0,0.45);
+}
+.pest-modal-head {
+    display:flex; justify-content:space-between; align-items:flex-start;
+    padding-bottom:13px; margin-bottom:16px; border-bottom:1px solid rgba(27,45,69,0.10);
+}
+.pest-modal-head h2 { font-size:19px; font-weight:700; color:#4A1E28; }
+.pest-modal-sub { font-size:10px; color:rgba(27,45,69,0.58); margin-top:4px; text-transform:uppercase; letter-spacing:0.05em; }
+.pest-modal-close {
+    width:32px; height:32px; border:none; border-radius:8px; flex:0 0 32px;
+    background:rgba(27,45,69,0.06); color:var(--navy); cursor:pointer; font-size:17px;
+}
+.pest-modal-close:hover { background:rgba(27,45,69,0.12); }
+.pest-modal-nav { display:flex; gap:6px; align-items:center; margin-right:10px; }
+.pest-modal-nav button {
+    border:1px solid rgba(27,45,69,0.14); background:#F8F6F7; color:var(--navy);
+    border-radius:7px; width:28px; height:28px; cursor:pointer; font-size:13px; font-family:inherit;
+}
+.pest-modal-nav button:hover:not(:disabled) { background:#F2EBEE; border-color:rgba(142,59,78,0.3); }
+.pest-modal-nav button:disabled { opacity:0.35; cursor:not-allowed; }
+
+.pest-modal-meta { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:18px; }
+.pest-meta-card {
+    border:1px solid rgba(142,59,78,0.14); border-radius:11px; padding:10px 12px;
+    background:linear-gradient(180deg,rgba(142,59,78,0.055),rgba(142,59,78,0.015));
+}
+.pest-meta-card .k { font-size:8px; color:rgba(27,45,69,0.58); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px; }
+.pest-meta-card .v { font-size:13px; color:#8E3B4E; font-weight:650; line-height:1.25; }
+
+.pest-modal-section-title {
+    font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;
+    color:#8E3B4E; margin:20px 0 10px; padding-bottom:6px;
+    border-bottom:1px solid rgba(142,59,78,0.14);
+}
+/* Cada tarjeta se tiñe con el color de su plaga, el mismo de sus puntos en el mapa.
+   --pest-c lo inyecta pestReportHTML(); el plum de marca queda como fallback. */
+.pest-report-card {
+    border:1px solid rgba(27,45,69,0.10); border-left:4px solid var(--pest-c,#8E3B4E);
+    border-radius:11px; padding:14px 16px; margin-bottom:12px; background:#FDFCFC;
+}
+.pest-report-card-head { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; margin-bottom:2px; }
+.pest-report-card-head .prc-dot {
+    width:12px; height:12px; border-radius:50%; flex:0 0 12px; align-self:center;
+    border:1.5px solid #fff; box-shadow:0 0 0 1px rgba(27,45,69,0.25);
+}
+.pest-report-card-head h3 { font-size:15px; font-weight:700; color:var(--navy); }
+.pest-report-card-head .prc-sci { font-size:11px; font-style:italic; color:rgba(27,45,69,0.62); }
+/* Medición de la planilla: una fila por cuantificación, sin fusionar métricas distintas */
+.pest-measured-block {
+    margin-top:11px; padding:9px 11px; border-radius:9px;
+    background:rgba(27,45,69,0.035); border:1px solid rgba(27,45,69,0.09);
+    background:color-mix(in srgb, var(--pest-c,#8E3B4E) 6%, transparent);
+    border-color:color-mix(in srgb, var(--pest-c,#8E3B4E) 20%, transparent);
+}
+.pest-measured-row {
+    display:flex; align-items:baseline; gap:10px; font-size:11px;
+    padding:3px 0; color:rgba(27,45,69,0.8);
+}
+.pest-measured-row + .pest-measured-row { border-top:1px dashed rgba(27,45,69,0.12); }
+.pest-measured-row .pmr-name { flex:1 1 auto; min-width:0; }
+/* El valor es texto: se mantiene en tinta, no toma el color de la serie. */
+.pest-measured-row .pmr-range { font-weight:700; color:var(--navy); white-space:nowrap; }
+.pest-measured-row .pmr-at { flex:0 0 auto; font-size:9.5px; color:rgba(27,45,69,0.5); white-space:nowrap; }
+.pest-report-attrs { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px 18px; margin:11px 0 4px; }
+.pest-report-attr { display:flex; gap:8px; font-size:11px; line-height:1.4; }
+.pest-report-attr .k {
+    font-size:8.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;
+    color:rgba(27,45,69,0.5); min-width:96px; flex:0 0 96px; padding-top:2px;
+}
+.pest-report-attr .v { color:var(--navy); font-weight:500; }
+.pest-report-attr .v em { color:rgba(27,45,69,0.75); }
+.pest-report-comments { margin-top:11px; padding-top:10px; border-top:1px solid rgba(27,45,69,0.08); }
+.pest-report-comments-label {
+    font-size:8.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;
+    color:rgba(27,45,69,0.5); margin-bottom:6px;
+}
+.pest-report-comments p {
+    font-size:12px; line-height:1.55; color:rgba(27,45,69,0.86); margin-bottom:8px;
+    padding-left:11px; border-left:2px solid rgba(27,45,69,0.16);
+    border-left-color:color-mix(in srgb, var(--pest-c,#8E3B4E) 45%, transparent);
+}
+.pest-report-comments p:last-child { margin-bottom:0; }
+.pest-sector-chips { display:flex; flex-wrap:wrap; gap:5px; margin-top:9px; }
+.pest-sector-chip {
+    padding:3px 9px; border-radius:6px; background:rgba(27,45,69,0.06);
+    border:1px solid rgba(27,45,69,0.16); color:var(--navy);
+    background:color-mix(in srgb, var(--pest-c,#8E3B4E) 10%, transparent);
+    border-color:color-mix(in srgb, var(--pest-c,#8E3B4E) 30%, transparent);
+    font-size:9.5px; font-weight:700; cursor:pointer; font-family:inherit;
+}
+.pest-sector-chip:hover { background:color-mix(in srgb, var(--pest-c,#8E3B4E) 22%, transparent); }
+.pest-general-list { counter-reset:pgl; display:flex; flex-direction:column; gap:9px; }
+.pest-general-item {
+    display:flex; gap:10px; font-size:12px; line-height:1.55; color:rgba(27,45,69,0.86);
+}
+.pest-general-item::before {
+    counter-increment:pgl; content:counter(pgl);
+    flex:0 0 20px; height:20px; border-radius:50%; background:rgba(142,59,78,0.1);
+    color:#8E3B4E; font-size:9.5px; font-weight:700;
+    display:flex; align-items:center; justify-content:center; margin-top:1px;
+}
+.pest-modal-foot {
+    margin-top:18px; padding-top:11px; border-top:1px solid rgba(27,45,69,0.10);
+    font-size:9.5px; color:rgba(27,45,69,0.52); line-height:1.5;
+}
+.pest-modal-empty { font-size:12px; color:rgba(27,45,69,0.6); font-style:italic; padding:18px 0; }
+.pest-modal-warn {
+    margin-top:14px; padding:10px 12px; border-radius:9px; font-size:11px; line-height:1.5;
+    background:rgba(214,158,46,0.10); border:1px solid rgba(214,158,46,0.28); color:#7A5410;
+}
+
+@media (max-width:720px){
+    .pest-controls { top:64px; left:10px; right:10px; width:auto; max-height:52vh; }
+    body.pest-active .stats-bar { left:10px; right:10px; bottom:70px; max-width:none; }
+    .pest-legend { display:none !important; }
+    .pest-modal-meta { grid-template-columns:repeat(2,1fr); }
+    .pest-report-attrs { grid-template-columns:1fr; }
+    .pest-modal-content { padding:18px 16px 20px; }
+}
+
 </style>
 </head>
 <body>
@@ -1069,6 +1400,7 @@ body:not(.fin-active) .fin-legend { display:none !important; }
     <button class="tab-btn" data-mode="suelo" onclick="switchMode('suelo')"><span class="ic">🧪</span>Análisis de Suelo</button>
     <button class="tab-btn" data-mode="riego" onclick="switchMode('riego')"><span class="ic">💧</span>Riego</button>
     <button class="tab-btn" data-mode="agroquimicos" onclick="switchMode('agroquimicos')"><span class="ic">🧴</span>Aplicaciones Agroquímicos</button>
+    <button class="tab-btn" data-mode="plagas" onclick="switchMode('plagas')"><span class="ic">🐛</span>Plagas</button>
     <button class="tab-btn" data-mode="financiero" onclick="switchMode('financiero')"><span class="ic">💰</span>Financiero</button>
 </div>
 
@@ -1088,6 +1420,7 @@ body:not(.fin-active) .fin-legend { display:none !important; }
     <div class="riego-stats" id="riegoStats"></div>
     <div class="agro-stats" id="agroStats"></div>
     <div class="fin-stats" id="finStats"></div>
+    <div class="pest-stats" id="pestStats"></div>
 </div>
 
 <!-- Foliar filter controls -->
@@ -1274,6 +1607,33 @@ body:not(.fin-active) .fin-legend { display:none !important; }
 
 
 
+<!-- Monitoreo fitosanitario (plagas) -->
+<div class="pest-controls" id="pestControls">
+    <div class="pest-controls-header">
+        <div class="pest-controls-title"><span class="pc-dot"></span>Monitoreo fitosanitario</div>
+        <div class="pest-controls-subtitle" id="pestControlsSubtitle">Puntos georreferenciados de las prospecciones MIP de Biofuturo.</div>
+    </div>
+    <div class="pest-controls-body">
+        <div class="pest-field">
+            <label for="selPestVisit">Visita</label>
+            <select class="pest-select" id="selPestVisit"></select>
+        </div>
+        <label class="pest-toggle-all" for="chkPestAllVisits">
+            <input type="checkbox" id="chkPestAllVisits">
+            <span>Ver todas las visitas de la temporada</span>
+        </label>
+        <div class="pest-field">
+            <label>Plagas</label>
+            <div class="pest-chips" id="pestChips"></div>
+        </div>
+        <div class="pest-summary" id="pestSummary"></div>
+        <button class="pest-report-btn" type="button" id="pestReportBtn" onclick="openPestReport()">
+            <span>📋</span><span id="pestReportBtnLabel">Ver informe de la visita</span>
+        </button>
+        <button class="pest-reset-btn" type="button" onclick="resetPestFilters()">Restablecer filtros</button>
+    </div>
+</div>
+
 <!-- Financiero -->
 <div class="fin-controls" id="finControls">
     <div class="fin-controls-header">
@@ -1355,6 +1715,23 @@ body:not(.fin-active) .fin-legend { display:none !important; }
     </div>
 </div>
 
+<div class="pest-modal" id="pestModal" onclick="if(event.target===this)closePestReport()">
+    <div class="pest-modal-content">
+        <div class="pest-modal-head">
+            <div>
+                <h2 id="pestModalTitle">Informe de visita</h2>
+                <div class="pest-modal-sub" id="pestModalSubtitle"></div>
+            </div>
+            <div class="pest-modal-nav">
+                <button type="button" id="pestModalPrev" onclick="stepPestReport(-1)" title="Visita anterior">‹</button>
+                <button type="button" id="pestModalNext" onclick="stepPestReport(1)" title="Visita siguiente">›</button>
+                <button class="pest-modal-close" onclick="closePestReport()">✕</button>
+            </div>
+        </div>
+        <div id="pestModalBody"></div>
+    </div>
+</div>
+
 <!-- Legends -->
 <div class="legend-panel glass" id="legendGeneral">
     <div class="legend-label">Equipos de riego</div>
@@ -1374,6 +1751,16 @@ body:not(.fin-active) .fin-legend { display:none !important; }
         <div class="lc-item"><div class="lc-swatch" style="background:var(--p7)"></div><div class="lc-text">&gt; 10.000</div></div>
     </div>
     <div class="legend-season-meta" id="prodLegendMeta"></div>
+</div>
+
+<div class="legend-panel glass pest-legend" id="legendPest">
+    <div class="pest-legend-title">
+        <span>Plagas detectadas</span>
+        <span class="pest-symbol" id="pestLegendSymbol">MIP</span>
+    </div>
+    <div class="pest-legend-meta" id="pestLegendMeta"></div>
+    <div class="pest-legend-items" id="pestLegendItems"></div>
+    <div class="pest-legend-note">Cada punto es un levantamiento georreferenciado en terreno. Haz clic para ver el detalle.</div>
 </div>
 
 <div class="foliar-legend glass" id="legendFoliar">
@@ -1489,6 +1876,13 @@ body:not(.fin-active) .fin-legend { display:none !important; }
     </div>
 
 
+    <div id="ttPestBlock" style="display:none">
+        <div class="pt-metric"><span class="pt-value" id="ttPestCount">0</span><span class="pt-unit" id="ttPestUnit">puntos</span></div>
+        <div class="pt-breakdown" id="ttPestBreakdown"></div>
+        <div class="pt-empty" id="ttPestEmpty" style="display:none">Sin detecciones registradas en este cuartel</div>
+        <div class="pt-source" id="ttPestSource"></div>
+    </div>
+
     <div id="ttFinBlock" style="display:none">
         <div class="fin-tooltip-metric">
             <span class="fin-tooltip-value" id="ttFinMetric">—</span>
@@ -1527,10 +1921,11 @@ let RANGES = null;
 let SOIL = null;
 let AGRO = {seasons:[],months:[],rows:[]};
 let FIN_DATA = {seasons:{}, exchangeRate:900};
+let PEST = null;
 let DATA_VERSION = {};
 const DATA_ERRORS = {};
-const DATA_LABELS = {soil:'Análisis de Suelo', foliar:'Foliares', agro:'Aplicaciones Agroquímicos', financial:'Financiero'};
-const MODE_DATASET = {suelo:'soil', foliares:'foliar', agroquimicos:'agro', financiero:'financial'};
+const DATA_LABELS = {soil:'Análisis de Suelo', foliar:'Foliares', agro:'Aplicaciones Agroquímicos', financial:'Financiero', pest:'Monitoreo de Plagas'};
+const MODE_DATASET = {suelo:'soil', foliares:'foliar', agroquimicos:'agro', financiero:'financial', plagas:'pest'};
 
 function loadDataset(key,file,apply){
   return fetch('./'+file+'?v='+encodeURIComponent(DATA_VERSION[key]||'0'))
@@ -1569,6 +1964,11 @@ fetch('./data-version.json?v='+Date.now())
       console.log('FIN loaded:',Object.keys(FIN_DATA.seasons||{}));
       if(typeof initFinControls==='function') initFinControls();
       if(currentMode==='financiero' && map) applyFinToMap(map);
+    });
+    loadDataset('pest','pest_data.json',data=>{
+      PEST=data;
+      console.log('PEST loaded:',PEST.points.length,'puntos ·',PEST.visits.length,'visitas');
+      if(typeof initPestControls==='function') initPestControls();
     });
   });
 
@@ -2169,6 +2569,7 @@ function updateStatsBar(){
     const riegoStats=document.getElementById('riegoStats');
     const agroStats=document.getElementById('agroStats');
     const finStats=document.getElementById('finStats');
+    const pestStats=document.getElementById('pestStats');
     const isGeneral=currentMode==='general';
     const isProductivity=currentMode==='productividad';
     const isFoliar=currentMode==='foliares';
@@ -2176,6 +2577,7 @@ function updateStatsBar(){
     const isRiego=currentMode==='riego';
     const isAgro=currentMode==='agroquimicos';
     const isFin=currentMode==='financiero';
+    const isPest=currentMode==='plagas';
     statsBar.classList.toggle('hidden',isGeneral);
     productivityStats.style.display=isProductivity?'flex':'none';
     foliarStats.style.display=isFoliar?'flex':'none';
@@ -2183,6 +2585,8 @@ function updateStatsBar(){
     if(riegoStats) riegoStats.style.display=isRiego?'flex':'none';
     if(agroStats) agroStats.style.display=isAgro?'flex':'none';
     if(finStats) finStats.style.display=isFin?'flex':'none';
+    if(pestStats) pestStats.style.display=isPest?'flex':'none';
+    if(isPest && PEST){updatePestStats();}
     if(isFoliar){updateFoliarStats('A');updateFoliarStats('B');}
     if(isProductivity){updateProdStats('A');updateProdStats('B');}
     if(isSoil){updateSoilStats('A');updateSoilStats('B');}
@@ -2268,17 +2672,18 @@ function switchMode(mode){
     const previousMode=currentMode;
     currentMode=mode;
     document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
-    const isGen=mode==='general', isProd=mode==='productividad', isFol=mode==='foliares', isSoil=mode==='suelo', isRiego=mode==='riego', isAgro=mode==='agroquimicos', isFin=mode==='financiero';
+    const isGen=mode==='general', isProd=mode==='productividad', isFol=mode==='foliares', isSoil=mode==='suelo', isRiego=mode==='riego', isAgro=mode==='agroquimicos', isFin=mode==='financiero', isPest=mode==='plagas';
     document.body.classList.toggle('foliar-active',isFol);
     document.body.classList.toggle('soil-active',isSoil);
     document.body.classList.toggle('prod-active',isProd);
     document.body.classList.toggle('riego-active',isRiego);
     document.body.classList.toggle('agro-active',isAgro);
     document.body.classList.toggle('fin-active',isFin);
+    document.body.classList.toggle('pest-active',isPest);
     // Compare mode is only meaningful in foliar/prod. Reset on any transition.
     if(compareMode && previousMode !== mode) disableCompare();
 
-    document.getElementById('headerTitle').textContent=isGen?'Equipos y Sectores de Riego':isProd?'Mapa de Productividad':isFol?'Análisis Foliares':isSoil?'Mapa de Análisis de Suelo':isRiego?'Mapa de Riego':isAgro?'Aplicaciones Agroquímicas':'Resultado Financiero';
+    document.getElementById('headerTitle').textContent=isGen?'Equipos y Sectores de Riego':isProd?'Mapa de Productividad':isFol?'Análisis Foliares':isSoil?'Mapa de Análisis de Suelo':isRiego?'Mapa de Riego':isAgro?'Aplicaciones Agroquímicas':isPest?'Monitoreo Fitosanitario':'Resultado Financiero';
     document.getElementById('legendGeneral').style.display=isGen?'block':'none';
     document.getElementById('legendProd').style.display=isProd?'block':'none';
     document.getElementById('foliarControls').classList.toggle('visible',isFol);
@@ -2287,24 +2692,33 @@ function switchMode(mode){
     document.getElementById('riegoControls').classList.toggle('visible',isRiego);
     document.getElementById('agroControls').classList.toggle('visible',isAgro);
     document.getElementById('finControls').classList.toggle('visible',isFin);
+    document.getElementById('pestControls').classList.toggle('visible',isPest);
     updateStatsBar();
 
     const sectorLayers=['sectores-fill','sectores-border','sectores-glow','sectores-label'];
     const soilLayers=['soil-fill','soil-border','soil-glow','soil-label'];
     setLayerVisibility(map,sectorLayers,!isSoil);
     setLayerVisibility(map,soilLayers,isSoil);
+    setLayerVisibility(map,['pest-points-layer'],isPest);
+    if(!isPest){ closePestPopup(); closePestReport(); pestHoverSector=null; }
 
     if(map&&map.getLayer('sectores-fill')&&!isSoil){
-        if(!isRiego && !isAgro && !isFin) map.setPaintProperty('sectores-fill','fill-opacity',['case',['boolean',['feature-state','hover'],false],0.85,0.60]);
+        if(!isRiego && !isAgro && !isFin && !isPest) map.setPaintProperty('sectores-fill','fill-opacity',['case',['boolean',['feature-state','hover'],false],0.85,0.60]);
         if(isGen) map.setPaintProperty('sectores-fill','fill-color',getEquipoColorExpr());
         else if(isProd) applyProdToMap(map,'A');
         else if(isRiego) { applyRiegoToMap(map); updateRiegoLegend();
 initFinControls(); }
         else if(isAgro) applyAgroToMap(map);
         else if(isFin) applyFinToMap(map);
+        else if(isPest){
+            // Los cuarteles quedan como referencia espacial tenue: los puntos son el dato.
+            map.setPaintProperty('sectores-fill','fill-color',getEquipoColorExpr());
+            map.setPaintProperty('sectores-fill','fill-opacity',['case',['boolean',['feature-state','hover'],false],0.45,0.20]);
+        }
         else applyFoliarToMap(map,'A');
     }
     if(isSoil) applySoilToMap(map,'A');
+    if(isPest) applyPestToMap();
     if(isRiego) updateRiegoStats();
     if(isAgro){ recomputeAgroCache(); updateAgroLegend(); updateAgroStats(); updateAgroFilterSummary(); }
     if(isFin){ updateFinLegend(); updateFinStats(); updateFinFilterSummary(); }
@@ -2604,6 +3018,8 @@ function addAllLayers(m){
             'text-allow-overlap':false,'text-max-width':9
         },paint:{'text-color':'#fff','text-halo-color':'rgba(0,0,0,0.85)','text-halo-width':1.5,'text-opacity':0.95}});
     }
+    // Última para quedar por sobre los polígonos y sus etiquetas.
+    addPestLayer(m);
 }
 
 function setupMapInteractions(mapInstance, side){
@@ -2628,9 +3044,16 @@ function setupMapInteractions(mapInstance, side){
         document.getElementById('ttRiegoBlock').style.display = 'none';
         document.getElementById('ttAgroBlock').style.display = 'none';
         document.getElementById('ttFinBlock').style.display = 'none';
-        tooltip.classList.remove('riego-mode','agro-mode','fin-mode');
+        document.getElementById('ttPestBlock').style.display = 'none';
+        tooltip.classList.remove('riego-mode','agro-mode','fin-mode','pest-mode');
 
-        if(currentMode === 'financiero'){
+        if(currentMode === 'plagas'){
+            document.getElementById('ttPestBlock').style.display = 'block';
+            tooltip.classList.add('pest-mode');
+            document.getElementById('ttBadge').textContent = EQ_NAMES[p.equipo] || p.equipo;
+            pestHighlightSector(String(p.name).replace(/\s*-\s*/,'-'));
+            showPestTooltip(p);
+        } else if(currentMode === 'financiero'){
             document.getElementById('ttFinBlock').style.display = 'block';
             tooltip.classList.add('fin-mode');
             document.getElementById('ttBadge').textContent = EQ_NAMES[p.equipo] || p.equipo;
@@ -2758,6 +3181,7 @@ function setupMapInteractions(mapInstance, side){
     mapInstance.on('mouseleave','sectores-fill',()=>{
         mapInstance.getCanvas().style.cursor='';
         if(hovId!==null){mapInstance.setFeatureState({source:'sectores',id:hovId},{hover:false});hovId=null;}
+        if(currentMode === 'plagas') pestHighlightSector(null);
         scheduleTooltipHide(side);
     });
 }
@@ -2813,6 +3237,602 @@ function setupSoilInteractions(mapInstance, side){
 }
 
 
+
+// ═══════════════════════════════════════════════════════════════
+// MONITOREO FITOSANITARIO — capa de puntos de plagas
+// ═══════════════════════════════════════════════════════════════
+// Los puntos usan su propio espacio de claves (PEST.pointPests), más grueso que las filas
+// de la planilla (PEST.pests): en terreno se marca "ácaros fitófagos móviles", sin separar
+// perímetro/interior. Por eso el filtro y la leyenda se construyen desde pointPests.
+// Paleta categórica: identifica plagas, no califica estados. Se excluyen a propósito
+// el rojo y el verde, que sobre el mapa se leen como "mal" y "bien" (y además el verde
+// se pierde contra la vegetación del satelital).
+// Validada con el validador de la guía de dataviz sobre el set real del mapa
+// (6 plagas con puntos + el gris neutro de "sin clasificar"), en modo all-pairs —
+// que es el que corresponde a una capa de puntos, donde cualquier par puede quedar
+// contiguo: mínimo CVD ΔE 10,4 (objetivo ≥8) y mínimo de visión normal ΔE 15,9
+// (piso duro 15). Tres de estos colores quedan bajo 3:1 de contraste sobre superficie
+// clara, lo que obliga a etiquetas visibles: las llevan la leyenda, los chips, el
+// popup y las tarjetas del informe, así que el color nunca carga solo la identidad.
+// El orden es fijo por entidad: un filtro que cambia el número de plagas visibles
+// no repinta a las que quedan.
+const PEST_COLORS = {
+    'pulgon-del-nogal':         '#12b0e0',   // cian — Chromaphis juglandicola
+    'acaros-fitofagos-moviles': '#8E6BE8',   // violeta — Familia Tetranychidae
+    'pulgon-del-avellano':      '#3F51B5',   // índigo — Myzocallis coryli (áfido, familia del cian)
+    'escamas':                  '#C24A1C',   // terracota — Familia Diaspididae
+    'conchuelas':               '#eda100',   // ámbar — Familia Coccidae (cóccido, tono cálido vecino)
+    'capachitos':               '#e87ba4',   // rosa — Familia Curculionidae
+    'trips':                    '#eb6834',   // naranja — sólo aparece en informes, no hay puntos
+    'chanchito-blanco':         '#D6379B',   // magenta — sólo aparece en informes, no hay puntos
+    '_default':                 '#68737A'    // gris neutro: rol "sin clasificar", no es una plaga
+};
+const PEST_EMPTY_FC = {type:'FeatureCollection', features:[]};
+
+let pestVisit = null;              // clave de visita seleccionada
+let pestAllVisits = false;
+let pestSelected = null;           // Set con las claves de plaga activas
+let pestPopup = null;
+let pestHoverSector = null;        // cuartel resaltado por hover
+let pestPinnedSector = null;       // cuartel fijado por clic
+let pestControlsReady = false;
+
+function pestColor(key){ return PEST_COLORS[key] || PEST_COLORS._default; }
+function pestKeyOf(p){ return p.pest || '_default'; }
+
+// Taxón de un bloque del informe, para que su tarjeta use el mismo color que sus puntos
+// en el mapa. Los pestRefs apuntan a filas de planilla, y cada fila trae su `taxon`.
+function pestTaxonOfBlock(block){
+    if(!PEST || !block) return '_default';
+    for(const ref of (block.pestRefs||[])){
+        const def = PEST.pests.find(p=>p.key===ref);
+        if(def && def.taxon) return def.taxon;
+    }
+    // sin referencias utilizables: se intenta por nombre del bloque
+    const slug = String(block.name||'').toLowerCase();
+    const hit = (PEST.pointPests||[]).find(t=>slug.includes(t.name.toLowerCase().split(' ')[0]));
+    return hit ? hit.key : '_default';
+}
+
+function pestTaxa(){
+    if(!PEST) return [];
+    // pointPests viene del generador; si faltara, se deriva de los puntos.
+    if(PEST.pointPests && PEST.pointPests.length) return PEST.pointPests;
+    const seen = new Map();
+    PEST.points.forEach(p=>{
+        const k = pestKeyOf(p);
+        seen.set(k, (seen.get(k)||0) + 1);
+    });
+    return [...seen.entries()].map(([key,pointCount])=>({key, name:key==='_default'?'Sin clasificar':key, scientific:null, pointCount}));
+}
+
+function pestTaxonName(key){
+    const t = pestTaxa().find(x=>x.key===key);
+    if(t) return t.name;
+    return key==='_default' ? 'Sin clasificar' : key;
+}
+function pestTaxonSci(key){
+    const t = pestTaxa().find(x=>x.key===key);
+    return t ? t.scientific : null;
+}
+function pestVisitLabel(key){
+    if(!PEST) return key;
+    const v = PEST.visits.find(x=>x.key===key);
+    if(!v) return key;
+    return v.phenology ? `${v.label} · ${v.phenology}` : v.label;
+}
+function pestSectorHa(key){
+    if(!PEST) return null;
+    const s = PEST.sectors.find(x=>x.key===key);
+    return s ? s.hectareas : null;
+}
+
+// Visitas de más reciente a más antigua, sin depender del orden del array del JSON.
+function pestVisitsDesc(){
+    return PEST ? [...PEST.visits].sort((a,b)=> b.key.localeCompare(a.key)) : [];
+}
+// Visita por defecto: la más reciente que efectivamente tenga puntos levantados.
+function pestDefaultVisit(){
+    const desc = pestVisitsDesc();
+    const withPoints = desc.find(v=>v.pointCount > 0);
+    return (withPoints || desc[0] || {}).key || null;
+}
+
+// ── Puntos visibles según los filtros actuales ──
+function pestVisiblePoints(){
+    if(!PEST) return [];
+    return PEST.points.filter(p=>{
+        if(!pestAllVisits && p.visit !== pestVisit) return false;
+        return !pestSelected || pestSelected.has(pestKeyOf(p));
+    });
+}
+
+function pestGeoJSON(){
+    return {
+        type:'FeatureCollection',
+        features: pestVisiblePoints().map(p=>({
+            type:'Feature',
+            geometry:{type:'Point', coordinates:[p.lon, p.lat]},
+            properties:{
+                id: p.id || '',
+                pest: pestKeyOf(p),
+                species: p.species || '',
+                stage: p.stage || '',
+                rawLabel: p.rawLabel || '',
+                sector: p.sector || '',
+                visit: p.visit,
+                color: pestColor(pestKeyOf(p))
+            }
+        }))
+    };
+}
+
+// ── Controles ──
+function initPestControls(){
+    if(!PEST) return;
+    const sel = document.getElementById('selPestVisit');
+    if(!sel) return;
+
+    const withPoints = PEST.visits.filter(v=>v.pointCount > 0);
+    const ordered = pestVisitsDesc();
+    if(!pestVisit) pestVisit = pestDefaultVisit();
+    sel.innerHTML = ordered.map(v=>{
+        const n = v.pointCount;
+        const suffix = n ? ` (${n} pts)` : ' (sin puntos)';
+        return `<option value="${v.key}"${v.key===pestVisit?' selected':''}>${pestVisitLabel(v.key)}${suffix}</option>`;
+    }).join('');
+    sel.onchange = ()=>{ pestVisit = sel.value; pestPinnedSector = null; closePestPopup(); refreshPestLayer(); };
+
+    const chk = document.getElementById('chkPestAllVisits');
+    chk.checked = pestAllVisits;
+    chk.onchange = ()=>{
+        pestAllVisits = chk.checked;
+        sel.disabled = pestAllVisits;
+        pestPinnedSector = null;
+        closePestPopup();
+        refreshPestLayer();
+    };
+    sel.disabled = pestAllVisits;
+
+    if(!pestSelected) pestSelected = new Set(pestTaxa().map(t=>t.key));
+    buildPestChips();
+
+    const sub = document.getElementById('pestControlsSubtitle');
+    if(sub && PEST.meta){
+        sub.textContent = `${PEST.points.length} puntos levantados por ${PEST.meta.provider} en ${withPoints.length} prospecciones de la temporada ${PEST.meta.season}.`;
+    }
+    pestControlsReady = true;
+    refreshPestLayer();
+}
+
+function buildPestChips(){
+    const box = document.getElementById('pestChips');
+    if(!box || !PEST) return;
+    // El conteo del chip refleja la visita seleccionada, para saber qué hay disponible.
+    const scope = PEST.points.filter(p=> pestAllVisits || p.visit === pestVisit);
+    const counts = {};
+    scope.forEach(p=>{ const k = pestKeyOf(p); counts[k] = (counts[k]||0) + 1; });
+
+    box.innerHTML = pestTaxa().map(t=>{
+        const n = counts[t.key] || 0;
+        const on = pestSelected.has(t.key);
+        return `<button type="button" class="pest-chip${on?' on':''}${n?'':' empty'}" data-pest="${t.key}" title="${t.scientific||t.name}">
+            <span class="pcx-dot" style="background:${pestColor(t.key)}"></span>
+            <span>${t.name}</span><span class="pcx-n">${n}</span>
+        </button>`;
+    }).join('');
+
+    box.querySelectorAll('.pest-chip').forEach(btn=>{
+        btn.onclick = ()=>{
+            const k = btn.dataset.pest;
+            if(pestSelected.has(k)) pestSelected.delete(k); else pestSelected.add(k);
+            if(pestSelected.size === 0) pestSelected = new Set(pestTaxa().map(t=>t.key)); // nunca vacío
+            closePestPopup();
+            refreshPestLayer();
+        };
+    });
+}
+
+function resetPestFilters(){
+    if(!PEST) return;
+    pestAllVisits = false;
+    pestSelected = new Set(pestTaxa().map(t=>t.key));
+    pestPinnedSector = null;
+    pestVisit = pestDefaultVisit();
+    const sel = document.getElementById('selPestVisit');
+    const chk = document.getElementById('chkPestAllVisits');
+    if(sel){ sel.value = pestVisit; sel.disabled = false; }
+    if(chk) chk.checked = false;
+    closePestPopup();
+    buildPestChips();
+    refreshPestLayer();
+}
+
+// ── Capa Mapbox: la fuente se actualiza, nunca se recrea la capa ──
+function addPestLayer(m){
+    if(m.getSource('pest-points')) return;
+    m.addSource('pest-points', {type:'geojson', data:PEST_EMPTY_FC});
+    m.addLayer({
+        id:'pest-points-layer', type:'circle', source:'pest-points',
+        layout:{visibility:'none'},
+        paint:{
+            'circle-radius': pestRadiusExpr(),
+            'circle-color': ['get','color'],
+            'circle-stroke-width': 1.5,
+            'circle-stroke-color': '#ffffff',
+            'circle-opacity': 0.9
+        }
+    });
+}
+
+// Radio mayor para los puntos del cuartel resaltado (hover o fijado).
+function pestRadiusExpr(){
+    const target = pestHoverSector || pestPinnedSector;
+    if(!target) return 7;
+    return ['case', ['==', ['get','sector'], target], 11, 7];
+}
+
+function refreshPestLayer(){
+    if(!map || !map.getSource('pest-points') || !PEST) return;
+    map.getSource('pest-points').setData(pestGeoJSON());
+    map.setPaintProperty('pest-points-layer','circle-opacity', pestAllVisits ? 0.5 : 0.9);
+    map.setPaintProperty('pest-points-layer','circle-radius', pestRadiusExpr());
+    buildPestChips();
+    updatePestLegend();
+    updatePestStats();
+    updatePestSummary();
+    updatePestReportBtn();
+}
+
+// El botón siempre abre el informe de una visita concreta, incluso en "todas las visitas".
+function updatePestReportBtn(){
+    const btn = document.getElementById('pestReportBtn');
+    const lbl = document.getElementById('pestReportBtnLabel');
+    if(!btn || !lbl || !PEST) return;
+    const visit = PEST.visits.find(v=>v.key===pestVisit) || {};
+    const has = !!pestReportOf(pestVisit);
+    btn.disabled = !has;
+    lbl.textContent = has ? `Ver informe · ${visit.label || pestVisit}` : 'Sin informe para esta visita';
+    btn.title = has ? 'Comentarios y observaciones del Manifold de Biofuturo' : '';
+}
+
+function applyPestToMap(){
+    if(!map || !map.getLayer('pest-points-layer')) return;
+    if(!PEST){ updatePestLegend(); return; }
+    if(!pestControlsReady) initPestControls();
+    else refreshPestLayer();
+}
+
+// ── Leyenda: sólo las plagas con puntos visibles ──
+function updatePestLegend(){
+    const items = document.getElementById('pestLegendItems');
+    const meta = document.getElementById('pestLegendMeta');
+    if(!items || !meta) return;
+    if(!PEST){
+        meta.textContent = 'Datos no disponibles';
+        items.innerHTML = '<div class="pest-legend-empty">No se pudieron cargar los datos de monitoreo.</div>';
+        return;
+    }
+    const pts = pestVisiblePoints();
+    const counts = {};
+    pts.forEach(p=>{ const k = pestKeyOf(p); counts[k] = (counts[k]||0) + 1; });
+
+    meta.textContent = pestAllVisits
+        ? `Todas las visitas · ${pts.length} puntos`
+        : `${pestVisitLabel(pestVisit)} · ${pts.length} puntos`;
+
+    const rows = pestTaxa().filter(t=>counts[t.key]).map(t=>
+        `<div class="pest-legend-row">
+            <span class="pest-legend-dot" style="background:${pestColor(t.key)}"></span>
+            <span>${t.name}</span><span class="plr-n">${counts[t.key]}</span>
+        </div>`).join('');
+    items.innerHTML = rows || '<div class="pest-legend-empty">Sin puntos con los filtros actuales.</div>';
+}
+
+// ── Barra de estadísticas ──
+function updatePestStats(){
+    const row = document.getElementById('pestStats');
+    if(!row || !PEST) return;
+    const pts = pestVisiblePoints();
+    const sectors = new Set(pts.filter(p=>p.sector).map(p=>p.sector));
+    const taxa = new Set(pts.map(p=>pestKeyOf(p)));
+    const perim = pts.filter(p=>!p.sector).length;
+    row.innerHTML = `
+        <div class="pest-context">
+            <div class="pest-chip-badge">🐛</div>
+            <div>
+                <div class="pest-context-title">${pestAllVisits ? 'Todas las visitas' : (PEST.visits.find(v=>v.key===pestVisit)||{}).label || '—'}</div>
+                <div class="pest-context-meta">${pestAllVisits ? PEST.visits.filter(v=>v.pointCount>0).length + ' prospecciones' : ((PEST.visits.find(v=>v.key===pestVisit)||{}).phenology || 'Prospección MIP')}</div>
+            </div>
+        </div>
+        <div class="stat-div"></div>
+        <div class="stat"><div class="num">${pts.length}</div><div class="unit">puntos</div></div>
+        <div class="stat"><div class="num">${taxa.size}</div><div class="unit">plagas</div></div>
+        <div class="stat"><div class="num">${sectors.size}</div><div class="unit">cuarteles</div></div>
+        <div class="stat"><div class="num">${perim}</div><div class="unit">perimetrales</div></div>`;
+}
+
+// ── Resumen del cuartel seleccionado, en el panel lateral ──
+function updatePestSummary(){
+    const box = document.getElementById('pestSummary');
+    if(!box || !PEST) return;
+    const target = pestPinnedSector;
+    if(!target){
+        box.innerHTML = '<span class="ps-hint">Haz clic en un cuartel para ver su resumen de detecciones, o en un punto para ver su detalle.</span>';
+        return;
+    }
+    const pts = pestVisiblePoints().filter(p=>p.sector === target);
+    const counts = {};
+    pts.forEach(p=>{ const k = pestKeyOf(p); counts[k] = (counts[k]||0) + 1; });
+    const ha = pestSectorHa(target);
+    const detail = Object.keys(counts).length
+        ? pestTaxa().filter(t=>counts[t.key]).map(t=>`${counts[t.key]} ${t.name.toLowerCase()}`).join(', ')
+        : 'sin detecciones con los filtros actuales';
+    box.innerHTML = `<span class="ps-title">Cuartel ${target}</span>
+        ${ha ? `<strong>${ha.toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:2})} ha</strong> · ` : ''}
+        <strong>${pts.length}</strong> ${pts.length===1?'punto':'puntos'} ${pestAllVisits?'en la temporada':'en esta visita'}: ${detail}.`;
+}
+
+// ── Popup del punto ──
+function closePestPopup(){
+    if(pestPopup){ pestPopup.remove(); pestPopup = null; }
+}
+
+function pestPopupHTML(p){
+    const key = p.pest || '_default';
+    const color = pestColor(key);
+    const visit = PEST ? (PEST.visits.find(v=>v.key===p.visit)||{}) : {};
+    const sci = p.species || pestTaxonSci(key);
+    const rows = [];
+    if(sci)         rows.push(['Especie', `<em>${sci}</em>`]);
+    if(p.stage)     rows.push(['Estado', p.stage]);
+    if(p.rawLabel)  rows.push(['Registro en terreno', `“${p.rawLabel}”`]);
+    rows.push(['Cuartel', p.sector || 'Fuera de cuartel (hilera perimetral)']);
+    return `<div class="pp-head" style="background:${color}">
+            <div class="pp-id">Punto ${p.id || '—'}</div>
+            <div class="pp-visit">${visit.label || p.visit}${visit.phenology ? ' · ' + visit.phenology : ''}</div>
+        </div>
+        <div class="pp-body">
+            <div class="pp-pest">${pestTaxonName(key)}</div>
+            <div class="pp-rows">
+                ${rows.map(([k,v])=>`<div class="pp-row"><div class="k">${k}</div><div class="v">${v}</div></div>`).join('')}
+            </div>
+        </div>`;
+}
+
+// ── Interacciones ──
+function setupPestInteractions(m){
+    m.on('click','pest-points-layer', e=>{
+        if(currentMode !== 'plagas' || !e.features || !e.features.length) return;
+        const f = e.features[0];
+        closePestPopup();
+        pestPopup = new mapboxgl.Popup({closeButton:true, closeOnClick:true, offset:12, maxWidth:'290px', className:'pest-popup'})
+            .setLngLat(f.geometry.coordinates.slice())
+            .setHTML(pestPopupHTML(f.properties))
+            .addTo(m);
+        // el clic en un punto también fija su cuartel
+        pestPinnedSector = f.properties.sector || null;
+        m.setPaintProperty('pest-points-layer','circle-radius', pestRadiusExpr());
+        updatePestSummary();
+    });
+    m.on('mouseenter','pest-points-layer', ()=>{
+        if(currentMode === 'plagas') m.getCanvas().style.cursor = 'pointer';
+    });
+    m.on('mouseleave','pest-points-layer', ()=>{
+        if(currentMode === 'plagas') m.getCanvas().style.cursor = '';
+    });
+    // clic en un cuartel: fija el resumen. Mapbox dispara los handlers de todas las capas
+    // bajo el cursor, así que si el clic cayó sobre un punto ese handler manda.
+    m.on('click','sectores-fill', e=>{
+        if(currentMode !== 'plagas' || !e.features || !e.features.length) return;
+        if(m.queryRenderedFeatures(e.point, {layers:['pest-points-layer']}).length) return;
+        const name = e.features[0].properties.name;               // "E4 - S3"
+        pestPinnedSector = name.replace(/\s*-\s*/,'-');           // -> "E4-S3"
+        m.setPaintProperty('pest-points-layer','circle-radius', pestRadiusExpr());
+        updatePestSummary();
+    });
+}
+
+// Resalta los puntos del cuartel bajo el cursor. Llamado desde el mousemove de sectores.
+function pestHighlightSector(sectorKey){
+    if(currentMode !== 'plagas' || !map || !map.getLayer('pest-points-layer')) return;
+    if(pestHoverSector === sectorKey) return;
+    pestHoverSector = sectorKey;
+    map.setPaintProperty('pest-points-layer','circle-radius', pestRadiusExpr());
+}
+
+// ── Informe Manifold de la visita ──
+// PEST.reports trae, por visita, la parte cualitativa del PDF de Biofuturo: un bloque por
+// plaga (especie, estado, ubicación, rango, enemigos naturales, comentarios) y las
+// observaciones generales del predio.
+function pestReportOf(visitKey){
+    if(!PEST || !PEST.reports) return null;
+    return PEST.reports.find(r=>r.visit === visitKey) || null;
+}
+
+// Rango medido en esa visita, UNA FILA POR REFERENCIA de planilla.
+// No se pueden fusionar: un bloque del informe suele citar métricas distintas
+// (perímetro vs. interior, o infestación vs. viabilidad, que ni comparten unidad).
+function pestMeasuredRows(visitKey, pestRefs){
+    if(!PEST || !pestRefs || !pestRefs.length) return [];
+    const fmt = v => v.toLocaleString('es-CL',{maximumFractionDigits:2});
+    return pestRefs.map(ref=>{
+        const rows = PEST.readings.filter(r=>r.visit===visitKey && r.pest===ref && r.value !== null);
+        if(!rows.length) return null;
+        const def = PEST.pests.find(p=>p.key===ref) || {};
+        const vals = rows.map(r=>r.value);
+        const min = Math.min(...vals), max = Math.max(...vals);
+        const isPct = def.metric === 'porcentaje';
+        const unit = isPct ? '%' : ' ind./hoja';
+        const maxAt = rows.filter(r=>r.value===max).map(r=>r.sector);
+        // El "máx. en" sólo aporta si hay un peak real: si el valor es uniforme en el campo
+        // (o el peak está en media planilla) listar cuarteles es ruido.
+        let at = '';
+        if(max > 0 && max > min){
+            at = maxAt.length <= 4
+                ? 'máx. en ' + maxAt.join(', ')
+                : `máx. en ${maxAt.length} cuarteles`;
+        }
+        return {
+            ref,
+            name: def.name || ref,
+            range: min === max ? `${fmt(min)}${unit}` : `${fmt(min)} – ${fmt(max)}${unit}`,
+            at,
+            isViability: !!def.isViability
+        };
+    }).filter(Boolean);
+}
+
+function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+}
+
+function pestReportHTML(rep){
+    const visit = PEST.visits.find(v=>v.key===rep.visit) || {};
+    const pointsOfVisit = PEST.points.filter(p=>p.visit===rep.visit);
+
+    const meta = `<div class="pest-modal-meta">
+        <div class="pest-meta-card"><div class="k">Estado fenológico</div><div class="v">${esc(rep.phenology) || '—'}</div></div>
+        <div class="pest-meta-card"><div class="k">Cosecha</div><div class="v">${esc(rep.harvestStart) || '—'}${rep.harvestEnd && rep.harvestEnd !== rep.harvestStart ? ' – ' + esc(rep.harvestEnd) : ''}</div></div>
+        <div class="pest-meta-card"><div class="k">Plagas informadas</div><div class="v">${(rep.pests||[]).length}</div></div>
+        <div class="pest-meta-card"><div class="k">Puntos levantados</div><div class="v">${pointsOfVisit.length || 'sin registro'}</div></div>
+    </div>`;
+
+    const cards = (rep.pests||[]).map(b=>{
+        const measured = pestMeasuredRows(rep.visit, b.pestRefs);
+        // La especie va en el encabezado de la tarjeta, no se repite como atributo.
+        const attrs = [
+            ['Estado de desarrollo', b.stage],
+            ['Ubicación', b.location],
+            ['Enemigos naturales', b.naturalEnemies],
+            ['Rango informado', b.rangeText]
+        ].filter(a=>a[1]);
+        const chips = (b.sectorRefs||[]).length
+            ? `<div class="pest-sector-chips">${b.sectorRefs.map(s=>`<button type="button" class="pest-sector-chip" onclick="focusPestSector('${esc(s)}')">${esc(s)}</button>`).join('')}</div>`
+            : '';
+        const measuredBlock = measured.length
+            ? `<div class="pest-measured-block">
+                <div class="pest-report-comments-label">Medido en la prospección</div>
+                ${measured.map(m=>`<div class="pest-measured-row">
+                    <span class="pmr-name">${esc(m.name)}</span>
+                    <span class="pmr-range">${esc(m.range)}</span>
+                    <span class="pmr-at">${esc(m.at)}</span>
+                </div>`).join('')}
+               </div>`
+            : '';
+        // mismo color que los puntos de esa plaga en el mapa
+        const taxon = pestTaxonOfBlock(b);
+        const color = pestColor(taxon);
+        return `<div class="pest-report-card" style="border-left-color:${color}; --pest-c:${color}">
+            <div class="pest-report-card-head">
+                <span class="prc-dot" style="background:${color}"></span>
+                <h3>${esc(b.name)}</h3>
+                ${b.species ? `<span class="prc-sci">${esc(b.species)}</span>` : ''}
+            </div>
+            <div class="pest-report-attrs">
+                ${attrs.map(([k,v])=>`<div class="pest-report-attr"><div class="k">${k}</div><div class="v">${esc(v)}</div></div>`).join('')}
+            </div>
+            ${measuredBlock}
+            ${(b.comments||[]).length ? `<div class="pest-report-comments">
+                <div class="pest-report-comments-label">Comentarios del informe</div>
+                ${b.comments.map(c=>`<p>${esc(c)}</p>`).join('')}
+            </div>` : ''}
+            ${chips}
+        </div>`;
+    }).join('');
+
+    const general = (rep.generalObservations||[]).length
+        ? `<div class="pest-modal-section-title">Observaciones generales</div>
+           <div class="pest-general-list">${rep.generalObservations.map(o=>`<div class="pest-general-item"><span>${esc(o)}</span></div>`).join('')}</div>`
+        : '';
+
+    // Incidencias que el generador dejó anotadas para esta visita, agrupadas: varias suelen
+    // repetir el mismo texto (p. ej. tres puntos sin descripción de plaga).
+    const issues = (PEST.issues||[]).filter(i=>i.visit===rep.visit && i.severity!=='info');
+    const grouped = new Map();
+    issues.forEach(i=>grouped.set(i.detail, (grouped.get(i.detail)||0) + 1));
+    const warn = grouped.size
+        ? `<div class="pest-modal-warn"><strong>Notas de calidad de datos (${issues.length}):</strong><br>${
+            [...grouped].map(([d,n])=>esc(d) + (n>1 ? ` <strong>(×${n})</strong>` : '')).join('<br>')
+          }</div>`
+        : '';
+
+    return meta
+        + `<div class="pest-modal-section-title">Detalle por plaga</div>`
+        + (cards || '<div class="pest-modal-empty">El informe no detalla plagas para esta visita.</div>')
+        + general
+        + warn
+        + `<div class="pest-modal-foot">
+            Fuente: ${esc(rep.source || '—')}<br>
+            ${esc(rep.author) || 'Dpto. Técnico'}${rep.authorRole ? ' · ' + esc(rep.authorRole) : ''}
+           </div>`;
+}
+
+function openPestReport(visitKey){
+    if(!PEST) return;
+    const key = visitKey || pestVisit;
+    const rep = pestReportOf(key);
+    const visit = PEST.visits.find(v=>v.key===key) || {};
+    document.getElementById('pestModalTitle').textContent = `Informe MIP · ${visit.label || key}`;
+    document.getElementById('pestModalSubtitle').textContent =
+        [PEST.meta.farm, PEST.meta.orchard, visit.phenology].filter(Boolean).join(' · ');
+    document.getElementById('pestModalBody').innerHTML = rep
+        ? pestReportHTML(rep)
+        : '<div class="pest-modal-empty">No hay informe Manifold transcrito para esta visita.</div>';
+    // el modal navega entre visitas y deja sincronizado el filtro del mapa
+    if(key !== pestVisit){
+        pestVisit = key;
+        const sel = document.getElementById('selPestVisit');
+        if(sel && !pestAllVisits) sel.value = key;
+        refreshPestLayer();
+    }
+    const desc = pestVisitsDesc().map(v=>v.key);
+    const i = desc.indexOf(key);
+    document.getElementById('pestModalPrev').disabled = (i >= desc.length - 1);   // más antigua
+    document.getElementById('pestModalNext').disabled = (i <= 0);                 // más reciente
+    document.getElementById('pestModal').classList.add('visible');
+}
+
+function stepPestReport(dir){
+    // dir = +1 avanza a una visita más reciente, -1 retrocede
+    const desc = pestVisitsDesc().map(v=>v.key);
+    const i = desc.indexOf(pestVisit);
+    const next = desc[i - dir];
+    if(next) openPestReport(next);
+}
+
+function closePestReport(){ document.getElementById('pestModal').classList.remove('visible'); }
+
+// Un chip de cuartel del informe centra el mapa en ese cuartel y fija su resumen.
+function focusPestSector(sectorKey){
+    closePestReport();
+    pestPinnedSector = sectorKey;
+    if(map && map.getLayer('pest-points-layer')) map.setPaintProperty('pest-points-layer','circle-radius', pestRadiusExpr());
+    updatePestSummary();
+    const f = GEOJSON.features.find(x=>x.properties.name === sectorKey.replace('-',' - '));
+    if(f && map){
+        const b = new mapboxgl.LngLatBounds();
+        f.geometry.coordinates[0].forEach(c=>b.extend(c));
+        map.fitBounds(b,{padding:{top:110,bottom:110,left:80,right:420},maxZoom:16.5});
+    }
+}
+
+// Rellena el bloque de tooltip del cuartel en modo plagas.
+function showPestTooltip(p){
+    const sectorKey = String(p.name).replace(/\s*-\s*/,'-');
+    const pts = pestVisiblePoints().filter(x=>x.sector === sectorKey);
+    const counts = {};
+    pts.forEach(x=>{ const k = pestKeyOf(x); counts[k] = (counts[k]||0) + 1; });
+    document.getElementById('ttPestCount').textContent = pts.length;
+    document.getElementById('ttPestUnit').textContent = pts.length === 1 ? 'punto' : 'puntos';
+    const rows = pestTaxa().filter(t=>counts[t.key]).map(t=>
+        `<div class="pt-row"><span class="pt-dot" style="background:${pestColor(t.key)}"></span><span>${t.name}</span><span class="pt-n">${counts[t.key]}</span></div>`).join('');
+    document.getElementById('ttPestBreakdown').innerHTML = rows;
+    document.getElementById('ttPestEmpty').style.display = pts.length ? 'none' : 'block';
+    document.getElementById('ttPestSource').textContent =
+        (pestAllVisits ? 'Todas las visitas' : pestVisitLabel(pestVisit)) +
+        ' · ' + Number(p.hectareas).toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:2}) + ' ha';
+}
 
 // ═══════════════════════════════════════════════════════════════
 // APLICACIONES AGROQUÍMICOS — cuaderno de campo embebido
@@ -3935,6 +4955,7 @@ document.addEventListener('keydown',e=>{
         closeRiegoModal();
         closeAgroModal();
         closeFinModal();
+        closePestReport();
     }
 });
 
@@ -3946,6 +4967,9 @@ map.on('load',()=>{
     addAllLayers(map);
     setupMapInteractions(map, 'A');
     setupSoilInteractions(map, 'A');
+    setupPestInteractions(map);
+    // PEST puede haber llegado antes de que el mapa terminara de cargar.
+    if(currentMode==='plagas') applyPestToMap();
     if(currentMode==='suelo'){
         setLayerVisibility(map,['sectores-fill','sectores-border','sectores-glow','sectores-label'],false);
         setLayerVisibility(map,['soil-fill','soil-border','soil-glow','soil-label'],true);
