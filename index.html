@@ -60,6 +60,28 @@
     --sem-border-strong: 1px solid #D2CEC5;
     --sem-border-accent: 1px solid #2B4973;
 
+    /* ---- Escala de z-index. Ningún z-index fuera de esta escala. ---- */
+    --z-map:      1;
+    --z-legend:   10;
+    --z-controls: 20;
+    --z-panel:    30;
+    --z-popup:    40;
+    --z-dropdown: 50;
+    --z-tooltip:  60;
+    --z-modal:    70;
+
+    /* ---- Severidad de plaga (funcional, no de marca) ----
+       Rampa cálida que se lee como "problema creciente". El chrome usa navy y
+       verde; estos tokens son de dato, y la severidad no puede tomarlos
+       prestados sin que el usuario confunda marca con valor. */
+    --sev-0:  #D2CEC5;   /* sin presencia (beige de marca) */
+    --sev-1:  #E8DFC0;   /* incipiente */
+    --sev-2:  #E5C179;   /* bajo */
+    --sev-3:  #D99A4E;   /* medio */
+    --sev-4:  #C4703A;   /* alto */
+    --sev-5:  #A34733;   /* crítico */
+    --sev-na: #A3ABB6;   /* sin medición (gris de marca) */
+
     /* ---- Forma ---- */
     --sem-radius:        8px;
     --sem-radius-lg:     12px;
@@ -165,7 +187,7 @@ body.compare-mode #map2 { display:block; }
 
 /* ── Encabezado ─────────────────────────────────────────────────────────── */
 .header {
-    position:absolute; top:16px; left:16px; z-index:10;
+    position:absolute; top:16px; left:16px; z-index:var(--z-legend);
     padding:14px 18px 12px; max-width:280px; color:var(--sem-ink);
 }
 .header .tag {
@@ -177,7 +199,7 @@ body.compare-mode #map2 { display:block; }
 .data-stamp { font-size:11px; font-weight:400; color:var(--sem-text-3); margin-top:4px; display:none; }
 
 .data-notice {
-    position:absolute; top:150px; left:50%; transform:translateX(-50%); z-index:12;
+    position:absolute; top:150px; left:50%; transform:translateX(-50%); z-index:var(--z-controls);
     display:none; padding:9px 14px; max-width:520px;
     font-size:12px; line-height:1.4; text-align:center;
     color:var(--sem-navy); background:var(--sem-surface);
@@ -187,7 +209,7 @@ body.compare-mode #map2 { display:block; }
 
 /* ── COMPONENTE 1 · Barra de navegación ─────────────────────────────────── */
 .tabs {
-    position:absolute; top:16px; left:50%; transform:translateX(-50%); z-index:10;
+    position:absolute; top:16px; left:50%; transform:translateX(-50%); z-index:var(--z-controls);
     display:flex; gap:2px; padding:0 6px;
     background:var(--sem-surface);
     border:var(--sem-border-hair);
@@ -221,7 +243,7 @@ body.compare-mode #map2 { display:block; }
 
 /* ── Barra de métricas ──────────────────────────────────────────────────── */
 .stats-bar {
-    position:absolute; top:16px; right:16px; z-index:10;
+    position:absolute; top:16px; right:16px; z-index:var(--z-legend);
     padding:10px 16px; display:flex; gap:18px;
     transition:opacity 0.2s ease;
 }
@@ -275,7 +297,7 @@ body.prod-active.compare-mode .mapboxgl-ctrl-bottom-right { bottom:138px; }
 
 /* ── COMPONENTE 3 · Leyendas ────────────────────────────────────────────── */
 .legend-panel {
-    position:absolute; bottom:24px; left:16px; z-index:10;
+    position:absolute; bottom:24px; left:16px; z-index:var(--z-legend);
     padding:12px 14px; min-width:200px;
     background:var(--sem-surface); border:var(--sem-border-hair);
     border-radius:var(--sem-radius); box-shadow:var(--sem-shadow-sm);
@@ -308,7 +330,7 @@ body.prod-active.compare-mode .mapboxgl-ctrl-bottom-right { bottom:138px; }
 
 /* ── COMPONENTE 5 · Controles (barra de filtros superior) ───────────────── */
 .foliar-controls {
-    position:absolute; top:84px; left:50%; transform:translateX(-50%); z-index:11;
+    position:absolute; top:84px; left:50%; transform:translateX(-50%); z-index:var(--z-controls);
     padding:12px 16px; display:flex; gap:14px; align-items:center;
     background:var(--sem-surface); border:var(--sem-border-hair);
     border-radius:var(--sem-radius-lg); box-shadow:var(--sem-shadow-md);
@@ -368,7 +390,7 @@ body.compare-mode .foliar-controls-B { display:flex; gap:14px; align-items:cente
 
 /* ── COMPONENTE 7 · Tooltip de sector ───────────────────────────────────── */
 .hover-tooltip {
-    position:absolute; z-index:20; pointer-events:none;
+    position:absolute; z-index:var(--z-tooltip); pointer-events:none;
     padding:12px 14px; min-width:230px;
     background:var(--sem-surface); border:var(--sem-border-hair);
     border-radius:var(--sem-radius); box-shadow:var(--sem-shadow-md);
@@ -447,7 +469,7 @@ body.compare-mode .foliar-controls-B { display:flex; gap:14px; align-items:cente
 
 /* ── COMPONENTE 4 · Paneles laterales ───────────────────────────────────── */
 .riego-controls, .agro-controls, .fin-controls, .pest-controls {
-    position:absolute; z-index:11; display:none; overflow:hidden;
+    position:absolute; z-index:var(--z-panel); display:none; overflow:hidden;
     background:var(--sem-surface); color:var(--sem-ink);
     border:var(--sem-border-hair);
     border-left:3px solid var(--sem-navy);
@@ -569,6 +591,18 @@ body.compare-mode .foliar-controls-B { display:flex; gap:14px; align-items:cente
 .riego-status .rs-time { color:var(--sem-text-3); }
 .riego-status .rs-warn { color:var(--sem-navy); font-weight:500; }
 
+/* Comparar periodos (espejo del compare de Productividad/Foliares/Suelo):
+   .fc-compare-btn ya trae el estado activo (fondo navy); acá sólo se ajusta
+   a ancho completo porque el panel de riego es vertical, no una barra horizontal. */
+.riego-compare-btn { width:100%; justify-content:center; margin-bottom:14px; }
+.riego-period-label { margin-bottom:9px; }
+.riego-period-b { margin-top:16px; padding-top:16px; border-top:1px solid var(--sem-line); }
+/* Red de seguridad: si el JS de enableCompare/disableCompare no alcanzara a
+   correr, el periodo B y la etiqueta "Periodo A" no deben quedar visibles
+   fuera de modo comparar. */
+body:not(.compare-mode) .riego-period-b,
+body:not(.compare-mode) #riegoLabelASlot { display:none !important; }
+
 /* COMPONENTE 6 · Botón secundario de panel */
 .agro-reset-btn, .pest-reset-btn {
     width:100%; margin-top:10px; padding:9px 10px; border-radius:var(--sem-radius);
@@ -630,7 +664,7 @@ body.compare-mode .foliar-controls-B { display:flex; gap:14px; align-items:cente
 
 /* ── Leyendas por pestaña (mismo componente 3) ──────────────────────────── */
 .foliar-legend, .soil-legend, .agro-legend, .fin-legend, .pest-legend {
-    position:absolute; bottom:24px; left:16px; z-index:10; display:none;
+    position:absolute; bottom:24px; left:16px; z-index:var(--z-legend); display:none;
     padding:12px 14px; min-width:230px; max-width:300px;
     background:var(--sem-surface); border:var(--sem-border-hair);
     border-radius:var(--sem-radius); box-shadow:var(--sem-shadow-sm);
@@ -705,11 +739,13 @@ body:not(.fin-active) .fin-controls, body:not(.fin-active) .fin-legend { display
 body:not(.pest-active) .pest-controls, body:not(.pest-active) .pest-legend { display:none !important; }
 
 /* ── Barras de métricas por pestaña ─────────────────────────────────────── */
-.prod-stats-wrap { display:none; flex-direction:column; gap:6px; }
+/* riego-stats-wrap se comporta como prod-stats-wrap: oculto hasta que la
+   pestaña está activa, y contiene dos filas (A/B) para el modo comparar. */
+.prod-stats-wrap, .riego-stats-wrap { display:none; flex-direction:column; gap:6px; }
 .prod-stat-row, .riego-stats, .agro-stats, .fin-stats, .pest-stats {
     display:flex; flex-direction:row; gap:10px; align-items:stretch; min-width:max-content;
 }
-.riego-stats, .agro-stats, .fin-stats, .pest-stats { display:none; }
+.agro-stats, .fin-stats, .pest-stats { display:none; }
 .prod-stat-row .stat, .riego-stats .stat, .agro-stats .stat,
 .fin-stats .stat, .pest-stats .stat { min-width:74px; padding:1px 3px; }
 .prod-stat-row .stat .num, .riego-stats .stat .num, .agro-stats .stat .num,
@@ -749,7 +785,7 @@ body:not(.pest-active) .pest-controls, body:not(.pest-active) .pest-legend { dis
 
 /* ── Modales ────────────────────────────────────────────────────────────── */
 .riego-modal, .agro-modal, .fin-modal, .pest-modal {
-    position:fixed; inset:0; z-index:110; display:none;
+    position:fixed; inset:0; z-index:var(--z-modal); display:none;
     align-items:center; justify-content:center;
     background:var(--sem-scrim);
     backdrop-filter:blur(5px); -webkit-backdrop-filter:blur(5px);
@@ -821,7 +857,7 @@ body:not(.pest-active) .pest-controls, body:not(.pest-active) .pest-legend { dis
     font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em;
     border-bottom:var(--sem-border-soft);
 }
-.agro-events-table th { position:sticky; top:0; z-index:1; }
+.agro-events-table th { position:sticky; top:0; z-index:var(--z-map); }
 .rm-events-table td, .agro-events-table td, .fin-detail-table td {
     padding:9px 12px; border-top:var(--sem-border-soft); vertical-align:top;
 }
@@ -889,7 +925,7 @@ body:not(.pest-active) .pest-controls, body:not(.pest-active) .pest-legend { dis
 #ttPestBlock .pt-source { margin-top:9px; padding-top:7px; border-top:var(--sem-border-soft); font-size:11px; color:var(--sem-text-3); }
 
 /* ── COMPONENTE 2 · Popup de punto (Mapbox) ─────────────────────────────── */
-.mapboxgl-popup.pest-popup { display:block !important; z-index:12; }
+.mapboxgl-popup.pest-popup { display:block !important; z-index:var(--z-popup); }
 .pest-popup .mapboxgl-popup-content {
     padding:0; border:var(--sem-border-hair); border-radius:var(--sem-radius);
     overflow:hidden; box-shadow:var(--sem-shadow-md); background:var(--sem-surface);
@@ -1002,6 +1038,405 @@ body:not(.pest-active) .pest-controls, body:not(.pest-active) .pest-legend { dis
 }
 .pest-modal-warn strong { color:var(--sem-ink); font-weight:600; }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   PLAGAS · dos sub-vistas: prospección por sector y puntos muestreados
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Conmutador de sub-vista: segmented control */
+.pv-switch {
+    display:flex; gap:3px; padding:3px; margin-bottom:13px;
+    background:var(--sem-beige-wash); border-radius:var(--sem-radius);
+}
+.pv-switch button {
+    flex:1; padding:8px 6px; border:none; cursor:pointer; font-family:inherit;
+    background:transparent; color:var(--sem-text-2);
+    border-radius:6px; font-size:12px; font-weight:400;
+    transition:background 0.15s, color 0.15s;
+}
+.pv-switch button:hover:not(.active) { color:var(--sem-navy); }
+.pv-switch button.active { background:var(--sem-navy); color:var(--sem-surface); font-weight:500; }
+
+/* Nota informativa persistente (sin botón de cerrar: es permanente por diseño) */
+.pv-note {
+    display:flex; gap:10px; align-items:flex-start;
+    padding:11px 13px; margin-bottom:13px;
+    background:var(--sem-celeste-wash);
+    border-left:3px solid var(--sem-celeste);
+    border-top-left-radius:0; border-bottom-left-radius:0;
+    border-top-right-radius:var(--sem-radius); border-bottom-right-radius:var(--sem-radius);
+    font-size:12px; line-height:1.5; color:var(--sem-text-2);
+}
+.pv-note .ic { flex:0 0 15px; margin-top:1px; color:var(--sem-navy); }
+.pv-note .ic svg { width:15px; height:15px; }
+
+/* Selector de plaga con estados: deshabilitada y con aviso de métrica */
+.pv-pest-list { display:flex; flex-direction:column; gap:2px; max-height:216px; overflow-y:auto; }
+.pv-pest-item {
+    display:flex; align-items:center; gap:8px; width:100%;
+    padding:7px 9px; border:none; background:transparent; cursor:pointer;
+    border-radius:6px; font-family:inherit; font-size:12px; text-align:left;
+    color:var(--sem-ink); transition:background 0.15s;
+}
+.pv-pest-item:hover:not(:disabled) { background:var(--sem-celeste-wash); }
+.pv-pest-item.active { background:var(--sem-navy); color:var(--sem-surface); font-weight:500; }
+.pv-pest-item:disabled { color:var(--sem-text-3); cursor:not-allowed; }
+.pv-pest-item .pvp-name { flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.pv-pest-item .pvp-unit { flex:0 0 auto; font-size:11px; color:var(--sem-text-3); }
+.pv-pest-item.active .pvp-unit { color:var(--sem-celeste); }
+.pv-pest-item .pvp-warn { flex:0 0 13px; color:var(--sev-4); }
+.pv-pest-item .pvp-warn svg { width:13px; height:13px; display:block; }
+
+/* Leyenda del choropleth */
+.pv-legend-unit {
+    font-size:12px; color:var(--sem-ink); font-weight:500; line-height:1.4; margin-bottom:2px;
+}
+.pv-legend-sampling { font-size:11px; color:var(--sem-text-3); line-height:1.4; margin-bottom:9px; }
+.pv-scale { display:flex; flex-direction:column; gap:1px; }
+.pv-scale-row {
+    display:flex; align-items:center; gap:8px; font-size:12px;
+    color:var(--sem-text-2); padding:3px 0;
+}
+.pv-scale-sw {
+    width:26px; height:12px; border-radius:3px; flex:0 0 26px; border:var(--sem-border-hair);
+}
+.pv-scale-row .pvs-val { margin-left:auto; font-variant-numeric:tabular-nums; color:var(--sem-ink); }
+.pv-scale-special { margin-top:7px; padding-top:7px; border-top:var(--sem-border-soft); }
+/* "Sin medición": rayado diagonal, para no confundirse con el cero */
+.pv-sw-na {
+    background-color:var(--sev-na);
+    background-image:repeating-linear-gradient(45deg,
+        rgba(255,255,255,0.55) 0 2px, transparent 2px 4px);
+}
+.pv-sw-zero { background-color:var(--sev-0); }
+
+/* Gráfico temporal */
+.pv-chart-card {
+    background:var(--sem-surface); border:var(--sem-border-hair);
+    border-radius:var(--sem-radius); box-shadow:var(--sem-shadow-sm);
+    padding:12px 14px 10px;
+}
+.pv-chart-head {
+    display:flex; align-items:flex-start; justify-content:space-between;
+    gap:12px; margin-bottom:8px;
+}
+.pv-chart-title { font-size:13px; font-weight:600; color:var(--sem-ink); }
+.pv-chart-sub { font-size:11px; color:var(--sem-text-2); margin-top:2px; }
+.pv-chart-link {
+    display:flex; align-items:center; gap:6px; flex:0 0 auto;
+    padding:5px 9px; border:var(--sem-border-hair); border-radius:var(--sem-radius-pill);
+    background:transparent; color:var(--sem-text-2); cursor:pointer;
+    font-family:inherit; font-size:11px; transition:all 0.15s;
+}
+.pv-chart-link:hover { background:var(--sem-beige-wash); border:var(--sem-border-strong); }
+.pv-chart-link.unlinked { color:var(--sem-navy); border-color:var(--sem-navy); }
+.pv-chart-link svg { width:13px; height:13px; }
+.pv-chart svg { display:block; width:100%; height:auto; }
+.pv-chart .pvc-band { fill:var(--sem-beige-wash); }
+.pv-chart .pvc-band-label { fill:var(--sem-text-3); text-transform:uppercase; letter-spacing:0.04em; }
+.pv-chart .pvc-bar { fill:var(--sem-navy); opacity:0.45; cursor:pointer; transition:opacity 0.15s; }
+.pv-chart .pvc-bar:hover { opacity:0.75; }
+.pv-chart .pvc-bar.sel { opacity:1; }
+.pv-chart .pvc-axis { stroke:var(--sem-line); stroke-width:1; }
+.pv-chart .pvc-grid { stroke:var(--sem-line-soft); stroke-width:1; }
+.pv-chart .pvc-avg { stroke:var(--sem-slate); stroke-width:1; stroke-dasharray:4 3; }
+.pv-chart .pvc-avg-label { fill:var(--sem-slate); }
+/* El SVG se reduce para caber en la columna, así que los tamaños van en
+   unidades del viewBox: si se dejaran en 11px se renderizarían a ~8px. */
+.pv-chart .pvc-tick { font-size:14px; fill:var(--sem-text-2); }
+.pv-chart .pvc-tick.sel { fill:var(--sem-navy); font-weight:500; }
+.pv-chart .pvc-ylabel { font-size:13px; fill:var(--sem-text-2); }
+.pv-chart .pvc-gap { font-size:14px; fill:var(--sem-text-3); }
+.pv-chart .pvc-band-label { font-size:12px; }
+.pv-chart .pvc-avg-label { font-size:12px; }
+/* Ampliado el SVG apenas se reduce, así que los tamaños vuelven a lo normal. */
+.pv-chart.big .pvc-tick { font-size:12px; }
+.pv-chart.big .pvc-ylabel { font-size:11px; }
+.pv-chart.big .pvc-gap { font-size:12px; }
+.pv-chart.big .pvc-band-label { font-size:10.5px; }
+.pv-chart.big .pvc-avg-label { font-size:10.5px; }
+.pv-chart .pvc-hit { fill:transparent; cursor:pointer; }
+.pv-chart-note { font-size:11px; color:var(--sem-text-3); margin-top:7px; line-height:1.45; }
+
+/* Panel de detalle de sector */
+.pv-sector-panel {
+    position:absolute; z-index:var(--z-panel); display:none;
+    left:16px; bottom:24px; width:340px; max-height:calc(100vh - 200px); overflow:auto;
+    background:var(--sem-surface);
+    border:var(--sem-border-hair);
+    border-left:3px solid var(--sem-navy);
+    border-top-left-radius:0; border-bottom-left-radius:0;
+    border-top-right-radius:var(--sem-radius-lg); border-bottom-right-radius:var(--sem-radius-lg);
+    box-shadow:var(--sem-shadow-md);
+}
+.pv-sector-panel.visible { display:block; }
+/* Las secciones de evolución y matriz son propias de la prospección */
+body.pest-active:not(.pv-view-prosp) #pvAccChart,
+body.pest-active:not(.pv-view-prosp) #pvAccMatrix { display:none; }
+
+/* La leyenda de rangos vuelve a flotar abajo a la izquierda, dentro del área
+   del mapa. Es el único flotante, así que no compite con nada. */
+body.pest-active .pest-legend {
+    left:16px; bottom:24px; right:auto; top:auto;
+    /* No puede pasarse del borde del mapa y meterse bajo la columna. */
+    width:min(274px, calc(54vw - 32px)); max-width:274px;
+}
+.pv-sp-head {
+    display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+    padding:13px 13px 11px 15px; border-bottom:var(--sem-border-soft);
+    background:var(--sem-beige-wash);
+}
+.pv-sp-name { font-size:15px; font-weight:600; color:var(--sem-navy); }
+.pv-sp-meta { font-size:11px; color:var(--sem-text-2); margin-top:3px; }
+.pv-sp-body { padding:13px 15px 15px; }
+.pv-sp-metric { background:var(--sem-beige-wash); border-radius:var(--sem-radius); padding:11px 13px; margin-bottom:13px; }
+.pv-sp-metric .k {
+    font-size:11px; color:var(--sem-text-2); text-transform:uppercase;
+    letter-spacing:0.05em; margin-bottom:4px;
+}
+.pv-sp-metric .v { font-size:24px; font-weight:300; color:var(--sem-ink); line-height:1.1; font-variant-numeric:tabular-nums; }
+.pv-sp-metric .u { font-size:12px; color:var(--sem-text-2); margin-left:5px; font-weight:400; }
+.pv-sp-metric .cmp { font-size:11px; color:var(--sem-text-2); margin-top:5px; }
+.pv-sp-section {
+    font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:0.05em;
+    color:var(--sem-text-2); margin:0 0 7px;
+}
+.pv-sp-table { width:100%; border-collapse:collapse; font-size:12px; }
+.pv-sp-table td { padding:6px 0; border-bottom:var(--sem-border-soft); vertical-align:top; }
+.pv-sp-table tr:last-child td { border-bottom:none; }
+/* La columna de nombre necesita un ancho real: con max-width:0 colapsaba a cero
+   y la tabla quedaba mostrando sólo cifras sin decir de qué plaga eran. */
+.pv-sp-table { table-layout:fixed; }
+.pv-sp-table .n {
+    width:58%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:8px;
+}
+.pv-sp-table .val {
+    text-align:right; white-space:nowrap; padding-left:10px;
+    font-variant-numeric:tabular-nums; font-weight:500; color:var(--sem-ink);
+}
+.pv-sp-table .val .u { font-weight:400; color:var(--sem-text-3); font-size:11px; margin-left:3px; }
+.pv-sp-table tr.zero .val { color:var(--sem-text-3); font-weight:400; }
+.pv-sp-more {
+    margin-top:9px; padding:0; border:none; background:transparent;
+    color:var(--sem-navy); font-family:inherit; font-size:11.5px; cursor:pointer;
+}
+.pv-sp-more:hover { text-decoration:underline; }
+.pv-spark { margin-top:14px; padding-top:12px; border-top:var(--sem-border-soft); }
+.pv-spark svg { display:block; width:100%; height:auto; }
+.pv-spark .sp-line { fill:none; stroke:var(--sem-navy); stroke-width:1.5; }
+.pv-spark .sp-dot { fill:var(--sem-navy); }
+.pv-spark .sp-dot-sel { fill:var(--sem-surface); stroke:var(--sem-navy); stroke-width:2; }
+.pv-spark .sp-base { stroke:var(--sem-line); stroke-width:1; }
+.pv-spark-label { font-size:11px; color:var(--sem-text-2); margin-bottom:6px; }
+
+/* Lista de puntos por sector, en la sub-vista de puntos */
+.pv-pt-group { margin-bottom:11px; }
+.pv-pt-group:last-child { margin-bottom:0; }
+.pv-pt-title { display:flex; align-items:center; gap:7px; font-size:12px; font-weight:500; color:var(--sem-ink); margin-bottom:5px; }
+.pv-pt-dot { width:10px; height:10px; border-radius:50%; flex:0 0 10px; box-shadow:0 0 0 1px var(--sem-hair-a); }
+.pv-pt-ids { font-size:11.5px; color:var(--sem-text-2); line-height:1.6; }
+
+/* Botón "ver prospección" dentro del popup del punto */
+.pp-cta {
+    display:flex; align-items:center; justify-content:center; gap:7px;
+    width:100%; margin-top:11px; padding:8px;
+    background:var(--sem-navy); color:var(--sem-surface);
+    border:none; border-radius:var(--sem-radius);
+    font-family:inherit; font-size:12px; font-weight:500; cursor:pointer;
+}
+.pp-cta:hover { background:var(--sem-navy-dark); }
+.pp-cta svg { width:13px; height:13px; }
+
+/* Estados vacíos y de carga */
+.pv-empty {
+    padding:26px 18px; text-align:center; font-size:12.5px;
+    color:var(--sem-text-2); line-height:1.5;
+}
+.pv-empty .pve-title { font-weight:500; color:var(--sem-ink); margin-bottom:4px; }
+.pv-skeleton {
+    background:var(--sem-beige-wash); border-radius:var(--sem-radius);
+    animation:pv-pulse 1.4s ease-in-out infinite;
+}
+@keyframes pv-pulse { 0%,100% { opacity:1 } 50% { opacity:0.55 } }
+.pv-sk-row { height:34px; margin-bottom:8px; }
+.pv-sk-chart { height:150px; }
+
+/* Botón de cerrar unificado: 32x32 de área, ícono de 15px */
+.pv-close, .pest-popup .mapboxgl-popup-close-button,
+.riego-modal-close, .agro-modal-close, .fin-modal-close, .pest-modal-close {
+    width:32px; height:32px; flex:0 0 32px; padding:0;
+    display:flex; align-items:center; justify-content:center;
+    border:none; border-radius:var(--sem-radius); background:transparent;
+    color:var(--sem-text-3); cursor:pointer;
+    transition:background 0.15s, color 0.15s;
+}
+.pv-close:hover, .pest-popup .mapboxgl-popup-close-button:hover,
+.riego-modal-close:hover, .agro-modal-close:hover,
+.fin-modal-close:hover, .pest-modal-close:hover {
+    background:var(--sem-beige-wash); color:var(--sem-ink);
+}
+.pv-close svg, .riego-modal-close svg, .agro-modal-close svg,
+.fin-modal-close svg, .pest-modal-close svg { width:15px; height:15px; }
+/* Mapbox pinta su × de texto: se anula y se sustituye por el ícono del set */
+.pest-popup .mapboxgl-popup-close-button {
+    position:absolute; right:5px; top:5px; font-size:0; line-height:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 18 18' fill='none' stroke='%236D7C86' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M4.5 4.5l9 9M13.5 4.5l-9 9'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:center;
+}
+.pest-popup .mapboxgl-popup-close-button:hover {
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 18 18' fill='none' stroke='%231A2733' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M4.5 4.5l9 9M13.5 4.5l-9 9'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:center;
+}
+
+/* Bloque de tooltip del choropleth */
+#ttProspBlock .tp-metric { display:flex; align-items:baseline; gap:6px; }
+#ttProspBlock .tp-value { font-size:26px; font-weight:300; color:var(--sem-ink); line-height:1; font-variant-numeric:tabular-nums; }
+#ttProspBlock .tp-unit { font-size:12px; color:var(--sem-text-2); }
+#ttProspBlock .tp-cmp { font-size:12px; color:var(--sem-text-2); margin-top:6px; }
+#ttProspBlock .tp-trend { font-weight:500; }
+#ttProspBlock .tp-trend.up { color:var(--sev-5); }
+#ttProspBlock .tp-trend.down { color:var(--sem-green); }
+#ttProspBlock .tp-rows { margin-top:9px; padding-top:8px; border-top:var(--sem-border-soft); }
+#ttProspBlock .tp-row { display:flex; gap:8px; font-size:12px; padding:2px 0; color:var(--sem-text-2); }
+#ttProspBlock .tp-row .v { margin-left:auto; color:var(--sem-ink); font-variant-numeric:tabular-nums; }
+#ttProspBlock .tp-na { font-size:12.5px; color:var(--sem-text-3); }
+
+/* ── Composición: una sola columna lateral, nada flotando sobre el mapa ────
+   Antes había cuatro paneles absolutos encima del lienzo y a cualquier ancho
+   razonable se pisaban entre sí y enterraban el mapa. Ahora el mapa se angosta
+   y la información vive en una columna con secciones desplegables: el
+   solapamiento desaparece por construcción, no por ajustar posiciones. */
+#pvSide {
+    position:absolute; z-index:var(--z-panel); display:none;
+    /* Techo relativo: por angosto que sea el contenedor, el mapa conserva
+       más de la mitad del ancho. Sin esto la columna se lo comía. */
+    top:0; right:0; bottom:0; width:min(392px, 46%);
+    background:var(--sem-surface);
+    border-left:1px solid var(--sem-line);
+    box-shadow:-2px 0 12px rgba(26,39,51,0.06);
+    overflow-y:auto; overflow-x:hidden;
+}
+body.pest-active #pvSide { display:block; }
+/* El mapa cede ancho en vez de recibir capas encima. */
+body.pest-active #map { width:calc(100% - min(392px, 46%)); }
+body.pest-active .stats-bar { display:none !important; }
+/* En plagas la barra de navegación se alinea al área del mapa, no al viewport. */
+body.pest-active .tabs { left:calc((100% - min(392px, 46%)) / 2); }
+
+.pv-side-head {
+    padding:14px 18px 12px; background:var(--sem-beige-wash);
+    border-bottom:1px solid var(--sem-line);
+    position:sticky; top:0; z-index:var(--z-controls);
+}
+.pv-side-title {
+    font-size:12px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase;
+    color:var(--sem-navy); display:flex; align-items:center; gap:8px;
+}
+.pv-side-title .pc-dot { width:7px; height:7px; border-radius:50%; background:var(--sem-green); flex:0 0 7px; }
+.pv-side-sub { font-size:12px; color:var(--sem-text-2); margin-top:5px; line-height:1.4; }
+.pv-side-body { padding:14px 16px 20px; }
+
+/* Sección desplegable */
+.pv-acc { border-top:1px solid var(--sem-line); }
+.pv-acc:first-of-type { border-top:none; }
+.pv-acc-head {
+    width:100%; display:flex; align-items:center; gap:9px;
+    padding:12px 2px; border:none; background:transparent; cursor:pointer;
+    font-family:inherit; text-align:left;
+}
+.pv-acc-head:hover .pv-acc-title { color:var(--sem-navy); }
+.pv-acc-chev {
+    flex:0 0 14px; color:var(--sem-text-3); transition:transform 0.18s ease;
+}
+.pv-acc-chev svg { width:14px; height:14px; display:block; }
+.pv-acc.open .pv-acc-chev { transform:rotate(90deg); color:var(--sem-navy); }
+.pv-acc-title { font-size:12.5px; font-weight:600; color:var(--sem-ink); flex:0 0 auto; }
+/* El meta del encabezado deja la unidad visible incluso con la sección cerrada. */
+.pv-acc-meta {
+    margin-left:auto; font-size:11px; color:var(--sem-text-2);
+    text-align:right; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.pv-acc-body { display:none; padding:0 2px 14px; }
+.pv-acc.open .pv-acc-body { display:block; }
+
+/* Los paneles que antes flotaban pasan a ser contenido de una sección */
+.pv-acc-body .legend-panel,
+.pv-acc-body .pv-chart-card,
+.pv-acc-body .pv-matrix-wrap,
+.pv-acc-body .pv-sector-panel {
+    position:static; inset:auto; width:auto; max-width:none; max-height:none;
+    display:block; border:none; border-radius:0; box-shadow:none;
+    padding:0; background:transparent; overflow:visible;
+}
+.pv-acc-body .pv-sector-panel { border-left:none; }
+.pv-acc-body .pv-sp-head {
+    padding:0 0 10px; background:transparent; border-bottom:1px solid var(--sem-line-soft);
+}
+.pv-acc-body .pv-sp-body { padding:12px 0 0; }
+.pv-chart-wrap { display:none; }
+.pv-matrix-wrap { display:none; }
+.pv-acc-body .pv-chart-wrap, .pv-acc-body .pv-matrix-wrap { display:block; }
+/* Ampliado el gráfico vive fuera del acordeón: hay que reactivarlo ahí también. */
+#pvChartOverSlot .pv-chart-wrap { display:block; }
+#pvChartOverSlot .pv-chart-card { border:none; box-shadow:none; padding:0; }
+#pvChartOverSlot .pv-chart-head { display:none; }
+/* El panel de controles pierde su marco: ya está dentro de la columna */
+#pvSide #pestControls {
+    position:static; width:auto; max-height:none; display:block;
+    border:none; border-radius:0; box-shadow:none; overflow:visible;
+}
+#pvSide #pestControls .pest-controls-header { display:none; }
+#pvSide #pestControls .pest-controls-body { padding:0; }
+.pv-mx-title { font-size:13px; font-weight:600; color:var(--sem-ink); margin-bottom:2px; }
+.pv-mx-sub { font-size:11px; color:var(--sem-text-2); margin-bottom:9px; }
+.pv-mx { border-collapse:collapse; font-size:11px; width:100%; }
+.pv-mx th {
+    font-weight:400; color:var(--sem-text-3); font-size:10px;
+    padding:0 2px 5px; text-align:center; white-space:nowrap;
+}
+.pv-mx th.rowhead { text-align:left; padding-right:7px; }
+.pv-mx td { padding:1px; }
+.pv-mx td.rowhead {
+    font-size:11px; color:var(--sem-text-2); text-align:left;
+    padding-right:7px; white-space:nowrap;
+}
+.pv-mx .cell { width:100%; height:15px; border-radius:2px; cursor:pointer; }
+.pv-mx .cell.sel { outline:2px solid var(--sem-navy); outline-offset:-2px; }
+
+/* Estado vacío de la sección de cuartel, mientras no se ha elegido ninguno */
+.pv-acc-hint { font-size:12px; color:var(--sem-text-3); line-height:1.5; padding:2px 0 4px; }
+
+/* Botón de ampliar del gráfico */
+.pv-chart-actions { display:flex; gap:6px; flex:0 0 auto; align-items:center; }
+.pv-chart-zoom {
+    display:flex; align-items:center; justify-content:center;
+    width:30px; height:30px; flex:0 0 30px;
+    border:var(--sem-border-hair); border-radius:var(--sem-radius);
+    background:transparent; color:var(--sem-text-2); cursor:pointer; transition:all 0.15s;
+}
+.pv-chart-zoom:hover { background:var(--sem-beige-wash); border:var(--sem-border-strong); color:var(--sem-ink); }
+.pv-chart-zoom svg { width:15px; height:15px; }
+
+/* Gráfico ampliado: se abre sobre el área del mapa, no sobre la columna */
+.pv-chart-over {
+    position:absolute; inset:0; z-index:var(--z-popup); display:none;
+    align-items:center; justify-content:center;
+    background:var(--sem-scrim);
+    backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);
+}
+.pv-chart-over.visible { display:flex; }
+.pv-chart-over-card {
+    width:min(860px, calc(100% - 48px)); max-height:calc(100% - 48px); overflow:auto;
+    background:var(--sem-surface); border:var(--sem-border-hair);
+    border-radius:var(--sem-radius-lg); box-shadow:var(--sem-shadow-lg);
+    padding:16px 18px 14px;
+}
+.pv-chart-over-head {
+    display:flex; align-items:flex-start; justify-content:space-between;
+    gap:12px; padding-bottom:12px; margin-bottom:12px; border-bottom:var(--sem-border-soft);
+}
+.pv-chart-over-title { font-size:16px; font-weight:600; color:var(--sem-navy); }
+.pv-chart-over-sub { font-size:12px; color:var(--sem-text-2); margin-top:3px; }
+
 /* Utilitarias para texto secundario inyectado desde JS */
 .sem-muted { color:var(--sem-text-2); }
 .sem-muted-xs { color:var(--sem-text-3); font-size:11px; }
@@ -1056,6 +1491,18 @@ body:not(.pest-active) .pest-controls, body:not(.pest-active) .pest-legend { dis
         <path d="M15 9a6 6 0 1 1-1.8-4.3"/><path d="M15 2.5V6h-3.5"/></g>
     <g id="ic-cerrar" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
         <path d="M4.5 4.5l9 9M13.5 4.5l-9 9"/></g>
+    <g id="ic-info" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+        <circle cx="9" cy="9" r="6.75"/><path d="M9 8.25v4M9 5.9h.01"/></g>
+    <g id="ic-enlace" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+        <path d="M7.4 10.6 10.6 7.4"/><path d="M6.2 8.2 4.9 9.5a2.6 2.6 0 0 0 3.6 3.6l1.3-1.3"/>
+        <path d="M11.8 9.8l1.3-1.3a2.6 2.6 0 0 0-3.6-3.6L8.2 6.2"/></g>
+    <g id="ic-desenlace" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+        <path d="M6.2 8.2 4.9 9.5a2.6 2.6 0 0 0 3.6 3.6l1.3-1.3"/>
+        <path d="M11.8 9.8l1.3-1.3a2.6 2.6 0 0 0-3.6-3.6L8.2 6.2"/><path d="M3.5 3.5l11 11"/></g>
+    <g id="ic-ir" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+        <path d="M3.5 9h11"/><path d="M10.5 5l4 4-4 4"/></g>
+    <g id="ic-ampliar" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+        <path d="M7.5 3.5h-4v4"/><path d="M10.5 14.5h4v-4"/><path d="M3.5 3.5l4.5 4.5M14.5 14.5L10 10"/></g>
 </defs></svg>
 
 <div class="tabs glass">
@@ -1082,7 +1529,10 @@ body:not(.pest-active) .pest-controls, body:not(.pest-active) .pest-legend { dis
         <div class="foliar-stat-row soil-stat-row" id="soilStatsA"></div>
         <div class="foliar-stat-row soil-stat-row" id="soilStatsB"></div>
     </div>
-    <div class="riego-stats" id="riegoStats"></div>
+    <div class="riego-stats-wrap" id="riegoStats">
+        <div class="riego-stats" id="riegoStatsA"></div>
+        <div class="riego-stats" id="riegoStatsB"></div>
+    </div>
     <div class="agro-stats" id="agroStats"></div>
     <div class="fin-stats" id="finStats"></div>
     <div class="pest-stats" id="pestStats"></div>
@@ -1176,49 +1626,105 @@ body:not(.pest-active) .pest-controls, body:not(.pest-active) .pest-legend { dis
         <div class="riego-controls-subtitle">Datos en vivo desde Wiseconn</div>
     </div>
     <div class="riego-controls-body">
-        <div class="riego-mode-tabs">
-            <button class="riego-mode-tab" data-rmode="dias" onclick="setRiegoFilterMode('dias')">Días</button>
-            <button class="riego-mode-tab active" data-rmode="meses" onclick="setRiegoFilterMode('meses')">Meses</button>
-            <button class="riego-mode-tab" data-rmode="temporadas" onclick="setRiegoFilterMode('temporadas')">Temporadas</button>
-        </div>
-
-        <!-- DÍAS panel -->
-        <div class="riego-panel" id="riegoPanelDias">
-            <div class="riego-nav">
-                <button onclick="riegoDaysNav(-12)" title="Año anterior">«</button>
-                <button onclick="riegoDaysNav(-1)" title="Mes anterior">‹</button>
-                <div class="rn-label" id="riegoDaysLabel">Junio 2026</div>
-                <button onclick="riegoDaysNav(1)" title="Mes siguiente">›</button>
-                <button onclick="riegoDaysNav(12)" title="Año siguiente">»</button>
-            </div>
-            <div class="riego-grid days" id="riegoDaysGrid"></div>
-            <div class="riego-range" id="riegoDaysRange">Selecciona uno o más días</div>
-        </div>
-
-        <!-- MESES panel -->
-        <div class="riego-panel active" id="riegoPanelMeses">
-            <div class="riego-nav">
-                <button onclick="riegoYearNav(-1)">‹</button>
-                <div class="rn-label" id="riegoYearLabel">2026</div>
-                <button onclick="riegoYearNav(1)">›</button>
-            </div>
-            <div class="riego-grid months" id="riegoMonthsGrid"></div>
-            <div class="riego-range" id="riegoMonthsRange">Selecciona un mes</div>
-        </div>
-
-        <!-- TEMPORADAS panel -->
-        <div class="riego-panel" id="riegoPanelTemporadas">
-            <div class="riego-grid seasons" id="riegoSeasonsGrid"></div>
-            <div class="riego-range" id="riegoSeasonsRange">Selecciona una temporada</div>
-        </div>
-
-        <button class="riego-load-btn" id="riegoLoadBtn" onclick="cargarRiego()">
-            <span class="rlb-spinner"></span>
-            <span class="rlb-icon ic"><svg viewBox="0 0 18 18"><use href="#ic-recargar"/></svg></span>
-            <span id="riegoLoadLabel">Cargar datos</span>
-            <div class="rlb-progress" id="riegoProgress"></div>
+        <button class="fc-compare-btn riego-compare-btn" id="compareBtnRiego" onclick="toggleCompare()">
+            <span class="ic"><svg viewBox="0 0 18 18"><use href="#ic-comparar"/></svg></span>
+            <span id="compareLabelRiego">Comparar periodos</span>
         </button>
-        <div class="riego-status" id="riegoStatus">Selecciona un periodo y presiona cargar.</div>
+
+        <!-- Periodo A: siempre visible. Usa el mismo sufijo A/B que el panel B
+             para que las funciones (setRiegoFilterMode, cargarRiego, etc.) tomen
+             "side" como parámetro sin casos especiales. -->
+        <div class="riego-period" data-side="A">
+            <div class="riego-period-label" id="riegoLabelASlot" style="display:none">
+                <span class="fc-side-label fc-side-A">Periodo A</span>
+            </div>
+            <div class="riego-mode-tabs" data-side="A">
+                <button class="riego-mode-tab" data-rmode="dias" onclick="setRiegoFilterMode('dias','A')">Días</button>
+                <button class="riego-mode-tab active" data-rmode="meses" onclick="setRiegoFilterMode('meses','A')">Meses</button>
+                <button class="riego-mode-tab" data-rmode="temporadas" onclick="setRiegoFilterMode('temporadas','A')">Temporadas</button>
+            </div>
+
+            <div class="riego-panel" id="riegoPanelDiasA">
+                <div class="riego-nav">
+                    <button onclick="riegoDaysNav(-12,'A')" title="Año anterior">«</button>
+                    <button onclick="riegoDaysNav(-1,'A')" title="Mes anterior">‹</button>
+                    <div class="rn-label" id="riegoDaysLabelA">Junio 2026</div>
+                    <button onclick="riegoDaysNav(1,'A')" title="Mes siguiente">›</button>
+                    <button onclick="riegoDaysNav(12,'A')" title="Año siguiente">»</button>
+                </div>
+                <div class="riego-grid days" id="riegoDaysGridA"></div>
+                <div class="riego-range" id="riegoDaysRangeA">Selecciona uno o más días</div>
+            </div>
+
+            <div class="riego-panel active" id="riegoPanelMesesA">
+                <div class="riego-nav">
+                    <button onclick="riegoYearNav(-1,'A')">‹</button>
+                    <div class="rn-label" id="riegoYearLabelA">2026</div>
+                    <button onclick="riegoYearNav(1,'A')">›</button>
+                </div>
+                <div class="riego-grid months" id="riegoMonthsGridA"></div>
+                <div class="riego-range" id="riegoMonthsRangeA">Selecciona un mes</div>
+            </div>
+
+            <div class="riego-panel" id="riegoPanelTemporadasA">
+                <div class="riego-grid seasons" id="riegoSeasonsGridA"></div>
+                <div class="riego-range" id="riegoSeasonsRangeA">Selecciona una temporada</div>
+            </div>
+
+            <button class="riego-load-btn" id="riegoLoadBtnA" onclick="cargarRiego('A')">
+                <span class="rlb-spinner"></span>
+                <span class="rlb-icon ic"><svg viewBox="0 0 18 18"><use href="#ic-recargar"/></svg></span>
+                <span id="riegoLoadLabelA">Cargar datos</span>
+                <div class="rlb-progress" id="riegoProgressA"></div>
+            </button>
+            <div class="riego-status" id="riegoStatusA">Selecciona un periodo y presiona cargar.</div>
+        </div>
+
+        <!-- Periodo B: espejo del A, oculto salvo en modo comparar (igual que
+             Foliares/Productividad/Suelo). -->
+        <div class="riego-period riego-period-b" id="riegoPeriodB" data-side="B" style="display:none">
+            <div class="riego-period-label"><span class="fc-side-label fc-side-B">Periodo B</span></div>
+            <div class="riego-mode-tabs" data-side="B">
+                <button class="riego-mode-tab" data-rmode="dias" onclick="setRiegoFilterMode('dias','B')">Días</button>
+                <button class="riego-mode-tab active" data-rmode="meses" onclick="setRiegoFilterMode('meses','B')">Meses</button>
+                <button class="riego-mode-tab" data-rmode="temporadas" onclick="setRiegoFilterMode('temporadas','B')">Temporadas</button>
+            </div>
+
+            <div class="riego-panel" id="riegoPanelDiasB">
+                <div class="riego-nav">
+                    <button onclick="riegoDaysNav(-12,'B')" title="Año anterior">«</button>
+                    <button onclick="riegoDaysNav(-1,'B')" title="Mes anterior">‹</button>
+                    <div class="rn-label" id="riegoDaysLabelB">Junio 2026</div>
+                    <button onclick="riegoDaysNav(1,'B')" title="Mes siguiente">›</button>
+                    <button onclick="riegoDaysNav(12,'B')" title="Año siguiente">»</button>
+                </div>
+                <div class="riego-grid days" id="riegoDaysGridB"></div>
+                <div class="riego-range" id="riegoDaysRangeB">Selecciona uno o más días</div>
+            </div>
+
+            <div class="riego-panel active" id="riegoPanelMesesB">
+                <div class="riego-nav">
+                    <button onclick="riegoYearNav(-1,'B')">‹</button>
+                    <div class="rn-label" id="riegoYearLabelB">2026</div>
+                    <button onclick="riegoYearNav(1,'B')">›</button>
+                </div>
+                <div class="riego-grid months" id="riegoMonthsGridB"></div>
+                <div class="riego-range" id="riegoMonthsRangeB">Selecciona un mes</div>
+            </div>
+
+            <div class="riego-panel" id="riegoPanelTemporadasB">
+                <div class="riego-grid seasons" id="riegoSeasonsGridB"></div>
+                <div class="riego-range" id="riegoSeasonsRangeB">Selecciona una temporada</div>
+            </div>
+
+            <button class="riego-load-btn" id="riegoLoadBtnB" onclick="cargarRiego('B')">
+                <span class="rlb-spinner"></span>
+                <span class="rlb-icon ic"><svg viewBox="0 0 18 18"><use href="#ic-recargar"/></svg></span>
+                <span id="riegoLoadLabelB">Cargar datos</span>
+                <div class="rlb-progress" id="riegoProgressB"></div>
+            </button>
+            <div class="riego-status" id="riegoStatusB">Selecciona un periodo y presiona cargar.</div>
+        </div>
     </div>
 </div>
 
@@ -1279,24 +1785,151 @@ body:not(.pest-active) .pest-controls, body:not(.pest-active) .pest-legend { dis
         <div class="pest-controls-subtitle" id="pestControlsSubtitle">Puntos georreferenciados de las prospecciones MIP de Biofuturo.</div>
     </div>
     <div class="pest-controls-body">
-        <div class="pest-field">
-            <label for="selPestVisit">Visita</label>
-            <select class="pest-select" id="selPestVisit"></select>
+        <div class="pv-switch" role="tablist">
+            <button type="button" id="pvTabProsp" class="active" onclick="setPestView('prosp')">Prospección por sector</button>
+            <button type="button" id="pvTabPts" onclick="setPestView('puntos')">Puntos muestreados</button>
         </div>
-        <label class="pest-toggle-all" for="chkPestAllVisits">
-            <input type="checkbox" id="chkPestAllVisits">
-            <span>Ver todas las visitas de la temporada</span>
-        </label>
-        <div class="pest-field">
-            <label>Plagas</label>
-            <div class="pest-chips" id="pestChips"></div>
+
+        <!-- Sub-vista 1 · prospección por sector -->
+        <div id="pvProspControls">
+            <div class="pest-field">
+                <label for="selProspVisit">Visita</label>
+                <select class="pest-select" id="selProspVisit"></select>
+            </div>
+            <div class="pest-field">
+                <label>Plaga</label>
+                <div class="pv-pest-list" id="pvPestList"></div>
+            </div>
+            <div class="pest-summary" id="pvProspSummary"></div>
         </div>
-        <div class="pest-summary" id="pestSummary"></div>
+
+        <!-- Sub-vista 2 · puntos muestreados -->
+        <div id="pvPtsControls" style="display:none">
+            <div class="pv-note">
+                <span class="ic"><svg viewBox="0 0 18 18"><use href="#ic-info"/></svg></span>
+                <span>Los puntos son referencias georreferenciadas del muestreo, uno por plaga por visita. No representan la totalidad de las mediciones: para el dato completo por sector, usa la vista Prospección por sector.</span>
+            </div>
+            <div class="pest-field">
+                <label for="selPestVisit">Visita</label>
+                <select class="pest-select" id="selPestVisit"></select>
+            </div>
+            <label class="pest-toggle-all" for="chkPestAllVisits">
+                <input type="checkbox" id="chkPestAllVisits">
+                <span>Ver todas las visitas de la temporada</span>
+            </label>
+            <div class="pest-field">
+                <label>Plagas</label>
+                <div class="pest-chips" id="pestChips"></div>
+            </div>
+            <div class="pest-summary" id="pestSummary"></div>
+        </div>
+
         <button class="pest-report-btn" type="button" id="pestReportBtn" onclick="openPestReport()">
             <span class="ic"><svg viewBox="0 0 18 18"><use href="#ic-informe"/></svg></span><span id="pestReportBtnLabel">Ver informe de la visita</span>
         </button>
         <button class="pest-reset-btn" type="button" onclick="resetPestFilters()">Restablecer filtros</button>
+
     </div>
+</div>
+
+<!-- Columna lateral de plagas: los paneles se mueven acá al inicializar -->
+<div id="pvSide">
+    <div class="pv-side-head">
+        <div class="pv-side-title"><span class="pc-dot"></span>Monitoreo fitosanitario</div>
+        <div class="pv-side-sub" id="pvSideSub">Prospección MIP de Biofuturo · temporada 2025-26</div>
+    </div>
+    <div class="pv-side-body">
+        <div id="pvSlotControls"></div>
+
+        <div class="pv-acc open" id="pvAccChart">
+            <button type="button" class="pv-acc-head" onclick="pvToggleAcc('pvAccChart')">
+                <span class="pv-acc-chev"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5l5 4.5-5 4.5"/></svg></span>
+                <span class="pv-acc-title">Evolución de la temporada</span>
+                <span class="pv-acc-meta" id="pvAccChartMeta"></span>
+            </button>
+            <div class="pv-acc-body" id="pvSlotChart"></div>
+        </div>
+
+        <div class="pv-acc" id="pvAccSector">
+            <button type="button" class="pv-acc-head" onclick="pvToggleAcc('pvAccSector')">
+                <span class="pv-acc-chev"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5l5 4.5-5 4.5"/></svg></span>
+                <span class="pv-acc-title">Detalle del cuartel</span>
+                <span class="pv-acc-meta" id="pvAccSectorMeta">sin selección</span>
+            </button>
+            <div class="pv-acc-body" id="pvSlotSector">
+                <div class="pv-acc-hint" id="pvSectorHint">Haz clic en un cuartel del mapa para ver su valor, el cuadro fitosanitario completo y su evolución.</div>
+            </div>
+        </div>
+
+        <div class="pv-acc" id="pvAccMatrix">
+            <button type="button" class="pv-acc-head" onclick="pvToggleAcc('pvAccMatrix')">
+                <span class="pv-acc-chev"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5l5 4.5-5 4.5"/></svg></span>
+                <span class="pv-acc-title">Sectores × visitas</span>
+                <span class="pv-acc-meta">23 × 9</span>
+            </button>
+            <div class="pv-acc-body" id="pvSlotMatrix"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Gráfico temporal de la prospección -->
+<div class="pv-chart-wrap" id="pvChartWrap">
+    <div class="pv-chart-card">
+        <div class="pv-chart-head">
+            <div>
+                <div class="pv-chart-title" id="pvChartTitle">—</div>
+                <div class="pv-chart-sub" id="pvChartSub">—</div>
+            </div>
+            <div class="pv-chart-actions">
+                <button type="button" class="pv-chart-link" id="pvChartLink" onclick="togglePvChartLink()">
+                    <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><use href="#ic-enlace"/></svg>
+                    <span id="pvChartLinkLabel">Sigue al mapa</span>
+                </button>
+                <button type="button" class="pv-chart-zoom" id="pvChartZoom" onclick="openPvChartOver()" title="Ampliar el gráfico" aria-label="Ampliar el gráfico">
+                    <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="#ic-ampliar"/></svg>
+                </button>
+            </div>
+        </div>
+        <div class="pv-chart" id="pvChart"></div>
+        <div class="pv-chart-note" id="pvChartNote"></div>
+    </div>
+</div>
+
+<!-- Matriz sector × visita (variante C) -->
+<div class="pv-matrix-wrap" id="pvMatrixWrap">
+    <div class="pv-mx-title">Presión por sector y visita</div>
+    <div class="pv-mx-sub" id="pvMatrixSub">—</div>
+    <div id="pvMatrix"></div>
+</div>
+
+<!-- Gráfico ampliado: se abre sobre el mapa y recibe el mismo nodo del gráfico -->
+<div class="pv-chart-over" id="pvChartOver" onclick="if(event.target===this)closePvChartOver()">
+    <div class="pv-chart-over-card">
+        <div class="pv-chart-over-head">
+            <div>
+                <div class="pv-chart-over-title" id="pvOverTitle">Evolución de la temporada</div>
+                <div class="pv-chart-over-sub" id="pvOverSub"></div>
+            </div>
+            <button type="button" class="pv-close" onclick="closePvChartOver()" aria-label="Cerrar">
+                <svg viewBox="0 0 18 18"><use href="#ic-cerrar"/></svg>
+            </button>
+        </div>
+        <div id="pvChartOverSlot"></div>
+    </div>
+</div>
+
+<!-- Panel de detalle del sector -->
+<div class="pv-sector-panel" id="pvSectorPanel">
+    <div class="pv-sp-head">
+        <div>
+            <div class="pv-sp-name" id="pvSpName">—</div>
+            <div class="pv-sp-meta" id="pvSpMeta">—</div>
+        </div>
+        <button type="button" class="pv-close" onclick="closePvSector()" aria-label="Cerrar">
+            <svg viewBox="0 0 18 18"><use href="#ic-cerrar"/></svg>
+        </button>
+    </div>
+    <div class="pv-sp-body" id="pvSpBody"></div>
 </div>
 
 <!-- Financiero -->
@@ -1540,6 +2173,13 @@ body:not(.pest-active) .pest-controls, body:not(.pest-active) .pest-legend { dis
         <div id="ttRiegoNoData" class="rt-nodata" style="display:none">Sin datos de riego para este periodo</div>
     </div>
 
+
+    <div id="ttProspBlock" style="display:none">
+        <div class="tp-metric"><span class="tp-value" id="ttProspVal">—</span><span class="tp-unit" id="ttProspUnit"></span></div>
+        <div class="tp-cmp" id="ttProspCmp"></div>
+        <div class="tp-na" id="ttProspNa" style="display:none">Sin medición en esta visita</div>
+        <div class="tp-rows" id="ttProspRows"></div>
+    </div>
 
     <div id="ttPestBlock" style="display:none">
         <div class="pt-metric"><span class="pt-value" id="ttPestCount">0</span><span class="pt-unit" id="ttPestUnit">puntos</span></div>
@@ -2267,7 +2907,7 @@ function updateStatsBar(){
     if(isFoliar){updateFoliarStats('A');updateFoliarStats('B');}
     if(isProductivity){updateProdStats('A');updateProdStats('B');}
     if(isSoil){updateSoilStats('A');updateSoilStats('B');}
-    if(isRiego){updateRiegoStats();}
+    if(isRiego){updateRiegoStats('A');updateRiegoStats('B');}
     if(isAgro){updateAgroStats();}
     if(isFin){updateFinStats();}
 }
@@ -2377,13 +3017,15 @@ function switchMode(mode){
     setLayerVisibility(map,sectorLayers,!isSoil);
     setLayerVisibility(map,soilLayers,isSoil);
     setLayerVisibility(map,['pest-points-layer'],isPest);
-    if(!isPest){ closePestPopup(); closePestReport(); pestHoverSector=null; }
+    if(!isPest){ closePestPopup(); closePestReport(); pestHoverSector=null;
+                 if(typeof closePvSector==='function') closePvSector();
+                 document.body.classList.remove('pv-view-prosp'); }
 
     if(map&&map.getLayer('sectores-fill')&&!isSoil){
         if(!isRiego && !isAgro && !isFin && !isPest) map.setPaintProperty('sectores-fill','fill-opacity',['case',['boolean',['feature-state','hover'],false],0.85,0.60]);
         if(isGen) map.setPaintProperty('sectores-fill','fill-color',getEquipoColorExpr());
         else if(isProd) applyProdToMap(map,'A');
-        else if(isRiego) { applyRiegoToMap(map); updateRiegoLegend();
+        else if(isRiego) { applyRiegoToMap(map,'A'); updateRiegoLegend();
 initFinControls(); }
         else if(isAgro) applyAgroToMap(map);
         else if(isFin) applyFinToMap(map);
@@ -2396,12 +3038,17 @@ initFinControls(); }
     }
     if(isSoil) applySoilToMap(map,'A');
     if(isPest) applyPestToMap();
-    if(isRiego) updateRiegoStats();
+    if(isRiego){ updateRiegoStats('A'); updateRiegoStats('B'); }
     if(isAgro){ recomputeAgroCache(); updateAgroLegend(); updateAgroStats(); updateAgroFilterSummary(); }
     if(isFin){ updateFinLegend(); updateFinStats(); updateFinFilterSummary(); }
     if(map&&map.loaded()&&previousMode!==mode) fitGeojson(map,isSoil?SOIL_GEOJSON:GEOJSON,isSoil?16:15.2);
     refreshDataNotice();
     hideTooltipNow();
+    // Sólo Plagas cambia el ancho de #map (columna lateral). Mapbox fija el
+    // ancho del canvas en píxeles en cada resize(): sin este llamado, al salir
+    // de Plagas el contenedor vuelve a 100% pero el canvas queda angosto y
+    // deja una franja en blanco a la derecha.
+    if(map) map.resize();
 }
 
 // ── Apply foliar coloring to a map ──
@@ -2426,6 +3073,7 @@ function applyModeToMap(mapInstance, side){
     if(currentMode === 'foliares')       applyFoliarToMap(mapInstance, side);
     else if(currentMode === 'productividad') applyProdToMap(mapInstance, side);
     else if(currentMode === 'suelo') applySoilToMap(mapInstance, side);
+    else if(currentMode === 'riego') applyRiegoToMap(mapInstance, side);
 }
 
 function syncMapLayersForMode(mapInstance){
@@ -2436,7 +3084,7 @@ function syncMapLayersForMode(mapInstance){
 }
 
 function enableCompare(){
-    if(currentMode !== 'foliares' && currentMode !== 'productividad' && currentMode !== 'suelo') return;
+    if(currentMode !== 'foliares' && currentMode !== 'productividad' && currentMode !== 'suelo' && currentMode !== 'riego') return;
     if(!map._loaded){ setTimeout(enableCompare, 200); return; }
     compareMode = true;
     document.body.classList.add('compare-mode');
@@ -2444,6 +3092,7 @@ function enableCompare(){
     const isFol  = currentMode === 'foliares';
     const isProd = currentMode === 'productividad';
     const isSoilMode = currentMode === 'suelo';
+    const isRiegoMode = currentMode === 'riego';
     if(isFol){
         document.getElementById('compareBtn').classList.add('active');
         document.getElementById('compareLabel').textContent = 'Salir de comparación';
@@ -2464,6 +3113,13 @@ function enableCompare(){
         document.getElementById('labelSoilASlot').style.display = 'flex';
         document.getElementById('labelSoilBSlot').style.display = 'flex';
         updateSoilStats('A'); updateSoilStats('B');
+    }
+    if(isRiegoMode){
+        document.getElementById('compareBtnRiego').classList.add('active');
+        document.getElementById('compareLabelRiego').textContent = 'Salir de comparación';
+        document.getElementById('riegoLabelASlot').style.display = 'flex';
+        document.getElementById('riegoPeriodB').style.display = 'block';
+        updateRiegoStats('A'); updateRiegoStats('B'); updateRiegoLegend();
     }
 
     // Init map2 if needed
@@ -2520,11 +3176,18 @@ function disableCompare(){
     document.getElementById('compareLabelSoil').textContent = 'Comparar';
     document.getElementById('labelSoilASlot').style.display = 'none';
     document.getElementById('labelSoilBSlot').style.display = 'none';
+    // Riego controls
+    document.getElementById('compareBtnRiego').classList.remove('active');
+    document.getElementById('compareLabelRiego').textContent = 'Comparar periodos';
+    document.getElementById('riegoLabelASlot').style.display = 'none';
+    document.getElementById('riegoPeriodB').style.display = 'none';
     if(compareInstance){ compareInstance.remove(); compareInstance = null; }
     updateFoliarStats('A'); updateFoliarStats('B');
     updateProdStats('A');   updateProdStats('B');
     updateProdLegend();
     updateSoilStats('A');   updateSoilStats('B');
+    updateRiegoStats('A');  updateRiegoStats('B');
+    updateRiegoLegend();
     hideTooltipNow();
 }
 
@@ -2722,9 +3385,15 @@ function setupMapInteractions(mapInstance, side){
         document.getElementById('ttAgroBlock').style.display = 'none';
         document.getElementById('ttFinBlock').style.display = 'none';
         document.getElementById('ttPestBlock').style.display = 'none';
+        document.getElementById('ttProspBlock').style.display = 'none';
         tooltip.classList.remove('riego-mode','agro-mode','fin-mode','pest-mode');
 
-        if(currentMode === 'plagas'){
+        if(currentMode === 'plagas' && pestView === 'prosp'){
+            document.getElementById('ttProspBlock').style.display = 'block';
+            tooltip.classList.add('pest-mode');
+            document.getElementById('ttBadge').textContent = EQ_NAMES[p.equipo] || p.equipo;
+            showProspTooltip(p);
+        } else if(currentMode === 'plagas'){
             document.getElementById('ttPestBlock').style.display = 'block';
             tooltip.classList.add('pest-mode');
             document.getElementById('ttBadge').textContent = EQ_NAMES[p.equipo] || p.equipo;
@@ -2743,14 +3412,17 @@ function setupMapInteractions(mapInstance, side){
         } else if(currentMode === 'riego'){
             document.getElementById('ttRiegoBlock').style.display = 'block';
             tooltip.classList.add('riego-mode');
-            const r = getRiego(p.equipo_num, p.sector_num);
+            const st = RIEGO_STATE[side];
+            const r = getRiego(p.equipo_num, p.sector_num, side);
             const key = riegoKey(p.equipo_num, p.sector_num);
-            RIEGO_LAST_HOVER_KEY = key;
+            st.lastHoverKey = key;
+            RIEGO_LAST_HOVER_SIDE = side;
             const ha = Number(p.hectareas);
-            document.getElementById('ttBadge').textContent = (EQ_NAMES[p.equipo] || p.equipo) + (RIEGO_META ? ' · ' + RIEGO_META.consulta : '');
+            const sideTag = compareMode ? ' · ' + side : '';
+            document.getElementById('ttBadge').textContent = (EQ_NAMES[p.equipo] || p.equipo) + (st.meta ? ' · ' + st.meta.consulta : '') + sideTag;
             const contentDiv = document.getElementById('ttRiegoContent');
             const noDataDiv = document.getElementById('ttRiegoNoData');
-            if(!RIEGO_META){
+            if(!st.meta){
                 contentDiv.style.display = 'none';
                 noDataDiv.style.display = 'block';
                 noDataDiv.textContent = 'Selecciona un periodo y carga los datos';
@@ -2767,7 +3439,7 @@ function setupMapInteractions(mapInstance, side){
                 document.getElementById('ttRiegoTotal').textContent = Number(r.total_m3).toLocaleString('es-CL',{maximumFractionDigits:0}) + ' m³';
                 document.getElementById('ttRiegoFreq').textContent = (r.frecuencia_dias > 0) ? `cada ${r.frecuencia_dias} d` : '—';
                 document.getElementById('ttRiegoDur').textContent = (r.duracion_promedio_hrs > 0) ? `${r.duracion_promedio_hrs} hrs` : '—';
-                document.getElementById('ttRiegoSource').textContent = `Wiseconn · ${RIEGO_META.consulta}`;
+                document.getElementById('ttRiegoSource').textContent = `Wiseconn · ${st.meta.consulta}`;
             }
         } else if(currentMode === 'productividad'){
             tooltip.classList.remove('riego-mode','agro-mode','fin-mode');
@@ -2914,6 +3586,678 @@ function setupSoilInteractions(mapInstance, side){
 }
 
 
+
+// ═══════════════════════════════════════════════════════════════
+// PROSPECCIÓN POR SECTOR — choropleth de los readings
+// ═══════════════════════════════════════════════════════════════
+// La escala de color se calcula sobre el rango de la plaga en TODAS las visitas,
+// no por visita: si se recalculara por visita el mismo color significaría valores
+// distintos en octubre y en marzo y se perdería la lectura de evolución.
+// Verificado en el Paso 0 que ninguna plaga cambia de métrica entre visitas
+// (units[*].inconsistentAcrossVisits === false), así que un dominio por plaga
+// para toda la temporada es correcto.
+
+let pestView    = 'prosp';     // 'prosp' | 'puntos'
+let prospVisit  = null;
+let prospPest   = null;
+let chartPest   = null;        // plaga del gráfico; puede desacoplarse del mapa
+let chartLinked = true;
+let pvSector    = null;        // sector abierto en el panel
+let pvSpAllPests = false;      // el panel muestra todas las plagas o sólo con presencia
+const PV_SCALE_CACHE = {};
+
+// El sector se identifica como "E4-S1" en pest_data.json y como "E4 - S1" en la
+// propiedad name del GEOJSON de polígonos. Un solo lugar hace la traducción.
+function pvGeoName(sectorKey){ return sectorKey.replace('-',' - '); }
+function pvSectorKey(geoName){ return String(geoName).replace(/\s*-\s*/,'-'); }
+
+function pvUnits(pest){ return (PEST && PEST.units && PEST.units[pest]) || null; }
+function pvUnitShort(pest){ const u = pvUnits(pest); return u ? (u.unitShort || '') : ''; }
+function pvIsCategorical(pest){ const u = pvUnits(pest); return !!u && u.type === 'categorical'; }
+function pvPestName(pest){
+    const d = PEST && PEST.pests.find(p=>p.key===pest);
+    return d ? d.name : pest;
+}
+// Plagas ofrecibles: se excluyen las filas duplicadas marcadas en el Paso 0.
+function pvSelectablePests(){
+    if(!PEST) return [];
+    return PEST.pests.filter(p=>{ const u = pvUnits(p.key); return !(u && u.excludeFromUI); });
+}
+function pvMeasuredIn(pest, visit){
+    if(!PEST || !PEST.coverage || !PEST.coverage[visit]) return false;
+    return PEST.coverage[visit].pests.indexOf(pest) !== -1;
+}
+// Formato chileno: coma decimal y decimales según magnitud, sin 2,90000 ni 0,07→0
+function pvFmt(v, pest){
+    if(v === null || v === undefined) return '—';
+    const u = pvUnits(pest);
+    const pct = u && /porcentaje/.test(u.metric || '');
+    const dec = pct ? (Math.abs(v) < 10 && v % 1 !== 0 ? 1 : 0) : (Math.abs(v) < 1 ? 2 : 2);
+    return v.toLocaleString('es-CL', {minimumFractionDigits:dec, maximumFractionDigits:dec});
+}
+function pvReadings(pest, visit){
+    if(!PEST) return [];
+    return PEST.readings.filter(r=>r.pest===pest && (!visit || r.visit===visit));
+}
+
+// ── Escala de severidad ─────────────────────────────────────────────────────
+// El cero tiene color propio fuera de la rampa: varias plagas son casi todo
+// cero con un outlier alto, y una rampa lineal desde cero dejaría todo en el
+// extremo claro. La rampa arranca en el primer valor mayor a cero.
+function pvScale(pest){
+    if(PV_SCALE_CACHE[pest]) return PV_SCALE_CACHE[pest];
+    const vals = pvReadings(pest, null).filter(r=>r.value !== null).map(r=>r.value);
+    const pos  = vals.filter(v=>v > 0);
+    let sc;
+    if(!pos.length){
+        sc = {allZero:true, min:0, max:0, cuts:[]};
+    } else {
+        const lo = Math.min(...pos), hi = Math.max(...pos);
+        const cuts = [];
+        for(let i=0;i<5;i++){
+            const a = lo + (hi-lo)*(i/5), b = lo + (hi-lo)*((i+1)/5);
+            cuts.push({from:a, to:b, color:'var(--sev-'+(i+1)+')'});
+        }
+        sc = {allZero:false, min:lo, max:hi, cuts};
+    }
+    PV_SCALE_CACHE[pest] = sc;
+    return sc;
+}
+function pvSevIndex(pest, v){
+    if(v === null || v === undefined) return 'na';
+    if(v === 0) return 0;
+    const sc = pvScale(pest);
+    if(sc.allZero) return 0;
+    if(sc.max === sc.min) return 5;
+    const t = (v - sc.min) / (sc.max - sc.min);
+    return Math.min(5, Math.max(1, Math.ceil(t * 5) || 1));
+}
+function pvSevColor(pest, v){
+    const i = pvSevIndex(pest, v);
+    return i === 'na' ? SEM('--sev-na') : SEM('--sev-' + i);
+}
+// Valores categóricos: colores discretos, no la rampa numérica
+function pvCatValues(pest){
+    const set = [];
+    pvReadings(pest,null).forEach(r=>{ if(r.rangeText && set.indexOf(r.rangeText)===-1) set.push(r.rangeText); });
+    return set.sort();
+}
+function pvCatColor(pest, txt){
+    const vals = pvCatValues(pest);
+    const i = vals.indexOf(txt);
+    if(i < 0) return SEM('--sev-na');
+    return SEM('--sev-' + Math.min(5, i + 2));
+}
+
+function pvValueOf(pest, visit, sectorKey){
+    const r = PEST.readings.find(x=>x.pest===pest && x.visit===visit && x.sector===sectorKey);
+    if(!r) return {missing:true};
+    if(r.rangeText) return {range:r.rangeText};
+    if(r.value === null) return {missing:true, raw:r.raw};
+    return {value:r.value};
+}
+
+// ── Pintado del choropleth ──────────────────────────────────────────────────
+function pvFillExpr(){
+    if(!PEST || !prospPest || !prospVisit) return SEM('--sem-beige');
+    const cat = pvIsCategorical(prospPest);
+    const expr = ['match', ['get','name']];
+    let any = false;
+    PEST.sectors.forEach(s=>{
+        const got = pvValueOf(prospPest, prospVisit, s.key);
+        let col;
+        if(got.missing) col = SEM('--sev-na');
+        else if(got.range) col = pvCatColor(prospPest, got.range);
+        else col = pvSevColor(prospPest, got.value);
+        if(!got.missing) any = true;
+        expr.push(pvGeoName(s.key), col);    // la propiedad del GeoJSON es "E4 - S1"
+    });
+    expr.push(SEM('--sev-na'));
+    return any || true ? expr : SEM('--sev-na');
+}
+function pvOpacityExpr(){
+    // "sin medición" y "sin presencia" se distinguen también por opacidad, no
+    // sólo por color: son estados distintos y deben leerse distinto.
+    if(!PEST || !prospPest || !prospVisit) return 0.5;
+    const expr = ['match', ['get','name']];
+    PEST.sectors.forEach(s=>{
+        const got = pvValueOf(prospPest, prospVisit, s.key);
+        let op;
+        if(got.missing) op = 0.25;
+        else if(!got.range && got.value === 0) op = 0.5;
+        else op = 0.88;
+        expr.push(pvGeoName(s.key), op);
+    });
+    expr.push(0.25);
+    return expr;
+}
+function applyProspToMap(){
+    if(!map || !map.getLayer('sectores-fill') || !PEST) return;
+    map.setPaintProperty('sectores-fill','fill-color', pvFillExpr());
+    map.setPaintProperty('sectores-fill','fill-opacity',
+        ['case',['boolean',['feature-state','hover'],false], 1, pvOpacityExpr()]);
+}
+
+// ── Controles ───────────────────────────────────────────────────────────────
+function initProspControls(){
+    if(!PEST) return;
+    const sel = document.getElementById('selProspVisit');
+    if(!sel) return;
+    if(!prospVisit) prospVisit = pestVisitsDesc()[0].key;
+    sel.innerHTML = pestVisitsDesc().map(v=>{
+        const n = (PEST.coverage[v.key]||{pests:[]}).pests.length;
+        return `<option value="${v.key}"${v.key===prospVisit?' selected':''}>${pestVisitLabel(v.key)} · ${n} plagas</option>`;
+    }).join('');
+    sel.onchange = ()=>{ prospVisit = sel.value; if(chartLinked) chartPest = prospPest; onProspChange(true); };
+    if(!prospPest){
+        // por defecto, la plaga medida en más visitas: es la serie con más historia
+        const cands = pvSelectablePests().filter(p=>pvMeasuredIn(p.key, prospVisit) && !pvIsCategorical(p.key));
+        const best = cands.map(p=>({k:p.key, n:PEST.visits.filter(v=>pvMeasuredIn(p.key,v.key)).length}))
+                          .sort((a,b)=>b.n-a.n)[0];
+        prospPest = best ? best.k : (cands[0] ? cands[0].key : null);
+        chartPest = prospPest;
+    }
+    buildPvPestList();
+    onProspChange(true);
+}
+function buildPvPestList(){
+    const box = document.getElementById('pvPestList');
+    if(!box || !PEST) return;
+    box.innerHTML = pvSelectablePests().map(p=>{
+        const med = pvMeasuredIn(p.key, prospVisit);
+        const u = pvUnits(p.key) || {};
+        const warn = u.inconsistentAcrossVisits
+            ? `<span class="pvp-warn" title="El método de cuantificación cambió durante la temporada"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><use href="#ic-info"/></svg></span>` : '';
+        return `<button type="button" class="pv-pest-item${p.key===prospPest?' active':''}" data-pest="${p.key}"
+            ${med?'':'disabled title="No medida en esta visita"'} title="${esc(p.name)}">
+            <span class="pvp-name">${esc(p.name)}</span>${warn}
+            <span class="pvp-unit">${esc(u.unitShort||'')}</span></button>`;
+    }).join('');
+    box.querySelectorAll('.pv-pest-item').forEach(b=>{
+        b.onclick = ()=>{ prospPest = b.dataset.pest; if(chartLinked) chartPest = prospPest;
+                          closePvSector(); onProspChange(false); };
+    });
+}
+function onProspChange(rebuildList){
+    if(rebuildList) buildPvPestList();
+    else buildPvPestList();
+    applyProspToMap();
+    updatePvLegend();
+    drawPvChart();
+    drawPvMatrix();
+    updatePvSummary();
+    updatePvAccMeta();
+    if(pvSector) openPvSector(pvSector);
+}
+
+// ── Leyenda ─────────────────────────────────────────────────────────────────
+function updatePvLegend(){
+    const items = document.getElementById('pestLegendItems');
+    const meta  = document.getElementById('pestLegendMeta');
+    const sym   = document.getElementById('pestLegendSymbol');
+    if(!items || !meta) return;
+    if(pestView !== 'prosp'){ updatePestLegend(); return; }
+    if(!PEST || !prospPest){ items.innerHTML = '<div class="pest-legend-empty">Sin plaga seleccionada.</div>'; return; }
+    const u = pvUnits(prospPest) || {};
+    if(sym) sym.textContent = 'MIP';
+    meta.innerHTML = `<span style="font-weight:500;color:var(--sem-ink)">${esc(pvPestName(prospPest))}</span><br>${esc(pestVisitLabel(prospVisit))}`;
+
+    let html = `<div class="pv-legend-unit">${esc(u.label||'')}</div>`;
+    if(u.sampling) html += `<div class="pv-legend-sampling">${esc(u.sampling)}</div>`;
+    if(u.conditionalOnPresence) html += `<div class="pv-legend-sampling">Sólo aplica donde hubo presencia.</div>`;
+
+    if(pvIsCategorical(prospPest)){
+        html += '<div class="pv-scale">' + pvCatValues(prospPest).map(t=>
+            `<div class="pv-scale-row"><span class="pv-scale-sw" style="background:${pvCatColor(prospPest,t)}"></span><span>${esc(t)} ${esc(u.unitShort||'')}</span></div>`).join('') + '</div>';
+        html += `<div class="pest-legend-note">Estimación por rangos, no un valor puntual.</div>`;
+    } else {
+        const sc = pvScale(prospPest);
+        if(sc.allZero){
+            html += `<div class="pv-scale"><div class="pv-scale-row"><span class="pv-scale-sw pv-sw-zero"></span><span>Sin presencia en toda la temporada</span></div></div>`;
+        } else {
+            html += '<div class="pv-scale">' + sc.cuts.map((c,i)=>
+                `<div class="pv-scale-row"><span class="pv-scale-sw" style="background:var(--sev-${i+1})"></span>
+                 <span>${['Incipiente','Bajo','Medio','Alto','Crítico'][i]}</span>
+                 <span class="pvs-val">${pvFmt(c.from,prospPest)}–${pvFmt(c.to,prospPest)}</span></div>`).join('') + '</div>';
+        }
+        html += `<div class="pv-scale pv-scale-special">
+            <div class="pv-scale-row"><span class="pv-scale-sw pv-sw-zero"></span><span>Sin presencia (0)</span></div>
+            <div class="pv-scale-row"><span class="pv-scale-sw pv-sw-na"></span><span>Sin medición</span></div></div>`;
+        html += `<div class="pest-legend-note">Escala fija para toda la temporada: un mismo color significa el mismo valor en las 9 visitas.</div>`;
+    }
+    items.innerHTML = html;
+}
+
+function updatePvSummary(){
+    const box = document.getElementById('pvProspSummary');
+    if(!box || !PEST || !prospPest) return;
+    const rows = pvReadings(prospPest, prospVisit);
+    const num  = rows.filter(r=>r.value !== null);
+    if(!rows.length){ box.innerHTML = '<span class="ps-hint">Esta plaga no se midió en la visita seleccionada.</span>'; return; }
+    const u = pvUnits(prospPest) || {};
+    const vals = num.map(r=>r.value);
+    const avg = vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+    const conPres = vals.filter(v=>v>0).length;
+    box.innerHTML = `<span class="ps-title">${esc(pvPestName(prospPest))}</span>
+        <strong>${num.length}</strong> de 23 cuarteles medidos · <strong>${conPres}</strong> con presencia<br>
+        Promedio del campo: <strong>${pvFmt(avg,prospPest)}</strong> ${esc(u.unitShort||'')}`;
+}
+
+// ── Gráfico temporal (SVG inline, sin librerías) ─────────────────────────────
+function pvSeries(pest){
+    // Una entrada por visita. measured=false cuando la plaga no se midió: no se
+    // dibuja barra en cero, porque un cero real y un "no se midió" no son lo mismo.
+    return pestVisitsDesc().slice().reverse().map(v=>{
+        const measured = pvMeasuredIn(pest, v.key);
+        const rows = measured ? pvReadings(pest, v.key).filter(r=>r.value !== null) : [];
+        const vals = rows.map(r=>r.value);
+        return {
+            visit:v.key, label:v.label, phenology:v.phenology || '',
+            measured, n:vals.length,
+            avg: vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null,
+            min: vals.length ? Math.min(...vals) : null,
+            max: vals.length ? Math.max(...vals) : null
+        };
+    });
+}
+function drawPvChart(){
+    const host = document.getElementById('pvChart');
+    if(!host || !PEST) return;
+    const pest = chartPest || prospPest;
+    const titleEl = document.getElementById('pvChartTitle');
+    const subEl   = document.getElementById('pvChartSub');
+    const noteEl  = document.getElementById('pvChartNote');
+    const linkEl  = document.getElementById('pvChartLink');
+    const linkLbl = document.getElementById('pvChartLinkLabel');
+    if(linkEl){
+        linkEl.classList.toggle('unlinked', !chartLinked);
+        linkLbl.textContent = chartLinked ? 'Sigue al mapa' : 'Independiente del mapa';
+        linkEl.querySelector('use').setAttribute('href', chartLinked ? '#ic-enlace' : '#ic-desenlace');
+    }
+    if(!pest){ host.innerHTML = '<div class="pv-empty">Sin plaga seleccionada.</div>'; return; }
+    const u = pvUnits(pest) || {};
+    if(titleEl) titleEl.textContent = pvPestName(pest);
+    if(subEl)   subEl.textContent = (u.label || '') + (u.unitShort ? ' · ' + u.unitShort : '');
+
+    if(pvIsCategorical(pest)){
+        host.innerHTML = `<div class="pv-empty"><div class="pve-title">Sin serie temporal</div>
+            Es una estimación por rangos de texto, no un valor numérico promediable.</div>`;
+        if(noteEl) noteEl.textContent = '';
+        return;
+    }
+
+    const S = pvSeries(pest);
+    const withData = S.filter(s=>s.measured && s.n);
+    if(!withData.length){
+        host.innerHTML = `<div class="pv-empty"><div class="pve-title">Sin mediciones</div>
+            Esta plaga no registra valores en ninguna visita.</div>`;
+        return;
+    }
+    // El SVG escala con su ancho, así que la proporción define el alto percibido:
+    // en la columna se usa una relación más alta para que no quede aplastado, y
+    // ampliado se ensancha para que las 9 barras respiren.
+    const W = pvChartBig ? 860 : 470;
+    const H = pvChartBig ? 380 : 300;
+    const mL = pvChartBig ? 52 : 44, mR = 12;
+    // mB sólo tiene que alojar la fila de fechas (una línea), no dos.
+    const mT = pvChartBig ? 22 : 18, mB = pvChartBig ? 30 : 28;
+    const iw = W - mL - mR, ih = H - mT - mB;
+    const maxV = Math.max(...withData.map(s=>s.avg));
+    const yMax = maxV > 0 ? maxV * 1.15 : 1;
+    const y = v => mT + ih - (v / yMax) * ih;
+    const bw = iw / S.length;
+    const seasonAvg = withData.reduce((a,s)=>a+s.avg,0) / withData.length;
+
+    // bandas de fenología: agrupan visitas contiguas con el mismo estado. La
+    // comparación es sobre una forma normalizada (sin tildes, sin artículos)
+    // porque la planilla alterna "Desarrollo del fruto" y "Desarrollo de fruto":
+    // son el mismo estado y partían la banda en dos rótulos casi idénticos.
+    // NFD separa las tildes en marcas propias y el filtro final las descarta
+    // junto con espacios y puntuación, así que no hace falta quitarlas aparte.
+    const phKey = t => (t||'').toLowerCase().normalize('NFD')
+        .replace(/\b(de|del|la|el|los|las)\b/g,'')
+        .replace(/[^a-z0-9]+/g,'');
+    let bands = [], cur = null;
+    S.forEach((s,i)=>{
+        const ph = s.phenology || '—', k = phKey(ph) || '—';
+        if(cur && cur.k === k) cur.to = i;
+        else { cur = {ph, k, from:i, to:i}; bands.push(cur); }
+    });
+
+    let g = '';
+    bands.forEach(b=>{
+        if(!b.ph || b.ph === '—') return;
+        const x0 = mL + b.from * bw + 2, w = (b.to - b.from + 1) * bw - 4;
+        g += `<rect class="pvc-band" x="${x0.toFixed(1)}" y="${mT}" width="${w.toFixed(1)}" height="${ih}" rx="3"/>`;
+        g += `<text class="pvc-band-label" x="${(x0 + w/2).toFixed(1)}" y="${mT + 11}" text-anchor="middle">${esc(b.ph)}</text>`;
+    });
+    // grilla y eje Y
+    for(let i=0;i<=2;i++){
+        const v = yMax * (i/2), yy = y(v);
+        g += `<line class="pvc-grid" x1="${mL}" y1="${yy.toFixed(1)}" x2="${W-mR}" y2="${yy.toFixed(1)}"/>`;
+        g += `<text class="pvc-tick" x="${mL-7}" y="${(yy+3.5).toFixed(1)}" text-anchor="end">${pvFmt(v,pest)}</text>`;
+    }
+    g += `<text class="pvc-ylabel" transform="translate(11,${mT+ih/2}) rotate(-90)" text-anchor="middle">${esc(u.unitShort||'')}</text>`;
+    // barras
+    S.forEach((s,i)=>{
+        const cx = mL + i*bw + bw/2;
+        if(s.measured && s.n){
+            const bh = Math.max(1, mT + ih - y(s.avg));
+            const bx = cx - Math.min(30, bw*0.44), bwid = Math.min(60, bw*0.88);
+            g += `<rect class="pvc-bar${s.visit===prospVisit?' sel':''}" x="${bx.toFixed(1)}" y="${y(s.avg).toFixed(1)}"
+                   width="${bwid.toFixed(1)}" height="${bh.toFixed(1)}" rx="3" data-visit="${s.visit}"/>`;
+        } else {
+            g += `<text class="pvc-gap" x="${cx.toFixed(1)}" y="${(mT+ih-6).toFixed(1)}" text-anchor="middle">–</text>`;
+        }
+        // Sólo la fecha bajo cada barra. El estado fenológico ya está rotulado en
+        // la banda superior, y repetirlo aquí no cabía: los textos se solapaban.
+        g += `<text class="pvc-tick${s.visit===prospVisit?' sel':''}" x="${cx.toFixed(1)}" y="${(mT+ih+16).toFixed(1)}" text-anchor="middle">${esc(s.label.replace(/ \d{4}$/,''))}</text>`;
+        g += `<rect class="pvc-hit" x="${(mL+i*bw).toFixed(1)}" y="${mT}" width="${bw.toFixed(1)}" height="${ih}" data-visit="${s.visit}"/>`;
+    });
+    // promedio de temporada
+    g += `<line class="pvc-avg" x1="${mL}" y1="${y(seasonAvg).toFixed(1)}" x2="${W-mR}" y2="${y(seasonAvg).toFixed(1)}"/>`;
+    // La etiqueta va al inicio de la línea, no al final: al final caía sobre las
+    // últimas barras y quedaba ilegible.
+    g += `<text class="pvc-avg-label" x="${mL+4}" y="${(y(seasonAvg)-5).toFixed(1)}">prom. temporada ${pvFmt(seasonAvg,pest)}</text>`;
+    g += `<line class="pvc-axis" x1="${mL}" y1="${mT+ih}" x2="${W-mR}" y2="${mT+ih}"/>`;
+
+    host.classList.toggle('big', pvChartBig);
+    host.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img">${g}</svg>`;
+    host.querySelectorAll('[data-visit]').forEach(el=>{
+        el.addEventListener('click', ()=>{
+            prospVisit = el.getAttribute('data-visit');
+            const sel = document.getElementById('selProspVisit'); if(sel) sel.value = prospVisit;
+            onProspChange(true);
+        });
+        el.addEventListener('mousemove', ev=>{
+            const s = S.find(x=>x.visit === el.getAttribute('data-visit'));
+            if(!s) return;
+            const body = s.measured && s.n
+                ? `<div class="tp-metric"><span class="tp-value">${pvFmt(s.avg,pest)}</span><span class="tp-unit">${esc(u.unitShort||'')}</span></div>
+                   <div class="tp-cmp">${s.n} cuarteles medidos · rango ${pvFmt(s.min,pest)}–${pvFmt(s.max,pest)}</div>`
+                : `<div class="tp-na">No se midió esta plaga en esta visita</div>`;
+            pvShowTip(ev, `<div class="ht-head"><span class="ht-name">${esc(s.label)}</span><span class="ht-badge">${esc(s.phenology||'—')}</span></div>${body}`);
+        });
+        el.addEventListener('mouseleave', pvHideTip);
+    });
+    const cats = PEST.pests.filter(p=>pvUnits(p.key) && pvUnits(p.key).inconsistentAcrossVisits).length;
+    if(noteEl) noteEl.textContent = withData.length < S.length
+        ? 'Las visitas sin barra no midieron esta plaga; no se dibuja un cero porque no equivale a ausencia.'
+        : '';
+}
+
+// Tooltip genérico reutilizando el contenedor existente
+function pvShowTip(ev, html){
+    const tt = document.getElementById('tooltip');
+    if(!tt) return;
+    tt.innerHTML = html;
+    tt.classList.add('visible','pest-mode');
+    const w = 260, h = tt.offsetHeight || 130;
+    let left = ev.clientX + 16, top = ev.clientY - h/2;
+    if(left + w > window.innerWidth - 16) left = ev.clientX - w - 16;
+    if(top < 16) top = 16;
+    if(top + h > window.innerHeight - 16) top = window.innerHeight - h - 16;
+    tt.style.left = left + 'px'; tt.style.top = top + 'px';
+}
+function pvHideTip(){
+    const tt = document.getElementById('tooltip');
+    if(tt){ tt.classList.remove('visible'); }
+}
+// El gráfico se amplía moviendo el mismo nodo a un contenedor sobre el mapa: no
+// hay una segunda copia que pueda desincronizarse.
+let pvChartBig = false;
+function openPvChartOver(){
+    const wrap = document.getElementById('pvChartWrap');
+    const slot = document.getElementById('pvChartOverSlot');
+    const over = document.getElementById('pvChartOver');
+    if(!wrap || !slot || !over) return;
+    slot.appendChild(wrap);
+    over.classList.add('visible');
+    pvChartBig = true;
+    const u = pvUnits(chartPest || prospPest) || {};
+    document.getElementById('pvOverTitle').textContent = pvPestName(chartPest || prospPest);
+    document.getElementById('pvOverSub').textContent = (u.label||'') + (u.unitShort ? ' · ' + u.unitShort : '');
+    drawPvChart();
+}
+function closePvChartOver(){
+    const wrap = document.getElementById('pvChartWrap');
+    const slot = document.getElementById('pvSlotChart');
+    const over = document.getElementById('pvChartOver');
+    if(wrap && slot) slot.appendChild(wrap);
+    if(over) over.classList.remove('visible');
+    pvChartBig = false;
+    drawPvChart();
+}
+
+function togglePvChartLink(){
+    chartLinked = !chartLinked;
+    if(chartLinked) chartPest = prospPest;
+    drawPvChart();
+    updatePvAccMeta();
+}
+
+// ── Matriz sector × visita (variante C) ─────────────────────────────────────
+function drawPvMatrix(){
+    const host = document.getElementById('pvMatrix');
+    const sub  = document.getElementById('pvMatrixSub');
+    if(!host || !PEST || !prospPest) return;
+    const u = pvUnits(prospPest) || {};
+    if(sub) sub.textContent = pvPestName(prospPest) + ' · ' + (u.unitShort || '');
+    const vis = pestVisitsDesc().slice().reverse();
+    let h = '<table class="pv-mx"><thead><tr><th class="rowhead"></th>' +
+        vis.map(v=>`<th>${esc(v.label.replace(/\.? \d{4}$/,'').replace(/^\d+ /,''))}</th>`).join('') + '</tr></thead><tbody>';
+    PEST.sectors.forEach(s=>{
+        h += `<tr><td class="rowhead">${esc(s.key)}</td>`;
+        vis.forEach(v=>{
+            const got = pvValueOf(prospPest, v.key, s.key);
+            let col, tip;
+            if(got.missing){ col = 'var(--sev-na)'; tip = 'sin medición'; }
+            else if(got.range){ col = pvCatColor(prospPest, got.range); tip = got.range; }
+            else { col = pvSevColor(prospPest, got.value); tip = pvFmt(got.value, prospPest) + ' ' + (u.unitShort||''); }
+            const op = got.missing ? 0.25 : (!got.range && got.value === 0 ? 0.5 : 1);
+            h += `<td><div class="cell${(v.key===prospVisit)?' sel':''}" style="background:${col};opacity:${op}"
+                   title="${esc(s.key)} · ${esc(v.label)} · ${esc(tip)}" data-visit="${v.key}"></div></td>`;
+        });
+        h += '</tr>';
+    });
+    host.innerHTML = h + '</tbody></table>';
+    host.querySelectorAll('.cell').forEach(c=>{
+        c.onclick = ()=>{ prospVisit = c.getAttribute('data-visit');
+            const sel = document.getElementById('selProspVisit'); if(sel) sel.value = prospVisit;
+            onProspChange(true); };
+    });
+}
+
+// ── Panel de detalle del sector ─────────────────────────────────────────────
+function openPvSector(sectorKey){
+    if(!PEST) return;
+    pvSector = sectorKey;
+    const panel = document.getElementById('pvSectorPanel');
+    const sec = PEST.sectors.find(s=>s.key===sectorKey);
+    if(!panel || !sec) return;
+    document.getElementById('pvSpName').textContent = 'Cuartel ' + sec.key;
+    document.getElementById('pvSpMeta').textContent =
+        sec.hectareas.toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:2}) + ' ha · ' + pestVisitLabel(prospVisit);
+
+    let html = '';
+    if(pestView === 'prosp'){
+        const u = pvUnits(prospPest) || {};
+        const got = pvValueOf(prospPest, prospVisit, sectorKey);
+        const rows = pvReadings(prospPest, prospVisit).filter(r=>r.value!==null).map(r=>r.value);
+        const avg = rows.length ? rows.reduce((a,b)=>a+b,0)/rows.length : null;
+        // valor de la visita anterior, para la tendencia
+        const ordered = pestVisitsDesc().slice().reverse().map(v=>v.key);
+        const idx = ordered.indexOf(prospVisit);
+        let prev = null;
+        for(let i=idx-1;i>=0;i--){ const g = pvValueOf(prospPest, ordered[i], sectorKey); if(g.value!==undefined){ prev = g.value; break; } }
+        let cmp = '';
+        if(got.value !== undefined && avg !== null){
+            cmp = `Promedio del campo: ${pvFmt(avg,prospPest)}`;
+            if(prev !== null){
+                const d = got.value - prev;
+                const arrow = d > 0 ? '▲' : (d < 0 ? '▼' : '=');
+                cmp += ` · vs. visita anterior <span class="tp-trend ${d>0?'up':(d<0?'down':'')}">${arrow} ${pvFmt(Math.abs(d),prospPest)}</span>`;
+            }
+        }
+        html += `<div class="pv-sp-metric">
+            <div class="k">${esc(pvPestName(prospPest))}</div>
+            <div class="v">${got.missing ? 'Sin medición' : (got.range ? esc(got.range) : pvFmt(got.value,prospPest))}${got.missing||got.range?'':`<span class="u">${esc(u.unitShort||'')}</span>`}</div>
+            ${cmp?`<div class="cmp">${cmp}</div>`:''}</div>`;
+
+        // cuadro fitosanitario completo del cuartel en esa visita
+        const all = (PEST.coverage[prospVisit]||{pests:[]}).pests
+            .filter(k=>{ const uu = pvUnits(k); return !(uu && uu.excludeFromUI); })
+            .map(k=>({key:k, got:pvValueOf(k, prospVisit, sectorKey), u:pvUnits(k)||{}}));
+        const conPres = all.filter(a=>a.got.range || (a.got.value>0));
+        const show = pvSpAllPests ? all : (conPres.length ? conPres : all);
+        html += `<div class="pv-sp-section">Cuadro fitosanitario del cuartel</div>
+            <table class="pv-sp-table"><tbody>` + show.map(a=>{
+                const z = !a.got.range && a.got.value === 0;
+                const val = a.got.missing ? 'sin medición' : (a.got.range ? esc(a.got.range) : pvFmt(a.got.value, a.key));
+                return `<tr class="${z?'zero':''}"><td class="n" title="${esc(pvPestName(a.key))}">${esc(pvPestName(a.key))}</td>
+                    <td class="val">${val}${a.got.missing?'':`<span class="u">${esc(a.u.unitShort||'')}</span>`}</td></tr>`;
+            }).join('') + '</tbody></table>';
+        if(conPres.length && conPres.length < all.length){
+            html += `<button type="button" class="pv-sp-more" onclick="pvSpAllPests=!pvSpAllPests;openPvSector('${sectorKey}')">${
+                pvSpAllPests ? 'Ver sólo las que tienen presencia' : `Ver todas (${all.length})`}</button>`;
+        }
+        // sparkline de la plaga en ese cuartel
+        const serie = ordered.map(vk=>({v:vk, g:pvValueOf(prospPest, vk, sectorKey)}));
+        const nums = serie.filter(s=>s.g.value !== undefined);
+        if(nums.length > 1){
+            const mx = Math.max(...nums.map(s=>s.g.value), pvScale(prospPest).max || 1);
+            const w=300,hh=42;
+            const px = i => 2 + (i/(serie.length-1))*(w-4);
+            const py = v => hh-4 - (mx? (v/mx)*(hh-10):0);
+            let pts = [], dots='';
+            serie.forEach((s,i)=>{
+                if(s.g.value === undefined) return;
+                pts.push(`${px(i).toFixed(1)},${py(s.g.value).toFixed(1)}`);
+                dots += `<circle class="${s.v===prospVisit?'sp-dot-sel':'sp-dot'}" cx="${px(i).toFixed(1)}" cy="${py(s.g.value).toFixed(1)}" r="${s.v===prospVisit?3:2}"/>`;
+            });
+            html += `<div class="pv-spark"><div class="pv-spark-label">Evolución en este cuartel · ${esc(u.unitShort||'')}</div>
+                <svg viewBox="0 0 ${w} ${hh}"><line class="sp-base" x1="2" y1="${hh-4}" x2="${w-2}" y2="${hh-4}"/>
+                <polyline class="sp-line" points="${pts.join(' ')}"/>${dots}</svg></div>`;
+        }
+    } else {
+        // sub-vista de puntos: los puntos de ese cuartel, agrupados por plaga
+        const pts = pestVisiblePoints().filter(p=>p.sector===sectorKey);
+        if(!pts.length){
+            html += `<div class="pv-empty">Sin puntos levantados en este cuartel con los filtros actuales.</div>`;
+        } else {
+            const by = {};
+            pts.forEach(p=>{ const k=pestKeyOf(p); (by[k]=by[k]||[]).push(p.id); });
+            html += Object.keys(by).map(k=>`<div class="pv-pt-group">
+                <div class="pv-pt-title"><span class="pv-pt-dot" style="background:${pestColor(k)}"></span>${esc(pestTaxonName(k))}</div>
+                <div class="pv-pt-ids">${by[k].map(esc).join(' · ')}</div></div>`).join('');
+        }
+    }
+    document.getElementById('pvSpBody').innerHTML = html;
+    panel.classList.add('visible');
+    const hint = document.getElementById('pvSectorHint'); if(hint) hint.style.display='none';
+    pvOpenAcc('pvAccSector', true);
+    updatePvAccMeta();
+}
+function closePvSector(){
+    pvSector = null; pvSpAllPests = false;
+    const p = document.getElementById('pvSectorPanel');
+    if(p) p.classList.remove('visible');
+    const hint = document.getElementById('pvSectorHint'); if(hint) hint.style.display='block';
+    pvOpenAcc('pvAccSector', false);
+    updatePvAccMeta();
+}
+
+// ── Conmutación de sub-vista y de composición ───────────────────────────────
+function setPestView(v){
+    pestView = v;
+    const isP = v === 'prosp';
+    document.getElementById('pvTabProsp').classList.toggle('active', isP);
+    document.getElementById('pvTabPts').classList.toggle('active', !isP);
+    document.getElementById('pvProspControls').style.display = isP ? 'block' : 'none';
+    document.getElementById('pvPtsControls').style.display  = isP ? 'none' : 'block';
+    document.body.classList.toggle('pv-view-prosp', isP);
+    const sub = document.getElementById('pvSideSub');
+    if(sub) sub.textContent = isP
+        ? 'Cuantificación por cuartel · 23 cuarteles × 9 visitas'
+        : 'Puntos georreferenciados del muestreo · 152 puntos';
+    closePvSector();
+    closePestPopup();
+    if(map) map.resize();
+    if(!map || !map.getLayer('pest-points-layer')) return;
+    setLayerVisibility(map, ['pest-points-layer'], !isP);
+    if(isP){
+        applyProspToMap();
+        updatePvLegend();
+        drawPvChart();
+        drawPvMatrix();
+    } else {
+        // los polígonos quedan como referencia tenue para leer el punto en su cuartel
+        map.setPaintProperty('sectores-fill','fill-color', SEM('--sem-beige'));
+        map.setPaintProperty('sectores-fill','fill-opacity',
+            ['case',['boolean',['feature-state','hover'],false],0.35,0.15]);
+        refreshPestLayer();
+    }
+}
+// Los paneles nacen sueltos en el markup y se mueven una vez a la columna, para
+// no duplicar ids ni volver a enganchar handlers.
+let pvSideMounted = false;
+function mountPvSide(){
+    if(pvSideMounted) return;
+    const mv = (nodeId, slotId)=>{
+        const n = document.getElementById(nodeId), s = document.getElementById(slotId);
+        if(n && s) s.appendChild(n);
+    };
+    mv('pestControls','pvSlotControls');
+    // La leyenda de rangos se queda flotando abajo a la izquierda, sobre el
+    // área libre del mapa: es el único panel flotante y ahí no estorba.
+    mv('pvChartWrap','pvSlotChart');
+    mv('pvSectorPanel','pvSlotSector');
+    mv('pvMatrixWrap','pvSlotMatrix');
+    pvSideMounted = true;
+    if(map) map.resize();
+}
+function pvToggleAcc(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.classList.toggle('open');
+    // el gráfico y la matriz miden su ancho al dibujarse: se redibujan al abrir
+    if(el.classList.contains('open')){
+        if(id==='pvAccChart') drawPvChart();
+        if(id==='pvAccMatrix') drawPvMatrix();
+    }
+}
+function pvOpenAcc(id, open){
+    const el = document.getElementById(id);
+    if(el) el.classList.toggle('open', open !== false);
+}
+// Los metadatos del encabezado dejan la plaga y su unidad visibles incluso con
+// la sección cerrada: la unidad nunca queda escondida detrás de un clic.
+function updatePvAccMeta(){
+    if(!PEST || !prospPest) return;
+    const u = pvUnits(prospPest) || {};
+    const lg = document.getElementById('pvAccLegendMeta');
+    const ch = document.getElementById('pvAccChartMeta');
+    if(lg) lg.textContent = pvPestName(prospPest) + ' · ' + (u.unitShort || '');
+    if(ch) ch.textContent = (chartLinked ? '' : 'independiente · ') + pvPestName(chartPest || prospPest);
+    const sc = document.getElementById('pvAccSectorMeta');
+    if(sc) sc.textContent = pvSector ? ('Cuartel ' + pvSector) : 'sin selección';
+}
+// Salto desde el popup de un punto a la prospección de su cuartel
+function pvGoToProspeccion(sectorKey, visitKey, pestKey){
+    closePestPopup();
+    prospVisit = visitKey;
+    // el punto trae un taxón; se mapea a la fila de planilla que corresponda
+    const cand = pvSelectablePests().find(p=>{
+        const d = PEST.pests.find(x=>x.key===p.key);
+        return d && d.taxon === pestKey && pvMeasuredIn(p.key, visitKey);
+    });
+    if(cand) prospPest = cand.key;
+    if(chartLinked) chartPest = prospPest;
+    setPestView('prosp');
+    const sel = document.getElementById('selProspVisit'); if(sel) sel.value = prospVisit;
+    onProspChange(true);
+    if(sectorKey) openPvSector(sectorKey);
+}
 
 // ═══════════════════════════════════════════════════════════════
 // MONITOREO FITOSANITARIO — capa de puntos de plagas
@@ -3178,6 +4522,9 @@ function applyPestToMap(){
     if(!PEST){ updatePestLegend(); return; }
     if(!pestControlsReady) initPestControls();
     else refreshPestLayer();
+    mountPvSide();
+    initProspControls();
+    setPestView(pestView);
 }
 
 // ── Leyenda: sólo las plagas con puntos visibles ──
@@ -3264,7 +4611,13 @@ function pestPopupHTML(p){
     if(sci)         rows.push(['Especie', `<em>${sci}</em>`]);
     if(p.stage)     rows.push(['Estado', p.stage]);
     if(p.rawLabel)  rows.push(['Registro en terreno', `“${p.rawLabel}”`]);
-    rows.push(['Cuartel', p.sector || 'Fuera de cuartel (hilera perimetral)']);
+    rows.push(['Cuartel', p.sector ? `<strong>${p.sector}</strong>` : 'Fuera de cuartel (hilera perimetral)']);
+    // Salto a la prospección del cuartel: sólo tiene sentido si el punto cae en uno.
+    const cta = p.sector
+        ? `<button type="button" class="pp-cta" onclick="pvGoToProspeccion('${p.sector}','${p.visit}','${key}')">
+             <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><use href="#ic-ir"/></svg>
+             Ver prospección de este cuartel</button>`
+        : '';
     // Cabecera blanca con un círculo del color de la plaga (Componente 2 del
     // sistema de diseño): el color identifica sin teñir la superficie.
     return `<div class="pp-head">
@@ -3279,6 +4632,7 @@ function pestPopupHTML(p){
             <div class="pp-rows">
                 ${rows.map(([k,v])=>`<div class="pp-row"><div class="k">${k}</div><div class="v">${v}</div></div>`).join('')}
             </div>
+            ${cta}
         </div>`;
 }
 
@@ -3297,21 +4651,36 @@ function setupPestInteractions(m){
         m.setPaintProperty('pest-points-layer','circle-radius', pestRadiusExpr());
         updatePestSummary();
     });
-    m.on('mouseenter','pest-points-layer', ()=>{
-        if(currentMode === 'plagas') m.getCanvas().style.cursor = 'pointer';
+    // Hover en un punto: se resalta el polígono del cuartel al que pertenece,
+    // para que la relación punto→cuartel sea visible y no haya que deducirla.
+    let pvHoverPolyId = null;
+    m.on('mousemove','pest-points-layer', e=>{
+        if(currentMode !== 'plagas' || pestView === 'prosp' || !e.features.length) return;
+        m.getCanvas().style.cursor = 'pointer';
+        const sec = e.features[0].properties.sector;
+        if(pvHoverPolyId !== null){ m.setFeatureState({source:'sectores', id:pvHoverPolyId}, {hover:false}); pvHoverPolyId = null; }
+        if(!sec) return;
+        const name = sec.replace('-',' - ');
+        const f = m.querySourceFeatures('sectores').find(x=>x.properties.name === name);
+        if(f && f.id !== undefined){ pvHoverPolyId = f.id; m.setFeatureState({source:'sectores', id:f.id}, {hover:true}); }
     });
     m.on('mouseleave','pest-points-layer', ()=>{
         if(currentMode === 'plagas') m.getCanvas().style.cursor = '';
+        if(pvHoverPolyId !== null){ m.setFeatureState({source:'sectores', id:pvHoverPolyId}, {hover:false}); pvHoverPolyId = null; }
     });
     // clic en un cuartel: fija el resumen. Mapbox dispara los handlers de todas las capas
     // bajo el cursor, así que si el clic cayó sobre un punto ese handler manda.
     m.on('click','sectores-fill', e=>{
         if(currentMode !== 'plagas' || !e.features || !e.features.length) return;
-        if(m.queryRenderedFeatures(e.point, {layers:['pest-points-layer']}).length) return;
+        if(pestView !== 'prosp' && m.queryRenderedFeatures(e.point, {layers:['pest-points-layer']}).length) return;
         const name = e.features[0].properties.name;               // "E4 - S3"
-        pestPinnedSector = name.replace(/\s*-\s*/,'-');           // -> "E4-S3"
-        m.setPaintProperty('pest-points-layer','circle-radius', pestRadiusExpr());
-        updatePestSummary();
+        const key  = name.replace(/\s*-\s*/,'-');                 // -> "E4-S3"
+        openPvSector(key);
+        if(pestView !== 'prosp'){
+            pestPinnedSector = key;
+            m.setPaintProperty('pest-points-layer','circle-radius', pestRadiusExpr());
+            updatePestSummary();
+        }
     });
 }
 
@@ -3497,6 +4866,52 @@ function focusPestSector(sectorKey){
         f.geometry.coordinates[0].forEach(c=>b.extend(c));
         map.fitBounds(b,{padding:{top:110,bottom:110,left:80,right:420},maxZoom:16.5});
     }
+}
+
+// Tooltip del choropleth: valor con unidad y comparación contra el campo.
+function showProspTooltip(p){
+    const sectorKey = String(p.name).replace(/\s*-\s*/,'-');
+    const u = pvUnits(prospPest) || {};
+    const got = pvValueOf(prospPest, prospVisit, sectorKey);
+    const valEl = document.getElementById('ttProspVal');
+    const unitEl= document.getElementById('ttProspUnit');
+    const cmpEl = document.getElementById('ttProspCmp');
+    const naEl  = document.getElementById('ttProspNa');
+    const rowsEl= document.getElementById('ttProspRows');
+    const metric= valEl.parentElement;
+
+    if(got.missing){
+        metric.style.display = 'none'; cmpEl.style.display='none'; naEl.style.display='block';
+    } else {
+        metric.style.display = 'flex'; naEl.style.display='none';
+        valEl.textContent = got.range ? got.range : pvFmt(got.value, prospPest);
+        unitEl.textContent = u.unitShort || '';
+        const nums = pvReadings(prospPest, prospVisit).filter(r=>r.value!==null).map(r=>r.value);
+        const avg = nums.length ? nums.reduce((a,b)=>a+b,0)/nums.length : null;
+        if(avg !== null && !got.range){
+            const ordered = pestVisitsDesc().slice().reverse().map(v=>v.key);
+            const idx = ordered.indexOf(prospVisit);
+            let prev = null;
+            for(let i=idx-1;i>=0;i--){ const g=pvValueOf(prospPest,ordered[i],sectorKey); if(g.value!==undefined){ prev=g.value; break; } }
+            let extra = '';
+            if(prev !== null){
+                const d = got.value - prev;
+                extra = ` · <span class="tp-trend ${d>0?'up':(d<0?'down':'')}">${d>0?'▲':(d<0?'▼':'=')} ${pvFmt(Math.abs(d),prospPest)}</span> vs. anterior`;
+            }
+            cmpEl.innerHTML = `Promedio campo: ${pvFmt(avg,prospPest)}${extra}`;
+            cmpEl.style.display='block';
+        } else { cmpEl.style.display='none'; }
+    }
+    // las otras plagas medidas en el cuartel, con presencia
+    const others = (PEST.coverage[prospVisit]||{pests:[]}).pests
+        .filter(k=>k!==prospPest && !(pvUnits(k)||{}).excludeFromUI)
+        .map(k=>({k, g:pvValueOf(k, prospVisit, sectorKey), u:pvUnits(k)||{}}))
+        .filter(a=>a.g.range || a.g.value > 0);
+    rowsEl.innerHTML = others.length
+        ? others.map(a=>`<div class="tp-row"><span>${esc(pvPestName(a.k))}</span><span class="v">${
+            a.g.range ? esc(a.g.range) : pvFmt(a.g.value,a.k)} ${esc(a.u.unitShort||'')}</span></div>`).join('')
+        : '<div class="tp-row"><span>Sin otras plagas con presencia</span></div>';
+    document.getElementById('ttPestSource') && null;
 }
 
 // Rellena el bloque de tooltip del cuartel en modo plagas.
@@ -4106,125 +5521,140 @@ function getRiegoColor(v){
     return RIEGO_SCALE_FIXED[RIEGO_SCALE_FIXED.length - 1].color;
 }
 
-// State
-let RIEGO_DATA = {}; // "E1-S1" → sector data
-let RIEGO_META = null; // { consulta, rango, resumen, generado }
-let RIEGO_FILTER_MODE = 'meses'; // dias | meses | temporadas
-let RIEGO_CAL_YEAR = new Date().getFullYear();
-let RIEGO_CAL_MONTH = new Date().getMonth();
-let RIEGO_SEL_MONTH_Y = new Date().getFullYear();
-let RIEGO_SEL_MONTH_M = new Date().getMonth();
-let RIEGO_SEL_DAYS = []; // array of Date
-let RIEGO_SEL_SEASON = null; // "2025-2026"
-let RIEGO_LAST_HOVER_KEY = null; // for modal-from-tooltip
+// State — un objeto por lado (A/B), para que Riego admita "Comparar periodos"
+// igual que Productividad/Foliares/Suelo. Sin comparar, sólo A se usa.
+function newRiegoSideState(){
+    const now = new Date();
+    return {
+        data: {},           // "E1-S1" → sector data
+        meta: null,         // { consulta, resumen, generado }
+        filterMode: 'meses', // dias | meses | temporadas
+        calYear: now.getFullYear(), calMonth: now.getMonth(),
+        selMonthY: now.getFullYear(), selMonthM: now.getMonth(),
+        selDays: [],         // array de "YYYY-MM-DD"
+        selSeason: null,     // "2025-2026"
+        lastHoverKey: null   // para abrir el modal desde el tooltip
+    };
+}
+const RIEGO_STATE = { A: newRiegoSideState(), B: newRiegoSideState() };
+let RIEGO_LAST_HOVER_SIDE = 'A'; // qué lado hover-eó por última vez, para el modal
 
 // ── Filter mode switching ──
-function setRiegoFilterMode(mode){
-    RIEGO_FILTER_MODE = mode;
-    document.querySelectorAll('.riego-mode-tab').forEach(t=>{
+function setRiegoFilterMode(mode, side='A'){
+    const st = RIEGO_STATE[side];
+    st.filterMode = mode;
+    document.querySelectorAll('.riego-mode-tabs[data-side="'+side+'"] .riego-mode-tab').forEach(t=>{
         t.classList.toggle('active', t.dataset.rmode === mode);
     });
-    document.getElementById('riegoPanelDias').classList.toggle('active', mode==='dias');
-    document.getElementById('riegoPanelMeses').classList.toggle('active', mode==='meses');
-    document.getElementById('riegoPanelTemporadas').classList.toggle('active', mode==='temporadas');
-    if(mode === 'dias') buildDaysCalendar();
-    if(mode === 'meses') buildMonthsGrid();
-    if(mode === 'temporadas') buildSeasonsGrid();
+    document.getElementById('riegoPanelDias'+side).classList.toggle('active', mode==='dias');
+    document.getElementById('riegoPanelMeses'+side).classList.toggle('active', mode==='meses');
+    document.getElementById('riegoPanelTemporadas'+side).classList.toggle('active', mode==='temporadas');
+    if(mode === 'dias') buildDaysCalendar(side);
+    if(mode === 'meses') buildMonthsGrid(side);
+    if(mode === 'temporadas') buildSeasonsGrid(side);
 }
 
 // ── DÍAS calendar ──
 const MESES_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const DOW = ['L','M','X','J','V','S','D'];
 
-function buildDaysCalendar(){
-    const grid = document.getElementById('riegoDaysGrid');
-    document.getElementById('riegoDaysLabel').textContent = MESES_ES[RIEGO_CAL_MONTH] + ' ' + RIEGO_CAL_YEAR;
+function buildDaysCalendar(side='A'){
+    const st = RIEGO_STATE[side];
+    const grid = document.getElementById('riegoDaysGrid'+side);
+    document.getElementById('riegoDaysLabel'+side).textContent = MESES_ES[st.calMonth] + ' ' + st.calYear;
     let html = '';
     DOW.forEach(d => html += `<div class="riego-cell dow">${d}</div>`);
-    const first = new Date(RIEGO_CAL_YEAR, RIEGO_CAL_MONTH, 1);
+    const first = new Date(st.calYear, st.calMonth, 1);
     const startDow = (first.getDay() + 6) % 7; // lunes=0
-    const daysInMonth = new Date(RIEGO_CAL_YEAR, RIEGO_CAL_MONTH+1, 0).getDate();
+    const daysInMonth = new Date(st.calYear, st.calMonth+1, 0).getDate();
     // padding previous month
-    const prevDays = new Date(RIEGO_CAL_YEAR, RIEGO_CAL_MONTH, 0).getDate();
+    const prevDays = new Date(st.calYear, st.calMonth, 0).getDate();
     for(let i = startDow-1; i >= 0; i--){
         html += `<div class="riego-cell other-month disabled">${prevDays - i}</div>`;
     }
     for(let d = 1; d <= daysInMonth; d++){
-        const dateKey = `${RIEGO_CAL_YEAR}-${String(RIEGO_CAL_MONTH+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-        const isSel = RIEGO_SEL_DAYS.some(x => x === dateKey);
-        html += `<div class="riego-cell${isSel?' active':''}" onclick="toggleDay('${dateKey}')">${d}</div>`;
+        const dateKey = `${st.calYear}-${String(st.calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const isSel = st.selDays.some(x => x === dateKey);
+        html += `<div class="riego-cell${isSel?' active':''}" onclick="toggleDay('${dateKey}','${side}')">${d}</div>`;
     }
     grid.innerHTML = html;
-    updateDaysRange();
+    updateDaysRange(side);
 }
-function riegoDaysNav(monthsDelta){
-    const d = new Date(RIEGO_CAL_YEAR, RIEGO_CAL_MONTH + monthsDelta, 1);
-    RIEGO_CAL_YEAR = d.getFullYear();
-    RIEGO_CAL_MONTH = d.getMonth();
-    buildDaysCalendar();
+function riegoDaysNav(monthsDelta, side='A'){
+    const st = RIEGO_STATE[side];
+    const d = new Date(st.calYear, st.calMonth + monthsDelta, 1);
+    st.calYear = d.getFullYear();
+    st.calMonth = d.getMonth();
+    buildDaysCalendar(side);
 }
-function toggleDay(dateKey){
-    const idx = RIEGO_SEL_DAYS.indexOf(dateKey);
-    if(idx >= 0) RIEGO_SEL_DAYS.splice(idx, 1);
-    else RIEGO_SEL_DAYS.push(dateKey);
-    RIEGO_SEL_DAYS.sort();
-    buildDaysCalendar();
+function toggleDay(dateKey, side='A'){
+    const st = RIEGO_STATE[side];
+    const idx = st.selDays.indexOf(dateKey);
+    if(idx >= 0) st.selDays.splice(idx, 1);
+    else st.selDays.push(dateKey);
+    st.selDays.sort();
+    buildDaysCalendar(side);
 }
-function updateDaysRange(){
-    const box = document.getElementById('riegoDaysRange');
-    if(RIEGO_SEL_DAYS.length === 0){ box.textContent = 'Selecciona uno o más días'; return; }
-    if(RIEGO_SEL_DAYS.length === 1){ box.textContent = fmtDate(RIEGO_SEL_DAYS[0]); return; }
-    box.textContent = `${fmtDate(RIEGO_SEL_DAYS[0])} → ${fmtDate(RIEGO_SEL_DAYS[RIEGO_SEL_DAYS.length-1])} (${RIEGO_SEL_DAYS.length} días)`;
+function updateDaysRange(side='A'){
+    const st = RIEGO_STATE[side];
+    const box = document.getElementById('riegoDaysRange'+side);
+    if(st.selDays.length === 0){ box.textContent = 'Selecciona uno o más días'; return; }
+    if(st.selDays.length === 1){ box.textContent = fmtDate(st.selDays[0]); return; }
+    box.textContent = `${fmtDate(st.selDays[0])} → ${fmtDate(st.selDays[st.selDays.length-1])} (${st.selDays.length} días)`;
 }
 function fmtDate(iso){ const [y,m,d] = iso.split('-'); return `${d}/${m}/${y}`; }
 
 // ── MESES grid ──
-function buildMonthsGrid(){
-    document.getElementById('riegoYearLabel').textContent = RIEGO_SEL_MONTH_Y;
-    const grid = document.getElementById('riegoMonthsGrid');
+function buildMonthsGrid(side='A'){
+    const st = RIEGO_STATE[side];
+    document.getElementById('riegoYearLabel'+side).textContent = st.selMonthY;
+    const grid = document.getElementById('riegoMonthsGrid'+side);
     const abr = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
     grid.innerHTML = abr.map((m, i) => {
-        const active = (i === RIEGO_SEL_MONTH_M && RIEGO_SEL_MONTH_Y === RIEGO_CAL_YEAR && RIEGO_FILTER_MODE==='meses');
-        return `<div class="riego-cell${active?' active':''}" onclick="selectMonth(${i})">${m}</div>`;
+        const active = (i === st.selMonthM && st.selMonthY === st.calYear && st.filterMode==='meses');
+        return `<div class="riego-cell${active?' active':''}" onclick="selectMonth(${i},'${side}')">${m}</div>`;
     }).join('');
-    updateMonthsRange();
+    updateMonthsRange(side);
 }
-function riegoYearNav(delta){
-    RIEGO_SEL_MONTH_Y += delta;
-    buildMonthsGrid();
+function riegoYearNav(delta, side='A'){
+    RIEGO_STATE[side].selMonthY += delta;
+    buildMonthsGrid(side);
 }
-function selectMonth(i){
-    RIEGO_SEL_MONTH_M = i;
-    RIEGO_CAL_YEAR = RIEGO_SEL_MONTH_Y;
-    buildMonthsGrid();
+function selectMonth(i, side='A'){
+    const st = RIEGO_STATE[side];
+    st.selMonthM = i;
+    st.calYear = st.selMonthY;
+    buildMonthsGrid(side);
 }
-function updateMonthsRange(){
-    const first = new Date(RIEGO_SEL_MONTH_Y, RIEGO_SEL_MONTH_M, 1);
-    const last = new Date(RIEGO_SEL_MONTH_Y, RIEGO_SEL_MONTH_M+1, 0);
-    document.getElementById('riegoMonthsRange').textContent =
+function updateMonthsRange(side='A'){
+    const st = RIEGO_STATE[side];
+    const first = new Date(st.selMonthY, st.selMonthM, 1);
+    const last = new Date(st.selMonthY, st.selMonthM+1, 0);
+    document.getElementById('riegoMonthsRange'+side).textContent =
         `${fmtDate(first.toISOString().slice(0,10))} — ${fmtDate(last.toISOString().slice(0,10))}`;
 }
 
 // ── TEMPORADAS grid (jul-jun, desde 2022) ──
-function buildSeasonsGrid(){
+function buildSeasonsGrid(side='A'){
+    const st = RIEGO_STATE[side];
     const now = new Date();
     const curYearStart = now.getMonth() >= 6 ? now.getFullYear() : now.getFullYear() - 1;
     const seasons = [];
     for(let y = curYearStart; y >= 2022; y--){
         seasons.push({ key: `${y}-${y+1}`, label: `${y}–${y+1}`, sub: `01/07/${y} – 30/06/${y+1}` });
     }
-    const grid = document.getElementById('riegoSeasonsGrid');
+    const grid = document.getElementById('riegoSeasonsGrid'+side);
     grid.innerHTML = seasons.map(s =>
-        `<div class="riego-cell season${RIEGO_SEL_SEASON===s.key?' active':''}" onclick="selectSeason('${s.key}')">
+        `<div class="riego-cell season${st.selSeason===s.key?' active':''}" onclick="selectSeason('${s.key}','${side}')">
             <div>${s.label}</div><div class="rc-sub">${s.sub}</div>
         </div>`
     ).join('');
-    document.getElementById('riegoSeasonsRange').textContent =
-        RIEGO_SEL_SEASON ? `Temporada ${RIEGO_SEL_SEASON}` : 'Selecciona una temporada';
+    document.getElementById('riegoSeasonsRange'+side).textContent =
+        st.selSeason ? `Temporada ${st.selSeason}` : 'Selecciona una temporada';
 }
-function selectSeason(k){
-    RIEGO_SEL_SEASON = k;
-    buildSeasonsGrid();
+function selectSeason(k, side='A'){
+    RIEGO_STATE[side].selSeason = k;
+    buildSeasonsGrid(side);
 }
 
 // ── Fetch helper: 1 request al Apps Script con retry ──
@@ -4342,50 +5772,51 @@ function parseDMY(s){
 
 
 // ── Load data with progress ──
-async function cargarRiego(){
-    const btn = document.getElementById('riegoLoadBtn');
-    const status = document.getElementById('riegoStatus');
-    const progressBar = document.getElementById('riegoProgress');
+async function cargarRiego(side='A'){
+    const st = RIEGO_STATE[side];
+    const btn = document.getElementById('riegoLoadBtn'+side);
+    const status = document.getElementById('riegoStatus'+side);
+    const progressBar = document.getElementById('riegoProgress'+side);
 
     let label = '';
     let queries = []; // lista de query strings
 
-    if(RIEGO_FILTER_MODE === 'dias'){
-        if(RIEGO_SEL_DAYS.length === 0){
+    if(st.filterMode === 'dias'){
+        if(st.selDays.length === 0){
             status.className = 'riego-status error';
             status.textContent = 'Selecciona al menos un día para continuar.';
             return;
         }
-        const desde = RIEGO_SEL_DAYS[0];
-        const hasta = RIEGO_SEL_DAYS[RIEGO_SEL_DAYS.length-1];
+        const desde = st.selDays[0];
+        const hasta = st.selDays[st.selDays.length-1];
         queries.push(`?desde=${desde}&hasta=${hasta}`);
-        label = RIEGO_SEL_DAYS.length === 1 ? fmtDate(desde) : `${fmtDate(desde)} → ${fmtDate(hasta)}`;
-    } else if(RIEGO_FILTER_MODE === 'meses'){
-        const mes = `${RIEGO_SEL_MONTH_Y}-${String(RIEGO_SEL_MONTH_M+1).padStart(2,'0')}`;
+        label = st.selDays.length === 1 ? fmtDate(desde) : `${fmtDate(desde)} → ${fmtDate(hasta)}`;
+    } else if(st.filterMode === 'meses'){
+        const mes = `${st.selMonthY}-${String(st.selMonthM+1).padStart(2,'0')}`;
         queries.push(`?mes=${mes}`);
-        label = `${MESES_ES[RIEGO_SEL_MONTH_M]} ${RIEGO_SEL_MONTH_Y}`;
+        label = `${MESES_ES[st.selMonthM]} ${st.selMonthY}`;
     } else {
-        if(!RIEGO_SEL_SEASON){
+        if(!st.selSeason){
             status.className = 'riego-status error';
             status.textContent = 'Selecciona una temporada para continuar.';
             return;
         }
         // Descomponer temporada en 12 meses (jul año1 → jun año2)
-        const [y1, y2] = RIEGO_SEL_SEASON.split('-').map(Number);
+        const [y1, y2] = st.selSeason.split('-').map(Number);
         // Julio a Diciembre año 1
         for(let m = 7; m <= 12; m++) queries.push(`?mes=${y1}-${String(m).padStart(2,'0')}`);
         // Enero a Junio año 2
         for(let m = 1; m <= 6; m++) queries.push(`?mes=${y2}-${String(m).padStart(2,'0')}`);
-        label = `Temporada ${RIEGO_SEL_SEASON}`;
+        label = `Temporada ${st.selSeason}`;
     }
 
     // Start loading UI
     btn.classList.add('loading');
     btn.disabled = true;
-    document.getElementById('riegoLoadLabel').textContent = queries.length > 1 ? `Consultando 0/${queries.length}` : 'Consultando…';
+    document.getElementById('riegoLoadLabel'+side).textContent = queries.length > 1 ? `Consultando 0/${queries.length}` : 'Consultando…';
     status.className = 'riego-status';
     status.textContent = queries.length > 1
-        ? `Cargando temporada ${RIEGO_SEL_SEASON} — esto puede tomar unos segundos…`
+        ? `Cargando temporada ${st.selSeason} — esto puede tomar unos segundos…`
         : `Consultando ${label}…`;
     progressBar.style.width = '0%';
 
@@ -4399,24 +5830,25 @@ async function cargarRiego(){
             // Concurrency 2: no saturar Wiseconn ni Apps Script
             const tasks = queries.map(q => () => fetchRiegoPeriod(q));
             responses = await runWithConcurrency(tasks, 2, (done, total) => {
-                document.getElementById('riegoLoadLabel').textContent = `Consultando ${done}/${total}`;
+                document.getElementById('riegoLoadLabel'+side).textContent = `Consultando ${done}/${total}`;
                 progressBar.style.width = (done / total * 100) + '%';
             });
         }
 
         // Agregar respuestas
         const agg = aggregateSectores(responses);
-        RIEGO_DATA = {};
-        agg.sectores.forEach(s => { RIEGO_DATA[s.key] = s; });
-        RIEGO_META = { consulta: label, resumen: agg.resumen, generado: new Date().toISOString() };
+        st.data = {};
+        agg.sectores.forEach(s => { st.data[s.key] = s; });
+        st.meta = { consulta: label, resumen: agg.resumen, generado: new Date().toISOString() };
 
         // Detectar sectores sin respuesta (API falló para ellos en algún chunk)
         const conFallos = responses.reduce((acc, r) => acc + ((r.resumen && r.resumen.sectores_sin_respuesta) || 0), 0);
 
         if(currentMode === 'riego'){
-            applyRiegoToMap(map);
+            const targetMap = (side === 'B') ? map2 : map;
+            if(targetMap) applyRiegoToMap(targetMap, side);
             updateRiegoLegend();
-            updateRiegoStats();
+            updateRiegoStats(side);
         }
         const nSec = agg.resumen.sectores_con_riego || 0;
         status.className = 'riego-status success';
@@ -4433,7 +5865,7 @@ async function cargarRiego(){
     } finally {
         btn.classList.remove('loading');
         btn.disabled = false;
-        document.getElementById('riegoLoadLabel').textContent = 'Recargar datos';
+        document.getElementById('riegoLoadLabel'+side).textContent = 'Recargar datos';
         // Reset progress bar tras un momento
         setTimeout(() => { progressBar.style.width = '0%'; }, 2000);
     }
@@ -4441,14 +5873,14 @@ async function cargarRiego(){
 
 // ── Compute derived metrics ──
 function riegoKey(equipo_num, sector_num){ return `E${equipo_num}-S${sector_num}`; }
-function getRiego(equipo_num, sector_num){ return RIEGO_DATA[riegoKey(equipo_num, sector_num)] || null; }
+function getRiego(equipo_num, sector_num, side='A'){ return RIEGO_STATE[side].data[riegoKey(equipo_num, sector_num)] || null; }
 
 // ── Paint map by volumen m3/ha ──
-function getRiegoColorExpr(){
+function getRiegoColorExpr(side='A'){
     const expr = ['match', ['get', 'name']];
     GEOJSON.features.forEach(f => {
         const p = f.properties;
-        const r = getRiego(p.equipo_num, p.sector_num);
+        const r = getRiego(p.equipo_num, p.sector_num, side);
         const v = r ? r.total_m3_ha : null;
         expr.push(p.name, getRiegoColor(v));
     });
@@ -4456,35 +5888,49 @@ function getRiegoColorExpr(){
     return expr;
 }
 
-function applyRiegoToMap(mapInstance){
+function applyRiegoToMap(mapInstance, side='A'){
     if(!mapInstance || !mapInstance.getLayer || !mapInstance.getLayer('sectores-fill')) return;
-    mapInstance.setPaintProperty('sectores-fill', 'fill-color', getRiegoColorExpr());
+    mapInstance.setPaintProperty('sectores-fill', 'fill-color', getRiegoColorExpr(side));
 }
 
 // ── Legend ──
+// La rampa de color es fija (no depende del rango de los datos), así que es la
+// misma para A y B: sólo cambia el texto de qué periodo describe cada lado.
 function updateRiegoLegend(){
     const meta = document.getElementById('riegoLegendMeta');
     const scale = document.getElementById('riegoScale');
-    meta.textContent = RIEGO_META ? RIEGO_META.consulta : 'Selecciona un periodo';
+    if(compareMode){
+        const mA = RIEGO_STATE.A.meta, mB = RIEGO_STATE.B.meta;
+        meta.innerHTML =
+            `<div>A · ${mA ? mA.consulta : 'sin datos'}</div>` +
+            `<div>B · ${mB ? mB.consulta : 'sin datos'}</div>`;
+    } else {
+        meta.textContent = RIEGO_STATE.A.meta ? RIEGO_STATE.A.meta.consulta : 'Selecciona un periodo';
+    }
     scale.innerHTML = RIEGO_SCALE_FIXED.map(b =>
         `<div class="rg-scale-row"><div class="rg-swatch" style="background:${b.color}"></div><div>${b.label}</div></div>`
     ).join('') + `<div class="rg-scale-row"><div class="rg-swatch" style="background:${RIEGO_NO_DATA_COLOR}"></div><div>Sin datos</div></div>`;
 }
 
 // ── Stats bar ──
-function updateRiegoStats(){
-    const row = document.getElementById('riegoStats');
+function updateRiegoStats(side='A'){
+    const row = document.getElementById('riegoStats'+side);
     if(!row) return;
-    if(!RIEGO_META){
-        row.innerHTML = '<div class="riego-context"><div>Sin datos cargados</div></div>';
+    const st = RIEGO_STATE[side];
+    const chip = compareMode
+        ? `<div class="prod-side-chip ${side==='B'?'side-b':''}">${side}</div>`
+        : `<div class="riego-chip"><svg viewBox="0 0 18 18"><use href="#ic-gota"/></svg></div>`;
+    if(!st.meta){
+        row.innerHTML = `<div class="riego-context">${chip}<div><div class="riego-context-title">Sin datos cargados</div>${compareMode?`<div class="riego-context-meta">Periodo ${side}</div>`:''}</div></div>`;
+        row.style.display = (side === 'B' && !compareMode) ? 'none' : 'flex';
         return;
     }
-    const r = RIEGO_META.resumen || {};
+    const r = st.meta.resumen || {};
     const context = `
         <div class="riego-context">
-            <div class="riego-chip"><svg viewBox="0 0 18 18"><use href="#ic-gota"/></svg></div>
+            ${chip}
             <div>
-                <div class="riego-context-title">${RIEGO_META.consulta}</div>
+                <div class="riego-context-title">${st.meta.consulta}</div>
                 <div class="riego-context-meta">Riego San Gerardo</div>
             </div>
         </div>
@@ -4498,20 +5944,25 @@ function updateRiegoStats(){
         <div class="stat-div"></div>
         <div class="stat"><div class="num">${Number(r.hectareas_total||0).toLocaleString('es-CL',{maximumFractionDigits:1})}</div><div class="unit">hectáreas</div></div>`;
     row.innerHTML = context + stats;
+    row.style.display = (side === 'B' && !compareMode) ? 'none' : 'flex';
 }
 
 // ── Modal detalle ──
 let riegoModalChart = null;
 function openRiegoModalFromTooltip(){
-    if(!RIEGO_LAST_HOVER_KEY) return;
-    const sec = RIEGO_DATA[RIEGO_LAST_HOVER_KEY];
+    const side = RIEGO_LAST_HOVER_SIDE || 'A';
+    const st = RIEGO_STATE[side];
+    if(!st.lastHoverKey) return;
+    const sec = st.data[st.lastHoverKey];
     if(!sec) return;
-    openRiegoModal(sec);
+    openRiegoModal(sec, side);
 }
-function openRiegoModal(sec){
+function openRiegoModal(sec, side='A'){
     const modal = document.getElementById('riegoModal');
+    const st = RIEGO_STATE[side];
     document.getElementById('riegoModalTitle').textContent = `${sec.equipo} · Sector ${sec.sector.replace(/^S/,'')}`;
-    document.getElementById('riegoModalSubtitle').textContent = RIEGO_META ? RIEGO_META.consulta : '';
+    document.getElementById('riegoModalSubtitle').textContent =
+        (st.meta ? st.meta.consulta : '') + (compareMode ? ` · Periodo ${side}` : '');
 
     const eventos = sec.eventos || [];
     const body = document.getElementById('riegoModalBody');
@@ -4639,11 +6090,15 @@ document.addEventListener('keydown',e=>{
         closeAgroModal();
         closeFinModal();
         closePestReport();
+        if(typeof closePvChartOver==='function') closePvChartOver();
     }
 });
 
 // ── Init calendar + legend on load ──
-setRiegoFilterMode('meses');
+// Se inicializan ambos calendarios (A y B) aunque B esté oculto: así ya está
+// listo si el usuario activa "Comparar periodos" sin más setup.
+setRiegoFilterMode('meses','A');
+setRiegoFilterMode('meses','B');
 updateRiegoLegend();
 
 map.on('load',()=>{

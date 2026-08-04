@@ -138,6 +138,84 @@ $PEST_TAXA = [ordered]@{
   'chanchito-blanco'         = @{ name='Chanchito blanco';          scientific='Familia Pseudococcidae' }
 }
 
+# ── PASO 0: metadata de unidades ────────────────────────────────────────────
+# Fuente primaria: la columna "Unidad de medida" de cada fila de la planilla, que
+# es autoritativa POR VISITA. Verificada fila por fila en los 9 Excel: ninguna
+# plaga cambia de métrica entre visitas, por eso todas llevan
+# inconsistentAcrossVisits = false y basta una escala de color por plaga.
+# Fuente del método de muestreo: hoja "Especificaciones prospección" (idéntica en
+# las 9 planillas) + los rangos que declara cada Manifold.
+$SAMPLE_HOJA  = '30 plantas/cuartel · 5 hojas/planta'
+$SAMPLE_PLANT = '30 plantas/cuartel'
+
+$UNITS = [ordered]@{
+  'acaros-fitofagos-moviles-perimetro' = [ordered]@{
+    metric='promedio_hojas_presencia'; label='Promedio de hojas con presencia por cuartel (perímetro)'
+    unitShort='hojas/cuartel'; theoreticalMin=0; theoreticalMax=5; sampling=$SAMPLE_HOJA; type='numeric'
+    source='Excel: unidad "Promedios" · Especificaciones prospección' }
+  'acaros-fitofagos-moviles-interior' = [ordered]@{
+    metric='promedio_hojas_presencia'; label='Promedio de hojas con presencia por cuartel (interior)'
+    unitShort='hojas/cuartel'; theoreticalMin=0; theoreticalMax=5; sampling=$SAMPLE_HOJA; type='numeric'
+    source='Excel: unidad "Promedios" · Especificaciones prospección' }
+  'pulgon-del-nogal' = [ordered]@{
+    metric='promedio_hojas_presencia'; label='Promedio de hojas con presencia por cuartel'
+    unitShort='hojas/cuartel'; theoreticalMin=0; theoreticalMax=5; sampling=$SAMPLE_HOJA; type='numeric'
+    source='Excel: unidad "Promedios" · Especificaciones prospección' }
+  'trips' = [ordered]@{
+    metric='promedio_hojas_presencia'; label='Promedio de hojas con presencia por cuartel'
+    unitShort='hojas/cuartel'; theoreticalMin=0; theoreticalMax=5; sampling=$SAMPLE_HOJA; type='numeric'
+    source='Excel: unidad "Promedios" · Especificaciones prospección' }
+  'escamas' = [ordered]@{
+    metric='porcentaje_plantas_presencia'; label='Porcentaje de árboles afectados por cuartel'
+    unitShort='% árboles'; theoreticalMin=0; theoreticalMax=100; sampling=$SAMPLE_PLANT; type='numeric'
+    source='Excel: unidad "Porcentaje" · Manifold 08-01-2026 "% de árboles afectados"' }
+  'conchuelas' = [ordered]@{
+    metric='porcentaje_plantas_presencia'; label='Porcentaje de plantas con presencia por cuartel'
+    unitShort='% plantas'; theoreticalMin=0; theoreticalMax=100; sampling=$SAMPLE_PLANT; type='numeric'
+    source='Excel: unidad "Porcentaje" · Especificaciones prospección' }
+  'capachitos' = [ordered]@{
+    metric='porcentaje_plantas_presencia'; label='Porcentaje de árboles con presencia por cuartel'
+    unitShort='% árboles'; theoreticalMin=0; theoreticalMax=100; sampling=$SAMPLE_PLANT; type='numeric'
+    source='Excel: unidad "Porcentaje" · Manifold 05-03-2026 "0 a 3% de árboles con presencia"' }
+  'estructuras-con-huevos-de-acaros-fitofagos' = [ordered]@{
+    metric='porcentaje_estructuras_presencia'; label='Porcentaje de estructuras con presencia de huevos'
+    unitShort='% estructuras'; theoreticalMin=0; theoreticalMax=100; sampling=$SAMPLE_PLANT; type='numeric'
+    source='Excel: unidad "Porcentaje" · Manifold 03-10-2025 "3% a 10% de estructuras con presencia"' }
+  # Las viabilidades son condicionales: sólo significan algo donde hubo presencia.
+  'viabilidad-escamas' = [ordered]@{
+    metric='porcentaje_viabilidad'; label='Porcentaje de individuos viables (escamas)'
+    unitShort='% viables'; theoreticalMin=0; theoreticalMax=100; sampling='Sobre los individuos hallados'
+    type='numeric'; conditionalOnPresence=$true
+    source='Excel: unidad "Porcentaje", columna Viabilidad = SI · Manifold "viabilidad ... 80%"' }
+  'viabilidad-conchuelas' = [ordered]@{
+    metric='porcentaje_viabilidad'; label='Porcentaje de individuos viables (conchuelas)'
+    unitShort='% viables'; theoreticalMin=0; theoreticalMax=100; sampling='Sobre los individuos hallados'
+    type='numeric'; conditionalOnPresence=$true
+    source='Excel: unidad "Porcentaje", columna Viabilidad = SI · Manifold "viabilidad ... 40% a 50%"' }
+  'viabilidad-huevos-de-acaros-fitofagos' = [ordered]@{
+    metric='porcentaje_viabilidad'; label='Porcentaje de huevos viables'
+    unitShort='% viables'; theoreticalMin=0; theoreticalMax=100; sampling='Sobre los huevos hallados'
+    type='numeric'; conditionalOnPresence=$true
+    source='Excel: unidad "Porcentaje", columna Viabilidad = SI · Manifold 03-10-2025 "viabilidad ... 60%"' }
+  # Declarada "Porcentaje" en la planilla, pero los valores son texto ("1 a 5"):
+  # es un rango categórico de huevos por estructura, no escalable numéricamente.
+  'rangos-estimados-de-huevos-de-acaros-fitofagos' = [ordered]@{
+    metric='rango_categorico'; label='Rango estimado de huevos por estructura'
+    unitShort='huevos/estructura'; type='categorical'
+    source='Excel: valores de texto en rangeText · Manifold 03-10-2025 "entre 1 a 5 huevos"' }
+  # Filas duplicadas de la planilla del 08-01-2026, todas en cero: error de
+  # planilla, se excluyen del selector pero no se borran los readings.
+  'escamas#2' = [ordered]@{
+    metric='porcentaje_plantas_presencia'; label='Porcentaje de árboles afectados (fila duplicada)'
+    unitShort='% árboles'; theoreticalMin=0; theoreticalMax=100; sampling=$SAMPLE_PLANT; type='numeric'
+    excludeFromUI=$true; source='Excel 08-01-2026: segunda fila "Escamas", todos los cuarteles en cero' }
+  'viabilidad-escamas#2' = [ordered]@{
+    metric='porcentaje_viabilidad'; label='Porcentaje de individuos viables (fila duplicada)'
+    unitShort='% viables'; theoreticalMin=0; theoreticalMax=100; sampling='Sobre los individuos hallados'
+    type='numeric'; conditionalOnPresence=$true; excludeFromUI=$true
+    source='Excel 08-01-2026: segunda fila "Viabilidad escamas", todos los cuarteles en cero' }
+}
+
 # Cada fila de la planilla se adscribe a un taxón de $PEST_TAXA. Es lo que permite
 # que el mapa, la leyenda y las tarjetas del informe compartan el mismo color:
 # 'acaros-fitofagos-moviles-perimetro' y '-interior' son la misma plaga, y
@@ -168,6 +246,7 @@ $xl = New-Object -ComObject Excel.Application
 $xl.Visible = $false; $xl.DisplayAlerts = $false
 
 $visits   = @()
+$visitPests = [ordered]@{}
 $readings = [System.Collections.Generic.List[object]]::new()
 $pestDefs = [ordered]@{}
 $catalog  = [ordered]@{}
@@ -231,6 +310,7 @@ foreach ($f in (Get-ChildItem -Path $Src -Recurse -Filter '*.xlsx' | Sort-Object
   if ($colToSector.Count -ne 23) { AddIssue $vkey 'warn' 'xlsx' 'sectores' "Se detectaron $($colToSector.Count) columnas de sector (se esperaban 23)." }
 
   $crop = $null; $seen = @{}; $pestRows = 0
+  $pestsThisVisit = [System.Collections.Generic.List[string]]::new()
   for ($r=$hdr+1; $r -le $rows; $r++) {
     $pestName = Norm $ur.Cells.Item($r,3).Text
     if (-not $pestName) { continue }
@@ -243,6 +323,7 @@ foreach ($f in (Get-ChildItem -Path $Src -Recurse -Filter '*.xlsx' | Sort-Object
       AddIssue $vkey 'error' 'xlsx' $pestName "La plaga aparece repetida en la misma planilla con valores distintos; la segunda fila se conservó como '$key#$($seen[$key])'."
       $key = "$key#$($seen[$key])"
     } else { $seen[$key] = 1 }
+    $pestsThisVisit.Add($key)
 
     $unit = Norm $ur.Cells.Item($r,4).Text
     if (-not $pestDefs.Contains($key)) {
@@ -294,6 +375,7 @@ foreach ($f in (Get-ChildItem -Path $Src -Recurse -Filter '*.xlsx' | Sort-Object
 
   $visits += [ordered]@{ folder = $folder; date = $vkey; pestRows = $pestRows; crop = $crop; file = $f.Name }
   $wb.Close($false)
+  $visitPests[$vkey] = $pestsThisVisit
 }
 $xl.Quit()
 [void][Runtime.InteropServices.Marshal]::ReleaseComObject($xl)
@@ -451,6 +533,54 @@ foreach ($s in ($sectors | Sort-Object { $_.equipo }, { $_.sector })) {
   }
 }
 
+# ── Cobertura del monitoreo, derivada de las planillas ──────────────────────
+# Distingue "no medido" de "medido en cero" sin tener que inferirlo de la
+# ausencia de readings. sectorsWithValue cuenta sólo los sectores con valor
+# numérico: en dos visitas Trips trae una 'o' en E4-S1, que no es un cero.
+$coverageOut = [ordered]@{}
+foreach ($v in ($visits | Sort-Object { $_.date })) {
+  $vk = $v.date
+  $pestList = @($visitPests[$vk])
+  $perPest = [ordered]@{}
+  foreach ($pk in $pestList) {
+    $rowsOf   = @($readings | Where-Object { $_.visit -eq $vk -and $_.pest -eq $pk })
+    $numeric  = @($rowsOf | Where-Object { $null -ne $_.value })
+    $range    = @($rowsOf | Where-Object { $_.rangeText })
+    $perPest[$pk] = [ordered]@{
+      sectorsWithValue = $numeric.Count
+      sectorsWithRange = $range.Count
+      sectorsMissing   = @($rowsOf | Where-Object { $null -eq $_.value -and -not $_.rangeText } | ForEach-Object { $_.sector })
+    }
+  }
+  $coverageOut[$vk] = [ordered]@{
+    pests   = $pestList
+    sectors = 23
+    detail  = $perPest
+  }
+}
+
+# units: se emite una entrada por cada key presente en los readings. Ninguna
+# puede quedar sin definir; si apareciera una nueva se marca indeterminada y se
+# registra en issues, en vez de inventarle una unidad.
+$unitsOut = [ordered]@{}
+foreach ($k in $pestDefs.Keys) {
+  if ($UNITS.Contains($k)) {
+    $u = [ordered]@{}
+    foreach ($f in $UNITS[$k].Keys) { $u[$f] = $UNITS[$k][$f] }
+    $u['inconsistentAcrossVisits'] = $false
+    $unitsOut[$k] = $u
+  } else {
+    $unitsOut[$k] = [ordered]@{ metric='indeterminado'; label=$pestDefs[$k].name; type='numeric'; inconsistentAcrossVisits=$false }
+    AddIssue '-' 'error' 'xlsx' $pestDefs[$k].name "La plaga no tiene unidad definida en el bloque `$UNITS del generador: quedó como metric = indeterminado. Hay que leer su unidad en la planilla y agregarla."
+  }
+}
+
+# Incidencias del Paso 0
+AddIssue '2025-10-03' 'warn' 'xlsx' 'Rangos estimados de huevos de ácaros fitófagos' 'La planilla declara la unidad "Porcentaje" pero los valores son texto ("1 a 5"): en realidad es un rango categórico de huevos por estructura. Se trata como categórico (units.type = "categorical") y no entra en escalas numéricas.'
+AddIssue '2026-01-08' 'error' 'xlsx' 'Escamas / Viabilidad escamas (filas duplicadas)' 'La planilla repite ambas filas. La primera trae 3% de árboles afectados y 80% de viabilidad en E4-S1, coincidiendo con el Manifold de la visita ("0 a 3%", "cuartel 1 del equipo 4"); la segunda está en cero en los 23 cuarteles. Se concluye que es un error de planilla: escamas#2 y viabilidad-escamas#2 quedan excluidas del selector (units.excludeFromUI) y sus readings se conservan.'
+AddIssue '-' 'info' 'xlsx' 'Métrica por plaga' 'Verificada la columna "Unidad de medida" fila por fila en las 9 planillas: ninguna de las 14 plagas cambia de métrica entre visitas. Todas quedan con inconsistentAcrossVisits = false, lo que habilita una escala de color única por plaga para toda la temporada.'
+AddIssue '-' 'info' 'xlsx' 'Escamas vs conchuelas' 'Son dos plagas distintas, no la misma con otra nomenclatura: escamas es Familia Diaspididae (Lepidosaphes ulmi, Diaspidiotus perniciosus) y conchuelas es Familia Coccidae (Parthenolecanium corni). Se miden simultáneamente en 4 visitas (2025-10-03, 2025-11-06, 2025-12-10, 2025-12-24).'
+
 # readings y points tambien se emiten en orden cronologico
 $readingsOut = @($readings | Sort-Object { $_.visit }, { $_.pest }, { $_.equipo }, { $_.sectorNum })
 $pointsOut   = @($points   | Sort-Object { $_.visit }, { $_.id })
@@ -480,6 +610,8 @@ $doc = [ordered]@{
   sectors    = $sectorOut
   pests      = @($pestDefs.Values)
   pointPests = @($pointPestOut)
+  units      = $unitsOut
+  coverage   = $coverageOut
   catalog  = @($catalog.Values)
   readings = $readingsOut
   points   = $pointsOut
